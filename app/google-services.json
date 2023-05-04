@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "744461761389",
+    "project_id": "shopping-center-navigator",
+    "storage_bucket": "shopping-center-navigator.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:744461761389:android:94e137dc8af44de30df864",
+        "android_client_info": {
+          "package_name": "com.example.shoppingcenternavigator"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "744461761389-31uanie9q6dbce161d4ffidei262347m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3ZuvDjq9RkbwStM1xCfSybSau0x63Zi8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "744461761389-31uanie9q6dbce161d4ffidei262347m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
