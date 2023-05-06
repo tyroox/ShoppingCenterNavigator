@@ -88,7 +88,8 @@ fun Login(context: ComponentActivity, navController: NavController) {
                         IconButton(onClick = {
                             passwordVisibility = !passwordVisibility
                         }) {
-                            Icon(painter = painterResource(id = R.drawable.visibility), contentDescription = "")
+                            Icon(painter = painterResource(id = R.drawable.visibility), contentDescription = "",
+                                tint = colorResource(id = R.color.caribbeanCurrent))
                         }
                     },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),

@@ -6,12 +6,10 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
@@ -20,9 +18,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.constraintlayout.compose.Visibility
 import androidx.navigation.NavController
-import com.google.firebase.auth.ktx.actionCodeSettings
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
@@ -118,7 +114,8 @@ fun Register(context: ComponentActivity, navController: NavController) {
                         IconButton(onClick = {
                             passwordVisibility = !passwordVisibility
                         }) {
-                            Icon(painter = painterResource(id = R.drawable.visibility), contentDescription = "")
+                            Icon(painter = painterResource(id = R.drawable.visibility), contentDescription = "",
+                                tint = colorResource(id = R.color.caribbeanCurrent))
                         }
                     },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
@@ -143,7 +140,8 @@ fun Register(context: ComponentActivity, navController: NavController) {
                         IconButton(onClick = {
                             passwordVisibility1 = !passwordVisibility1
                         }) {
-                            Icon(painter = painterResource(id = R.drawable.visibility), contentDescription = "")
+                            Icon(painter = painterResource(id = R.drawable.visibility), contentDescription = "",
+                                tint = colorResource(id = R.color.caribbeanCurrent))
                         }
                     },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
