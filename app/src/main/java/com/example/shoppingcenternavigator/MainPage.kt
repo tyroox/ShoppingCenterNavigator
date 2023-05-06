@@ -60,10 +60,10 @@ fun MainPage(navController: NavController) {
                 Settings()
             }
             if (selectedItem.value == 2){
-                GPS()
+                navController.navigate("GPS")
             }
             if (selectedItem.value == 3){
-                HomePage()
+                HomePage(navController = navController)
             }
             if (selectedItem.value == 4){
                 User(navController = navController)

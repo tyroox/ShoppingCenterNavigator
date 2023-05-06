@@ -1,8 +1,10 @@
 package com.example.shoppingcenternavigator
 
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
@@ -16,6 +18,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
 class MainActivity : ComponentActivity() {
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -33,6 +36,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun NextPage(){
     val user = Firebase.auth.currentUser
@@ -51,6 +55,12 @@ fun NextPage(){
             composable("MainPage"){
                 MainPage(navController = navController)
             }
+            composable("GPS"){
+                GPS()
+            }
+            composable("SmoothLineGraph"){
+                SmoothLineGraph()
+            }
         }
     } else {
         NavHost(navController = navController,  startDestination = "StartPage"){
@@ -65,6 +75,12 @@ fun NextPage(){
             }
             composable("MainPage"){
                 MainPage(navController = navController)
+            }
+            composable("GPS"){
+                GPS()
+            }
+            composable("SmoothLineGraph"){
+                SmoothLineGraph()
             }
         }
     }

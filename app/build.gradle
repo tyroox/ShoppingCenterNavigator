@@ -6,12 +6,12 @@ plugins {
 
 android {
     namespace 'com.example.shoppingcenternavigator'
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.example.shoppingcenternavigator"
         minSdk 21
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -32,13 +32,13 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+            jvmTarget = '1.8'
     }
     buildFeatures {
         compose true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion '1.1.1'
+        kotlinCompilerExtensionVersion '1.4.1'
     }
     packagingOptions {
         resources {
@@ -59,6 +59,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:21.3.0'
     implementation 'com.google.firebase:firebase-common-ktx:20.3.2'
     implementation 'androidx.constraintlayout:constraintlayout-compose:1.0.0'
+    implementation 'com.google.android.gms:play-services-maps:18.1.0'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
@@ -74,4 +75,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth-ktx:21.0.5'
 
     implementation 'com.google.android.gms:play-services-auth:19.2.0'
+
+    // GPS
+    implementation 'com.google.maps.android:maps-compose:2.7.2'
+    implementation 'com.google.android.gms:play-services-maps:18.1.0'
 }

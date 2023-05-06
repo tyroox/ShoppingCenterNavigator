@@ -20,7 +20,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 
 @Composable
-fun HomePage(){
+fun HomePage(navController: NavController){
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -60,7 +60,9 @@ fun HomePage(){
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(vertical = 16.dp, horizontal = 16.dp)
-                           )
+                            .clickable {
+                                navController.navigate("SmoothLineGraph")
+                            })
                 }
             }
         }
