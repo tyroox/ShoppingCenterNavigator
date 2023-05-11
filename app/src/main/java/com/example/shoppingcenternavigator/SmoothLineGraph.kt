@@ -1,16 +1,15 @@
 package com.example.shoppingcenternavigator
 
-import android.graphics.PointF
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
@@ -21,17 +20,16 @@ import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
-import androidx.compose.ui.graphics.drawscope.Fill
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.clipRect
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
-import java.math.BigDecimal
-import java.time.LocalDate
 import kotlin.math.roundToInt
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -40,20 +38,25 @@ import kotlin.math.roundToInt
 fun SmoothLineGraph() {
     Box(
         modifier = Modifier
-            .background(PurpleBackgroundColor)
+            .background(colorResource(id = R.color.isabelline))
             .fillMaxSize()
     ) {
+        // !!! telefon boyutuna göre resim aynı kalmalı !!!
+        Image(painter = painterResource(id = R.drawable.carousel_zemin_kat),
+            contentDescription = "",
+            contentScale = ContentScale.FillBounds,
+            modifier = Modifier.fillMaxSize())
+        // animation starting time
         val animationProgress = remember {
             Animatable(0f)
         }
-
-        LaunchedEffect(key1 = graphData, block = {
+        // animation speed
+        LaunchedEffect(key1 = coordinateSystem, block = {
             animationProgress.animateTo(1f, tween(3000))
         })
         val coroutineScope = rememberCoroutineScope()
         Spacer(
             modifier = Modifier
-                .padding(8.dp)
                 .fillMaxSize()
                 .align(Alignment.Center)
                 .clickable {
@@ -63,95 +66,131 @@ fun SmoothLineGraph() {
                     }
                 }
                 .drawWithCache {
-                    val path = generateSmoothPath(graphData, size)
-                    val filledPath = Path()
-                    filledPath.addPath(path)
-                    filledPath.relativeLineTo(0f, size.height)
-                    filledPath.lineTo(0f, size.height)
-                    filledPath.close()
+                    val path = generatePath(points, coordinateSystem, size)
 
                     onDrawBehind {
-                        val barWidthPx = 1.dp.toPx()
-                        drawRect(BarColor, style = Stroke(barWidthPx))
+                        // drawing the line
+                        drawPath(path, Color.Black, style = Stroke(3.dp.toPx()))
+                        /*
+                        clipRect(left = size.width * animationProgress.value) {
 
-                        val verticalLines = 4
-                        val verticalSize = size.width / (verticalLines + 1)
-                        repeat(verticalLines) { i ->
-                            val startX = verticalSize * (i + 1)
-                            drawLine(
-                                BarColor,
-                                start = Offset(startX, 0f),
-                                end = Offset(startX, size.height),
-                                strokeWidth = barWidthPx
-                            )
                         }
-                        val horizontalLines = 3
-                        val sectionSize = size.height / (horizontalLines + 1)
-                        repeat(horizontalLines) { i ->
-                            val startY = sectionSize * (i + 1)
-                            drawLine(
-                                BarColor,
-                                start = Offset(0f, startY),
-                                end = Offset(size.width, startY),
-                                strokeWidth = barWidthPx
-                            )
-                        }
+                         */
 
-                        // draw line
-                        clipRect(right = size.width * animationProgress.value) {
-                            drawPath(path, Color.Green, style = Stroke(2.dp.toPx()))
 
-                            drawPath(
-                                filledPath,
-                                brush = Brush.verticalGradient(
-                                    listOf(
-                                        Color.Green.copy(alpha = 0.4f),
-                                        Color.Transparent
-                                    )
-                                ),
-                                style = Fill
-                            )
-                        }
                     }
                 })
     }
 }
 
-fun generatePath(data: List<Balance>, size: Size): Path {
+fun generatePath(point: List<Coordinate>, data: List<Coordinate>, size: Size): Path {
     val path = Path()
-    val numberEntries = data.size - 1
-    val weekWidth = size.width / numberEntries
 
-    val max = data.maxBy { it.amount }
-    val min = data.minBy { it.amount } // will map to x= 0, y = height
-    val range = max.amount - min.amount
-    val heightPxPerAmount = size.height / range.toFloat()
 
-    data.forEachIndexed { i, balance ->
+    val xMax = data.maxBy { it.x }
+    val xMin = data.minBy { it.x }
+    val yMax = data.maxBy { it.y }
+    val yMin = data.minBy { it.y }
+    val rangeX = xMax.x - xMin.x
+    val rangeY = yMax.y - yMin.y
+    val widthPerCoordinate = size.width / rangeX
+    val heightPerCoordinate = size.height / rangeY
+
+
+    point.forEachIndexed { i, coordinate ->
         if (i == 0) {
             path.moveTo(
-                0f,
-                size.height - (balance.amount - min.amount).toFloat() *
-                        heightPxPerAmount
+                (coordinate.x - xMin.x) *
+                        widthPerCoordinate,
+                (coordinate.y - yMin.y) *
+                        heightPerCoordinate
             )
         }
-        val balanceX = i * weekWidth
-        val balanceY = size.height - (balance.amount - min.amount).toFloat() *
-                heightPxPerAmount
-        path.lineTo(balanceX, balanceY)
+
+        val coordinateX = (coordinate.x - xMin.x) *
+                widthPerCoordinate
+
+        val coordinateY = (coordinate.y - yMin.y) *
+                heightPerCoordinate
+        path.lineTo(coordinateX, coordinateY)
     }
     return path
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
+val coordinateSystem = listOf(
+    Coordinate(0f,0f),
+    Coordinate(1000f,1000f),
+    // dönme noktaları
+    /*
+    Coordinate(169f,365f),
+    Coordinate(333f,467f),
+    Coordinate(333f,646f),
+    Coordinate(632f,467f),
+    Coordinate(632f,646f),
+    Coordinate(830f,345f),
+    Coordinate(798f,744f)
+    *
+     */
+)
+
+@RequiresApi(Build.VERSION_CODES.O)
+val points = listOf(
+    Coordinate(836f,772f),
+    Coordinate(798f,744f),
+    Coordinate(632f,646f),
+    Coordinate(333f,646f),
+    Coordinate(303f,512f)
+)
+data class Coordinate(val x:Float, val y: Float)
+
+// val PurpleBackgroundColor = Color(0xff322049)
+val BarColor = Color.White.copy(alpha = 0.3f)
+
+@Preview
+@Composable
+fun CoordinateSystem(){
+    Box(modifier = Modifier
+        .fillMaxSize()
+        .drawBehind {
+            val barWidthPx = 1.dp.toPx()
+
+            drawRect(Color.White)
+            val verticalLines = size.width / 80.dp.toPx()
+            val verticalSize = size.width / (verticalLines + 1)
+            repeat(verticalLines.roundToInt()) { i ->
+                val startX = verticalSize * (i + 1)
+                drawLine(
+                    Color.Gray,
+                    start = Offset(startX, 0f),
+                    end = Offset(startX, size.height),
+                    strokeWidth = barWidthPx
+                )
+            }
+
+            val horizontalLines = size.height / 80.dp.toPx()
+            val sectionSize = size.height / (horizontalLines + 1)
+            repeat(horizontalLines.roundToInt()) { i ->
+                val startY = sectionSize * (i + 1)
+                drawLine(
+                    BarColor,
+                    start = Offset(0f, startY),
+                    end = Offset(size.width, startY),
+                    strokeWidth = barWidthPx
+                )
+            }
+        })
+}
+/*
 fun generateSmoothPath(data: List<Balance>, size: Size): Path {
     val path = Path()
     val numberEntries = data.size - 1
     val weekWidth = size.width / numberEntries
 
-    val max = data.maxBy { it.amount }
-    val min = data.minBy { it.amount } // will map to x= 0, y = height
-    val range = max.amount - min.amount
-    val heightPxPerAmount = size.height / range.toFloat()
+    val max = data.maxBy { it.y }
+    val min = data.minBy { it.y } // will map to x= 0, y = height
+    val range = max.y - min.y
+    val heightPxPerAmount = size.height / range
 
     var previousBalanceX = 0f
     var previousBalanceY = size.height
@@ -159,84 +198,26 @@ fun generateSmoothPath(data: List<Balance>, size: Size): Path {
         if (i == 0) {
             path.moveTo(
                 0f,
-                size.height - (balance.amount - min.amount).toFloat() *
+                size.height - (balance.y - min.y) *
                         heightPxPerAmount
             )
         }
 
         val balanceX = i * weekWidth
-        val balanceY = size.height - (balance.amount - min.amount).toFloat() *
+        val balanceY = size.height - (balance.y - min.y) *
                 heightPxPerAmount
-        // to do smooth curve graph - we use cubicTo, uncomment section below for non-curve
+
+
+        // smoothing the curve
         val controlPoint1 = PointF((balanceX + previousBalanceX) / 2f, previousBalanceY)
         val controlPoint2 = PointF((balanceX + previousBalanceX) / 2f, balanceY)
         path.cubicTo(
             controlPoint1.x, controlPoint1.y, controlPoint2.x, controlPoint2.y,
             balanceX, balanceY
         )
-
         previousBalanceX = balanceX
         previousBalanceY = balanceY
     }
     return path
 }
-
-// date + balance
-// list of date + balanc
-@RequiresApi(Build.VERSION_CODES.O)
-val graphData = listOf(
-    Balance(LocalDate.now(), BigDecimal(65631)),
-    Balance(LocalDate.now().plusWeeks(1), BigDecimal(65931)),
-    Balance(LocalDate.now().plusWeeks(2), BigDecimal(65851)),
-    Balance(LocalDate.now().plusWeeks(3), BigDecimal(65931)),
-    Balance(LocalDate.now().plusWeeks(4), BigDecimal(66484)),
-    Balance(LocalDate.now().plusWeeks(5), BigDecimal(67684)),
-    Balance(LocalDate.now().plusWeeks(6), BigDecimal(66684)),
-    Balance(LocalDate.now().plusWeeks(7), BigDecimal(66984)),
-    Balance(LocalDate.now().plusWeeks(8), BigDecimal(70600)),
-    Balance(LocalDate.now().plusWeeks(9), BigDecimal(71600)),
-    Balance(LocalDate.now().plusWeeks(10), BigDecimal(72600)),
-    Balance(LocalDate.now().plusWeeks(11), BigDecimal(72526)),
-    Balance(LocalDate.now().plusWeeks(12), BigDecimal(72976)),
-    Balance(LocalDate.now().plusWeeks(13), BigDecimal(73589)),
-)
-
-data class Balance(val date: LocalDate, val amount: BigDecimal)
-
-val PurpleBackgroundColor = Color(0xff322049)
-val BarColor = Color.White.copy(alpha = 0.3f)
-
-
-@Preview
-@Composable
-fun CoordinateSystem(){
-    Box(modifier = Modifier.fillMaxSize().drawBehind {
-        val barWidthPx = 1.dp.toPx()
-
-        drawRect(Color.White)
-        val verticalLines = size.width / 80.dp.toPx()
-        val verticalSize = size.width / (verticalLines + 1)
-        repeat(verticalLines.roundToInt()) { i ->
-            val startX = verticalSize * (i + 1)
-            drawLine(
-                Color.Gray,
-                start = Offset(startX, 0f),
-                end = Offset(startX, size.height),
-                strokeWidth = barWidthPx
-            )
-        }
-
-        val horizontalLines = size.height / 80.dp.toPx()
-        val sectionSize = size.height / (horizontalLines + 1)
-        repeat(horizontalLines.roundToInt()) { i ->
-            val startY = sectionSize * (i + 1)
-            drawLine(
-                BarColor,
-                start = Offset(0f, startY),
-                end = Offset(size.width, startY),
-                strokeWidth = barWidthPx
-            )
-        }
-
-    })
-}
+*/
