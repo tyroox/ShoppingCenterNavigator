@@ -23,14 +23,15 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.graphics.drawscope.clipRect
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
+import kotlin.math.pow
 import kotlin.math.roundToInt
+import kotlin.math.sqrt
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Preview
@@ -66,7 +67,7 @@ fun SmoothLineGraph() {
                     }
                 }
                 .drawWithCache {
-                    val path = generatePath(points, coordinateSystem, size)
+                    val path = generatePath(shops, points, coordinateSystem, size)
 
                     onDrawBehind {
                         // drawing the line
@@ -83,9 +84,12 @@ fun SmoothLineGraph() {
     }
 }
 
-fun generatePath(point: List<Coordinate>, data: List<Coordinate>, size: Size): Path {
-    val path = Path()
+fun distance(x1: Float, x2: Float, y1: Float, y2: Float): Float {
+    return sqrt((x2 - x1).pow(2) + (y2 - y1).pow(2))
+}
 
+fun generatePath(shop: List<Shops>, point: List<Point>, data: List<Coordinate>, size: Size): Path {
+    val path = Path()
 
     val xMax = data.maxBy { it.x }
     val xMin = data.minBy { it.x }
@@ -97,7 +101,7 @@ fun generatePath(point: List<Coordinate>, data: List<Coordinate>, size: Size): P
     val heightPerCoordinate = size.height / rangeY
 
 
-    point.forEachIndexed { i, coordinate ->
+    shop.forEachIndexed { i, coordinate ->
         if (i == 0) {
             path.moveTo(
                 (coordinate.x - xMin.x) *
@@ -114,35 +118,42 @@ fun generatePath(point: List<Coordinate>, data: List<Coordinate>, size: Size): P
                 heightPerCoordinate
         path.lineTo(coordinateX, coordinateY)
     }
+    path.lineTo(shops[1].x * widthPerCoordinate, shops[1].y * heightPerCoordinate)
+
     return path
 }
 
-@RequiresApi(Build.VERSION_CODES.O)
 val coordinateSystem = listOf(
     Coordinate(0f,0f),
     Coordinate(1000f,1000f),
-    // dönme noktaları
-    /*
-    Coordinate(169f,365f),
-    Coordinate(333f,467f),
-    Coordinate(333f,646f),
-    Coordinate(632f,467f),
-    Coordinate(632f,646f),
-    Coordinate(830f,345f),
-    Coordinate(798f,744f)
-    *
-     */
 )
 
-@RequiresApi(Build.VERSION_CODES.O)
 val points = listOf(
-    Coordinate(836f,772f),
-    Coordinate(798f,744f),
-    Coordinate(632f,646f),
-    Coordinate(333f,646f),
-    Coordinate(303f,512f)
+    Point(0,169f,365f),
+    Point(0,333f,467f),
+    Point(0,333f,646f),
+    Point(0,632f,467f),
+    Point(0,32f,646f),
+    Point(0,830f,345f),
+    Point(0,798f,744f)
 )
+
+val shops = listOf(
+    //Shops("Starbucks", 0, 836f,772f),
+    Shops("Kiğılı",0,661f,605f),
+    Shops("Mavi", 0,303f,512f)
+)
+
+val prime = listOf(
+    //Shops("Starbucks", 0, 836f,772f),
+    Shops("KiğılıPrime",0,632f,605f),
+    Shops("MaviPrime", 0,333f,512f)
+)
+
+
 data class Coordinate(val x:Float, val y: Float)
+data class Point(val Floor: Int, val x:Float, val y: Float)
+data class Shops(val Name:String, val Floor: Int, val x:Float, val y: Float)
 
 // val PurpleBackgroundColor = Color(0xff322049)
 val BarColor = Color.White.copy(alpha = 0.3f)
