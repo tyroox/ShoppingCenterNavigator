@@ -97,13 +97,13 @@ fun closestPoints(x: Float, y: Float, list:List<Point>): MutableList<Float> {
     var closestPoint2 = Coordinate(0f,0f)
 
     list.forEachIndexed{ _, points ->
-        if ((distance(x, points.x, y, points.y) < closest1) and (distance(x, points.x, y, points.y) < closest2)) {
+        if ((distance(x, points.x, y, points.y) < closest1) and (distance(x, points.x, y, points.y) < closest2) and (distance(x, points.x, y, points.y) != 0f)) {
             closest2 = closest1
             closestPoint2 = closestPoint1
             closest1 = distance(x, points.x, y, points.y)
             closestPoint1 = Coordinate(points.x, points.y)
         }
-        else if ((distance(x, points.x, y, points.y) > closest1) and (distance(x, points.x, y, points.y) < closest2)){
+        else if ((distance(x, points.x, y, points.y) > closest1) and (distance(x, points.x, y, points.y) < closest2) and (distance(x, points.x, y, points.y) != 0f)){
             closest2 = (distance(x, points.x, y, points.y))
             closestPoint2 = Coordinate(points.x, points.y)
         }
@@ -152,7 +152,6 @@ fun generatePath(shop: List<Shops>, point: List<Point>, data: List<Coordinate>, 
 
 
     }
-
      */
     path.moveTo(shops[0].x * widthPerCoordinate, shops[0].y * heightPerCoordinate)
     path.lineTo(prime[0].x * widthPerCoordinate, prime[0].y * heightPerCoordinate)
@@ -172,27 +171,44 @@ fun generatePath(shop: List<Shops>, point: List<Point>, data: List<Coordinate>, 
     path.lineTo(nextPoint.x * widthPerCoordinate,nextPoint.y * heightPerCoordinate)
 
     while (!((nextPoint.x == prime[1].x) and (nextPoint.y == prime[1].y))){
+        var isItLastPoint : Boolean = false
 
         distance = distance(prime[1].x, closestPoints(nextPoint.x,nextPoint.y,points)[0] ,prime[1].y, closestPoints(nextPoint.x,nextPoint.y,points)[1])
-        lastPoint = Coordinate(nextPoint.x, nextPoint.y)
+        nextPoint = Coordinate(closestPoints(nextPoint.x,nextPoint.y,points)[0], closestPoints(nextPoint.x,nextPoint.y,points)[1])
+
+        if (distance < distance(prime[1].x, closestPoints(nextPoint.x,nextPoint.y,points)[2] ,prime[1].y, closestPoints(nextPoint.x,nextPoint.y,points)[3])){
+            distance = distance(prime[1].x, closestPoints(nextPoint.x,nextPoint.y,points)[2] ,prime[1].y, closestPoints(nextPoint.x,nextPoint.y,points)[3])
+            nextPoint = Coordinate(closestPoints(nextPoint.x,nextPoint.y,points)[2], closestPoints(nextPoint.x,nextPoint.y,points)[3])
+            isItLastPoint = true
+        }
 
         if (lastPoint != nextPoint){
-            nextPoint = Coordinate(closestPoints(prime[0].x,prime[0].y,points)[0], closestPoints(prime[0].x,prime[0].y,points)[1])
-
-            if (distance < distance(prime[1].x, closestPoints(nextPoint.x,nextPoint.y,points)[2] ,prime[1].y, closestPoints(nextPoint.x,nextPoint.y,points)[3])){
-                distance = distance(prime[1].x, closestPoints(nextPoint.x,nextPoint.y,points)[2] ,prime[1].y, closestPoints(nextPoint.x,nextPoint.y,points)[3])
-                nextPoint = Coordinate(closestPoints(nextPoint.x,nextPoint.y,points)[2], closestPoints(nextPoint.x,nextPoint.y,points)[3])
-            }
-
-
+            Log.d("aa", "if")
             path.lineTo(nextPoint.x * widthPerCoordinate,nextPoint.y * heightPerCoordinate)
+            Log.d("aa","${nextPoint.x} ${nextPoint.y}")
+            lastPoint = Coordinate(nextPoint.x, nextPoint.y)
         }
         else{
-            Log.d("aa","aynı nokta")
+            Log.d("aa","ilk else")
+            if (isItLastPoint){
+                Log.d("aa","ilk if")
+                nextPoint = Coordinate(closestPoints(nextPoint.x,nextPoint.y,points)[0],
+                    closestPoints(nextPoint.x,nextPoint.y,points)[1])
+
+                path.lineTo(nextPoint.x * widthPerCoordinate,nextPoint.y * heightPerCoordinate)
+
+                lastPoint = Coordinate(nextPoint.x, nextPoint.y)
+            }
+            else{
+                nextPoint = Coordinate(closestPoints(nextPoint.x,nextPoint.y,points)[2],
+                    closestPoints(nextPoint.x,nextPoint.y,points)[3])
+
+                path.lineTo(nextPoint.x * widthPerCoordinate,nextPoint.y * heightPerCoordinate)
+                Log.d("aa","${nextPoint.x} ${nextPoint.y}")
+
+                lastPoint = Coordinate(nextPoint.x, nextPoint.y)
+            }
         }
-
-
-
         break
     }
     path.lineTo(prime[1].x * widthPerCoordinate, prime[1].y * heightPerCoordinate)
@@ -216,20 +232,24 @@ val points = listOf(
     Point(0,798f,744f),
     // primes
     Point(0,333f,512f),
-    Point(0,632f,605f)
+    Point(0,632f,605f),
+    Point(0,394f,467f)
 )
 
 val shops = listOf(
     //Shops("Starbucks", 0, 836f,772f),
     Shops("Mavi", 0,303f,512f),
-    Shops("Kiğılı",0,661f,605f)
+    Shops("Kiğılı",0,661f,605f),
+    Shops("Polo",0,394f,450f)
 
 )
 
 val prime = listOf(
     //Shops("Starbucks", 0, 836f,772f),
     Shops("MaviPrime", 0,333f,512f),
-    Shops("KiğılıPrime",0,632f,605f)
+    Shops("KiğılıPrime",0,632f,605f),
+    Shops("PoloPrime",0,394f,467f)
+
 )
 
 
