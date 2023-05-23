@@ -59,8 +59,13 @@ fun NextPage(){
                 GPS()
             }
             composable("SmoothLineGraph"){
-                SmoothLineGraph()
+                SmoothLineGraph(navController = navController)
             }
+            composable("ShopSearchBar"){
+
+                ShopSearchBar(navController = navController)
+            }
+
         }
     } else {
         NavHost(navController = navController,  startDestination = "StartPage"){
@@ -80,7 +85,11 @@ fun NextPage(){
                 GPS()
             }
             composable("SmoothLineGraph"){
-                SmoothLineGraph()
+                SmoothLineGraph(navController = navController)
+            }
+            composable("ShopSearchBar"){
+
+                ShopSearchBar(navController = navController)
             }
         }
     }

@@ -1,6 +1,8 @@
 package com.example.shoppingcenternavigator
 
+import android.os.Build
 import androidx.activity.compose.BackHandler
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -17,10 +19,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import kotlinx.coroutines.launch
-
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun MainPage(navController: NavController) {
     val selectedItem = remember { mutableStateOf(3) }
+    HomePage(navController, selectedItem)
     val scaffoldState = rememberScaffoldState(rememberDrawerState(DrawerValue.Closed))
     val scope = rememberCoroutineScope()
 
@@ -63,10 +66,13 @@ fun MainPage(navController: NavController) {
                 navController.navigate("GPS")
             }
             if (selectedItem.value == 3){
-                HomePage(navController = navController)
+                HomePage(navController = navController, selectedItem = selectedItem)
             }
             if (selectedItem.value == 4){
                 User(navController = navController)
+            }
+            if (selectedItem.value == 5){
+                ShopSearchBar(navController = navController)
             }
         },
         drawerContent = {

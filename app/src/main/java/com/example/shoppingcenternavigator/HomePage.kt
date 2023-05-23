@@ -9,6 +9,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -20,16 +21,15 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 
 @Composable
-fun HomePage(navController: NavController){
+fun HomePage(navController: NavController, selectedItem: MutableState<Int>){
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        val viewModel = viewModel<MainViewModel>()
+        val viewModel = viewModel<ShoppingCenterViewModel>()
         val searchText by viewModel.searchText.collectAsState()
         val shoppingCenters by viewModel.shoppingCenters.collectAsState()
-        val isSearching by viewModel.isSearching.collectAsState()
         Column(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Center,
@@ -61,7 +61,7 @@ fun HomePage(navController: NavController){
                             .fillMaxWidth()
                             .padding(vertical = 16.dp, horizontal = 16.dp)
                             .clickable {
-                                navController.navigate("SmoothLineGraph")
+                                selectedItem.value = 5
                             })
                 }
             }

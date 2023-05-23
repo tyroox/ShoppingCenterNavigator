@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.*
 
-class MainViewModel: ViewModel() {
+class ShoppingCenterViewModel: ViewModel() {
     private val _searchtext = MutableStateFlow("")
     val searchText = _searchtext.asStateFlow()
 
@@ -46,14 +46,10 @@ data class ShoppingCenter(
         )
         return matchingCombinations.any {
             it.contains(query, ignoreCase = true) }
-
     }
 }
 
 private val allShoppingCenter = listOf(
-    ShoppingCenter("Forum İstanbul"),
-    ShoppingCenter("Capacity"),
-    ShoppingCenter("Axis"),
-    ShoppingCenter("Cevahir"),
-    ShoppingCenter("Zorlu Center"),
+    ShoppingCenter("Carousel"),
+    ShoppingCenter("Capacity")
 )
