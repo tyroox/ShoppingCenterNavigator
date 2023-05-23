@@ -200,7 +200,7 @@ fun ShopSearchBar(navController: NavController) {
                 }
                 else{
 
-                    navController.navigate("SmoothLineGraph")
+                    navController.navigate("dijkstra")
                 }
             }, enabled = selectedOptionFrom.isNotEmpty() and selectedOptionTo.isNotEmpty()) {
                 Text(text = "Yol tarifinizi çiz!")

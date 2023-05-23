@@ -89,6 +89,9 @@ fun distance(x1: Float, x2: Float, y1: Float, y2: Float): Float {
     return sqrt((x2 - x1).pow(2) + (y2 - y1).pow(2))
 }
 
+fun calculateDistance(point1: Point, point2: Point): Float {
+    return distance(point1.x, point2.x, point1.y, point2.y)
+}
 fun closestPoints(x: Float, y: Float, list:MutableList<Coordinate>): MutableList<Float> {
     var closest1 = 1414.2136f
     var closestPoint1 = Coordinate(0f,0f)
@@ -120,6 +123,7 @@ fun closestPoints(x: Float, y: Float, list:MutableList<Coordinate>): MutableList
     return returnList
 }
 
+
 fun generatePath(shop: List<Shops>, point: List<Point>, data: List<Coordinate>, size: Size): Path {
     val path = Path()
     val xMax = data.maxBy { it.x }
@@ -130,6 +134,15 @@ fun generatePath(shop: List<Shops>, point: List<Point>, data: List<Coordinate>, 
     val rangeY = yMax.y - yMin.y
     val widthPerCoordinate = size.width / rangeX
     val heightPerCoordinate = size.height / rangeY
+
+    points[0].addConnection(points[1], calculateDistance(points[0], points[1]))
+    points[1].addConnection(points[2], calculateDistance(points[1], points[2]))
+    points[1].addConnection(points[3], calculateDistance(points[1], points[3]))
+    points[2].addConnection(points[4], calculateDistance(points[2], points[4]))
+    points[3].addConnection(points[4], calculateDistance(points[3], points[4]))
+    points[3].addConnection(points[5], calculateDistance(points[3], points[5]))
+    points[4].addConnection(points[6], calculateDistance(points[4], points[6]))
+
 
     var distance = 1414.2136f
     var nextPoint = Coordinate(0f,0f)

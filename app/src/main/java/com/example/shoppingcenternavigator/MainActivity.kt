@@ -17,6 +17,7 @@ import com.example.shoppingcenternavigator.ui.theme.ShoppingCenterNavigatorTheme
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
+
 class MainActivity : ComponentActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,14 +59,12 @@ fun NextPage(){
             composable("GPS"){
                 GPS()
             }
-            composable("SmoothLineGraph"){
-                SmoothLineGraph(navController = navController)
-            }
             composable("ShopSearchBar"){
-
                 ShopSearchBar(navController = navController)
             }
-
+            composable("WayFindingAlgorithm"){
+                WayFindingAlgorithm()
+            }
         }
     } else {
         NavHost(navController = navController,  startDestination = "StartPage"){
@@ -84,12 +83,11 @@ fun NextPage(){
             composable("GPS"){
                 GPS()
             }
-            composable("SmoothLineGraph"){
-                SmoothLineGraph(navController = navController)
-            }
             composable("ShopSearchBar"){
-
                 ShopSearchBar(navController = navController)
+            }
+            composable("WayFindingAlgorithm"){
+                WayFindingAlgorithm()
             }
         }
     }

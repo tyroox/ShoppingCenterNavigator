@@ -1,7 +1,14 @@
 package com.example.shoppingcenternavigator
 
 data class Coordinate(val x:Float, val y: Float)
-data class Point(val Floor: Int, val x:Float, val y: Float)
+data class Point(val Floor: Int, val x:Float, val y: Float){
+    val connections: MutableMap<Point, Float> = mutableMapOf()
+
+    fun addConnection(point: Point, distance: Float) {
+        connections[point] = distance
+        point.connections[this] = distance
+    }
+}
 data class Shops(val Name:String, val Floor: Int, val x:Float, val y: Float)
 
 val coordinateSystem = listOf(
@@ -12,26 +19,23 @@ val coordinateSystem = listOf(
 val points = listOf(
     // corners
     Point(0,169f,365f),
-    //Point(0,333f,467f),
-    //Point(0,333f,646f),
+    Point(0,333f,467f),
+    Point(0,333f,646f),
     Point(0,632f,467f),
-    //Point(0,632f,646f),
+    Point(0,632f,646f),
     Point(0,830f,345f),
     Point(0,798f,744f),
-    Point(0,450f,467f),
-    //Point(0,596f,646f),
 
-    // primes
     Point(0,333f,512f),
     Point(0,632f,605f),
     Point(0,394f,467f),
     Point(0,333f,558f),
     Point(0,333f,605f),
-    Point(0,333f,646f),
+    //Point(0,333f,646f),
     Point(0,403f,646f),
     Point(0,482f,646f),
     Point(0,559f,646f),
-    Point(0,632f,646f),
+    //Point(0,632f,646f),
     Point(0,561f,467f),
     Point(0,632f,557f),
     Point(0,632f,512f),
@@ -40,7 +44,7 @@ val points = listOf(
     Point(0,679f,439f),
     Point(0,778f,740f),
     Point(0,285f,443f),
-    Point(0,333f,467f),
+    //Point(0,333f,467f),
     Point(0,237f,411f),
     Point(0,207f,396f),
     Point(0,735f,405f),
@@ -53,6 +57,8 @@ val points = listOf(
     Point(0,754f,724f),
     Point(0,855f,744f)
 )
+
+
 
 val shops = listOf(
     Shops("Polo",0,394f,450f),
