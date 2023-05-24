@@ -43,9 +43,6 @@ fun NextPage(){
     val navController = rememberNavController()
     if (user != null) {
         NavHost(navController = navController,  startDestination = "MainPage"){
-            composable("StartPage"){
-                StartPage(navController = navController)
-            }
             composable("LoginPage"){
                 Login(context = ComponentActivity(), navController = navController)
             }
@@ -62,16 +59,15 @@ fun NextPage(){
                 SmoothLineGraph(navController = navController)
             }
             composable("ShopSearchBar"){
-
                 ShopSearchBar(navController = navController)
+            }
+            composable("WayFindingAlgorithm"){
+                WayFindingAlgorithm()
             }
 
         }
     } else {
-        NavHost(navController = navController,  startDestination = "StartPage"){
-            composable("StartPage"){
-                StartPage(navController = navController)
-            }
+        NavHost(navController = navController,  startDestination = "LoginPage"){
             composable("LoginPage"){
                 Login(context = ComponentActivity(), navController = navController)
             }
@@ -88,8 +84,10 @@ fun NextPage(){
                 SmoothLineGraph(navController = navController)
             }
             composable("ShopSearchBar"){
-
                 ShopSearchBar(navController = navController)
+            }
+            composable("WayFindingAlgorithm"){
+                WayFindingAlgorithm()
             }
         }
     }

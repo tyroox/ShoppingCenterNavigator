@@ -1,10 +1,13 @@
 package com.example.shoppingcenternavigator
 
 import androidx.activity.ComponentActivity
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -28,8 +31,19 @@ import java.util.regex.Pattern
 @Composable
 fun Register(context: ComponentActivity, navController: NavController) {
     val auth = Firebase.auth
-    val scope = rememberCoroutineScope()
     val scaffoldState = rememberScaffoldState()
+    val email  = remember { mutableStateOf(TextFieldValue()) }
+    val password = remember { mutableStateOf(TextFieldValue()) }
+    val password1 = remember { mutableStateOf(TextFieldValue()) }
+    var passwordVisibility by rememberSaveable { mutableStateOf(value = false) }
+    var passwordVisibility1 by rememberSaveable { mutableStateOf(value = false) }
+    var emailState by remember { mutableStateOf(false) }
+    var passwordState by remember { mutableStateOf(false) }
+    var passwordState1 by remember { mutableStateOf(false) }
+    val emailValidationRegex = "^[A-Za-z](.*)([@]{1})(.{1,})(\\.com)(.{1,})"
+    val scope = rememberCoroutineScope()
+    val imeState = rememberImeState()
+    val scrollState = rememberScrollState()
     val alertDialog = remember { mutableStateOf(value = true) }
 
     if (alertDialog.value){
@@ -46,47 +60,37 @@ fun Register(context: ComponentActivity, navController: NavController) {
         )
     }
 
+    LaunchedEffect(key1 = imeState.value) {
+        if (imeState.value) {
+            scrollState.animateScrollTo(scrollState.maxValue, tween(100))
+        }
+    }
+
     Scaffold(
         scaffoldState = scaffoldState,
-        snackbarHost = {SnackbarHost(it){
-            Snackbar(
-                backgroundColor = colorResource(id = R.color.orangePeel),
-                contentColor = colorResource(id = R.color.isabelline),
-                snackbarData = it)
+        snackbarHost = {
+            SnackbarHost(it) {
+                Snackbar(
+                    backgroundColor = colorResource(id = R.color.orangePeel),
+                    contentColor = colorResource(id = R.color.isabelline),
+                    snackbarData = it
+                )
             }
         },
-        topBar = {
-            TopAppBar(title = {
-                Row(modifier = Modifier.fillMaxSize(),
-                    horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Image(painter = painterResource(id = R.drawable.shopping_center_navigator_app_icon),
-                        contentDescription = "",
-                        Modifier.size(50.dp),
-                    )
-                }
-            },
-                backgroundColor = colorResource(id = R.color.moonstone))
-        },
-        content = {
-            val email  = remember { mutableStateOf(TextFieldValue()) }
-            val password = remember { mutableStateOf(TextFieldValue()) }
-            val password1 = remember { mutableStateOf(TextFieldValue()) }
-            var passwordVisibility by rememberSaveable { mutableStateOf(value = false) }
-            var passwordVisibility1 by rememberSaveable { mutableStateOf(value = false) }
-            var emailState by remember { mutableStateOf(false) }
-            var passwordState by remember { mutableStateOf(false) }
-            var passwordState1 by remember { mutableStateOf(false) }
-            val emailValidationRegex = "^[A-Za-z](.*)([@]{1})(.{1,})(\\.com)(.{1,})"
-
-
-            Column(modifier = Modifier
-                .fillMaxSize()
-                .padding(75.dp),
-                verticalArrangement = Arrangement.SpaceEvenly,
+        content =
+        {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .verticalScroll(scrollState),
+                verticalArrangement = Arrangement.SpaceAround,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
+                Image(
+                    painter = painterResource(id = R.drawable.shopping_center_navigator_app_icon),
+                    contentDescription = null,
+                    modifier = Modifier.size(260.dp)
+                )
                 TextField(
                     label = {
                         Text("E-Posta", color = colorResource(id = R.color.caribbeanCurrent))
@@ -94,7 +98,9 @@ fun Register(context: ComponentActivity, navController: NavController) {
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
                     value = email.value,
                     singleLine = true,
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier.padding(horizontal = 24.dp)
+                        .fillMaxWidth()
+                        .height(IntrinsicSize.Min),
                     onValueChange = {
                         email.value = it
                         emailState = Pattern.matches(emailValidationRegex, email.toString())
@@ -120,7 +126,9 @@ fun Register(context: ComponentActivity, navController: NavController) {
                     },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                     value = password.value,
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier.padding(horizontal = 24.dp)
+                        .fillMaxWidth()
+                        .height(IntrinsicSize.Min),
                     onValueChange = {
                         password.value = it
                         passwordState = password.value.text.length >= 6
@@ -146,7 +154,9 @@ fun Register(context: ComponentActivity, navController: NavController) {
                     },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                     value = password1.value,
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier.padding(horizontal = 24.dp)
+                        .fillMaxWidth()
+                        .height(IntrinsicSize.Min),
                     onValueChange = {
                         password1.value = it
                         passwordState1 = password.value.text.length >= 6
@@ -155,43 +165,62 @@ fun Register(context: ComponentActivity, navController: NavController) {
                         cursorColor = colorResource(id = R.color.caribbeanCurrent),
                         focusedIndicatorColor = colorResource(id = R.color.caribbeanCurrent))
                 )
-                Button(onClick = {
-                    if (email.value.text.trim().isEmpty() and password.value.text.trim().isEmpty()){
-                        scope.launch {
-                            scaffoldState.snackbarHostState.showSnackbar(message = "Lütfen boş alanları doldurunuz")
-                        }
-                    }
-                    else if (password.value.text.trim().isNotEmpty()) {
-                        if (password.value.text.trim() != password1.value.text.trim()) {
+
+                Box(modifier = Modifier.fillMaxWidth()) {
+                    Button(onClick = {
+                        if (email.value.text.trim().isEmpty() and password.value.text.trim().isEmpty()){
                             scope.launch {
-                                scaffoldState.snackbarHostState.showSnackbar(message = "Şifreler eşleşmiyor.")
+                                scaffoldState.snackbarHostState.showSnackbar(message = "Lütfen boş alanları doldurunuz")
                             }
-                        } else if (password.value.text.trim() == password1.value.text.trim()) {
-                            auth.createUserWithEmailAndPassword(
-                                email.value.text.trim(),
-                                password.value.text.trim()
-                            ).addOnCompleteListener(context){ task ->
-                                if (task.isSuccessful){
-                                    navController.navigate("MainPage")
-                                }else{
-                                    scope.launch {
-                                        scaffoldState.snackbarHostState.showSnackbar(message = "Bu e-posta adresi zaten kayıtlı.")
+                        }
+                        else if (password.value.text.trim().isNotEmpty()) {
+                            if (password.value.text.trim() != password1.value.text.trim()) {
+                                scope.launch {
+                                    scaffoldState.snackbarHostState.showSnackbar(message = "Şifreler eşleşmiyor.")
+                                }
+                            } else if (password.value.text.trim() == password1.value.text.trim()) {
+                                auth.createUserWithEmailAndPassword(
+                                    email.value.text.trim(),
+                                    password.value.text.trim()
+                                ).addOnCompleteListener(context){ task ->
+                                    if (task.isSuccessful){
+                                        navController.navigate("MainPage")
+                                    }else{
+                                        scope.launch {
+                                            scaffoldState.snackbarHostState.showSnackbar(message = "Bu e-posta adresi zaten kayıtlı.")
+                                        }
                                     }
                                 }
                             }
                         }
-                    }
-                },
-                    Modifier.size(200.dp,50.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        backgroundColor = colorResource(id = R.color.orangePeel)
-                    ), enabled = emailState and passwordState and passwordState1
+                    },
+                        modifier = Modifier
+                            .padding(horizontal = 24.dp)
+                            .fillMaxWidth()
+                            .height(IntrinsicSize.Min), // Set the same height as text fields
+                        colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(id = R.color.orangePeel)
+                        ), enabled = emailState and passwordState and passwordState1
 
-                ){
-                    Text(text = "Kayıt Ol", color = colorResource(id = R.color.isabelline))
+                    ) {
+                        Text(text = "Kayıt Ol", color = colorResource(id = R.color.isabelline))
+                    }
+                }
+
+                Divider(
+                    color = colorResource(id = R.color.orangePeel),
+                    thickness = 1.dp,
+                    modifier = Modifier.padding(top = 24.dp, start = 24.dp, end = (24.dp))
+                )
+
+                Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(bottom = 12.dp)) {
+                    Text("Hesabınız var mı?", color = colorResource(id = R.color.orangePeel))
+                    TextButton(onClick = {
+                        navController.navigate("LoginPage")
+                    }) {
+                        Text("Giriş yapın.", color = colorResource(id = R.color.caribbeanCurrent))
+                    }
                 }
             }
-        },
-        backgroundColor = colorResource(id = R.color.isabelline)
+        }, backgroundColor = colorResource(id = R.color.isabelline)
     )
 }

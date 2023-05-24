@@ -88,7 +88,9 @@ fun SmoothLineGraph(navController: NavController) {
 fun distance(x1: Float, x2: Float, y1: Float, y2: Float): Float {
     return sqrt((x2 - x1).pow(2) + (y2 - y1).pow(2))
 }
-
+fun calculateDistance(point1: Point, point2: Point): Float {
+    return distance(point1.x, point2.x, point1.y, point2.y)
+}
 fun closestPoints(x: Float, y: Float, list:MutableList<Coordinate>): MutableList<Float> {
     var closest1 = 1414.2136f
     var closestPoint1 = Coordinate(0f,0f)
@@ -141,7 +143,7 @@ fun generatePath(shop: List<Shops>, point: List<Point>, data: List<Coordinate>, 
     Log.d("fromIndex", "$fromIndex")
     Log.d("toIndex", "$toIndex")
 
-    var pointList: MutableList<Coordinate> = mutableListOf<Coordinate>()
+    val pointList: MutableList<Coordinate> = mutableListOf<Coordinate>()
     for (point in points) {
         pointList.add(Coordinate(point.x, point.y))
     }

@@ -1,9 +1,12 @@
 package com.example.shoppingcenternavigator
 
 import androidx.activity.ComponentActivity
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -25,114 +28,133 @@ import kotlinx.coroutines.launch
 @Composable
 fun Login(context: ComponentActivity, navController: NavController) {
     val auth = Firebase.auth
-    val scope = rememberCoroutineScope()
     val scaffoldState = rememberScaffoldState()
+    val email = remember { mutableStateOf(TextFieldValue()) }
+    val password = remember { mutableStateOf(TextFieldValue()) }
+    var passwordVisibility by rememberSaveable { mutableStateOf(value = false) }
+    val scope = rememberCoroutineScope()
+    val imeState = rememberImeState()
+    val scrollState = rememberScrollState()
+
+    LaunchedEffect(key1 = imeState.value) {
+        if (imeState.value) {
+            scrollState.animateScrollTo(scrollState.maxValue, tween(100))
+        }
+    }
+
     Scaffold(
         scaffoldState = scaffoldState,
-        snackbarHost = {SnackbarHost(it){
-            Snackbar(
-                backgroundColor = colorResource(id = R.color.orangePeel),
-                contentColor = colorResource(id = R.color.isabelline),
-                snackbarData = it)
-        }
-        },
-        topBar = {
-            TopAppBar(title = {
-                Row(modifier = Modifier.fillMaxSize(),
-                    horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.CenterVertically
-                    ) {
-                    Image(painter = painterResource(id = R.drawable.shopping_center_navigator_app_icon),
-                        contentDescription = "",
-                        Modifier.size(150.dp),
-                    )
-                }
-            },
-                backgroundColor = colorResource(id = R.color.moonstone))
+        snackbarHost = {
+            SnackbarHost(it) {
+                Snackbar(
+                    backgroundColor = colorResource(id = R.color.orangePeel),
+                    contentColor = colorResource(id = R.color.isabelline),
+                    snackbarData = it
+                )
+            }
         },
         content =
-
-            {val email = remember { mutableStateOf(TextFieldValue()) }
-            val password = remember { mutableStateOf(TextFieldValue()) }
-            var passwordVisibility by rememberSaveable { mutableStateOf(value = false) }
-
-            Column(modifier = Modifier
-                .fillMaxSize()
-                .padding(75.dp),
-                verticalArrangement = Arrangement.SpaceEvenly,
+        {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .verticalScroll(scrollState),
+                verticalArrangement = Arrangement.spacedBy(16.dp, alignment = Alignment.Bottom),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
+                Image(
+                    painter = painterResource(id = R.drawable.shopping_center_navigator_app_icon),
+                    contentDescription = null,
+                    modifier = Modifier.size(260.dp)
+                )
                 TextField(
-                    label = {
-                        Text("E-Posta", color = colorResource(id = R.color.caribbeanCurrent))
-                    },
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
                     value = email.value,
-                    singleLine = true,
-                    modifier = Modifier.fillMaxWidth(),
-                    onValueChange = {
-                        email.value = it
-                    },
+                    onValueChange = { email.value = it },
+                    modifier = Modifier
+                        .padding(horizontal = 24.dp)
+                        .fillMaxWidth()
+                        .height(IntrinsicSize.Min), // Set the same height as text fields
+                    label = { Text("E-Posta", color = colorResource(id = R.color.caribbeanCurrent)) },
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
                     colors = TextFieldDefaults.textFieldColors(
                         cursorColor = colorResource(id = R.color.caribbeanCurrent),
-                        focusedIndicatorColor = colorResource(id = R.color.caribbeanCurrent))
+                        focusedIndicatorColor = colorResource(id = R.color.caribbeanCurrent)
+                    )
                 )
-
                 TextField(
-                    label = {
-                        Text("Şifre", color = colorResource(id = R.color.caribbeanCurrent))
-                    },
+                    value = password.value,
+                    onValueChange = { password.value = it },
+                    modifier = Modifier
+                        .padding(horizontal = 24.dp)
+                        .fillMaxWidth()
+                        .height(IntrinsicSize.Min), // Set the same height as text fields
+                    label = { Text("Şifre", color = colorResource(id = R.color.caribbeanCurrent)) },
                     singleLine = true,
                     visualTransformation = if (passwordVisibility) VisualTransformation.None else PasswordVisualTransformation(),
-                    trailingIcon = {
-                        IconButton(onClick = {
-                            passwordVisibility = !passwordVisibility
-                        }) {
-                            Icon(painter = painterResource(id = R.drawable.visibility), contentDescription = "",
-                                tint = colorResource(id = R.color.caribbeanCurrent))
-                        }
-                    },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-                    value = password.value,
-                    modifier = Modifier.fillMaxWidth(),
-                    onValueChange = {
-                        password.value = it
-                    },
                     colors = TextFieldDefaults.textFieldColors(
                         cursorColor = colorResource(id = R.color.caribbeanCurrent),
-                        focusedIndicatorColor = colorResource(id = R.color.caribbeanCurrent))
+                        focusedIndicatorColor = colorResource(id = R.color.caribbeanCurrent)
+                    ),
+                    trailingIcon = {
+                        IconButton(onClick = { passwordVisibility = !passwordVisibility }) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.visibility),
+                                contentDescription = "Toggle Password Visibility",
+                                tint = colorResource(id = R.color.caribbeanCurrent)
+                            )
+                        }
+                    }
                 )
-                Button(onClick = {
-                    if (email.value.text.trim().isNotEmpty() and password.value.text.trim().isNotEmpty()){
-                        auth.signInWithEmailAndPassword(
-                            email.value.text.trim(),
-                            password.value.text.trim()
-                        ).addOnCompleteListener(context){ task ->
-                            if (task.isSuccessful){
-                                navController.navigate("MainPage")
-                            }else{
-                                scope.launch {
-                                    scaffoldState.snackbarHostState.showSnackbar(message = "E-posta ile şifre uyuşmuyor veya doğru değil.")
+
+                Box(modifier = Modifier.fillMaxWidth()) {
+                    Button(
+                        onClick = {
+                            if (email.value.text.trim().isNotEmpty() and password.value.text.trim().isNotEmpty()){
+                                auth.signInWithEmailAndPassword(
+                                    email.value.text.trim(),
+                                    password.value.text.trim()
+                                ).addOnCompleteListener(context){ task ->
+                                    if (task.isSuccessful){
+                                        navController.navigate("MainPage")
+                                    }else{
+                                        scope.launch {
+                                            scaffoldState.snackbarHostState.showSnackbar(message = "E-posta ile şifre uyuşmuyor veya doğru değil.")
+                                        }
+                                    }
                                 }
                             }
-                        }
+                            else{
+                                scope.launch {
+                                    scaffoldState.snackbarHostState.showSnackbar(message = "Lütfen e-posta ve şifre giriniz.")
+                                }
+                            }
+                        },
+                        modifier = Modifier
+                            .padding(horizontal = 24.dp)
+                            .fillMaxWidth()
+                            .height(IntrinsicSize.Min), // Set the same height as text fields
+                        colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(id = R.color.orangePeel))
+                    ) {
+                        Text(text = "Giriş Yap", color = colorResource(id = R.color.isabelline))
                     }
-                    else{
-                        scope.launch {
-                            scaffoldState.snackbarHostState.showSnackbar(message = "Lütfen e-posta ve şifre giriniz.")
-                        }
-                    }
+                }
 
-                },
-                    Modifier.size(200.dp,50.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        backgroundColor = colorResource(id = R.color.orangePeel))
-                ) {
-                    Text(text = "Giriş Yap", color = Color.White)
+                Divider(
+                    color = colorResource(id = R.color.orangePeel),
+                    thickness = 1.dp,
+                    modifier = Modifier.padding(top = 24.dp, start = 24.dp, end = (24.dp))
+                )
+                
+                Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(bottom = 12.dp)) {
+                    Text("Hesabınız yok mu?", color = colorResource(id = R.color.orangePeel))
+                    TextButton(onClick = {
+                        navController.navigate("RegisterPage")
+                    }) {
+                        Text("Kayıt olun.", color = colorResource(id = R.color.caribbeanCurrent))
+                    }
                 }
             }
-
-        },
-        backgroundColor = colorResource(id = R.color.isabelline),
+        }, backgroundColor = colorResource(id = R.color.isabelline)
     )
 }

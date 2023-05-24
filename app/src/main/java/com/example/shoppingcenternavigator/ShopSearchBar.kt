@@ -43,8 +43,8 @@ fun ShopSearchBar(navController: NavController) {
     var searchTextTo by remember { mutableStateOf("") }
     var selectedOptionFrom by remember { mutableStateOf("") }
     var selectedOptionTo by remember { mutableStateOf("") }
-    var selectedOptionFromIndex = SelectedShops.selectedOptionFromIndex
-    var selectedOptionToIndex = SelectedShops.selectedOptionToIndex
+    val selectedOptionFromIndex = SelectedShops.selectedOptionFromIndex
+    val selectedOptionToIndex = SelectedShops.selectedOptionToIndex
     val options = shops
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -200,7 +200,7 @@ fun ShopSearchBar(navController: NavController) {
                 }
                 else{
 
-                    navController.navigate("SmoothLineGraph")
+                    navController.navigate("WayFindingAlgorithm")
                 }
             }, enabled = selectedOptionFrom.isNotEmpty() and selectedOptionTo.isNotEmpty()) {
                 Text(text = "Yol tarifinizi çiz!")
