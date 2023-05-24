@@ -48,7 +48,7 @@ fun User(navController: NavController) {
                             .padding(10.dp)
                             .clickable {
                                 auth.signOut()
-                                navController.navigate("StartPage")
+                                navController.navigate("LoginPage")
                             },
                         color = colorResource(id = R.color.isabelline))
 

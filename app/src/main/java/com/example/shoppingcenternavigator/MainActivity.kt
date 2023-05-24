@@ -64,7 +64,6 @@ fun NextPage(){
             composable("WayFindingAlgorithm"){
                 WayFindingAlgorithm()
             }
-
         }
     } else {
         NavHost(navController = navController,  startDestination = "LoginPage"){

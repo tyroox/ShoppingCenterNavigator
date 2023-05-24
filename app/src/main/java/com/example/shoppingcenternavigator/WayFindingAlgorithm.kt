@@ -94,11 +94,12 @@ fun WayFindingAlgorithm() {
             .background(colorResource(id = R.color.isabelline))
             .fillMaxSize()
     ) {
-        Image(painter = painterResource(id = R.drawable.carousel_zemin_kat),
+        Image(painter = painterResource(id = R.drawable.carousel_1),
             contentDescription = "",
             contentScale = ContentScale.FillBounds,
             modifier = Modifier.fillMaxSize())
 
+        // zemin
         points[31].addConnection(points[0], calculateDistance(points[31], points[0]))
         points[10].addConnection(points[0], calculateDistance(points[10], points[0]))
         points[0].addConnection(points[28], calculateDistance(points[0], points[28]))
@@ -137,6 +138,27 @@ fun WayFindingAlgorithm() {
         points[6].addConnection(points[30], calculateDistance(points[6], points[30]))
         points[30].addConnection(points[16], calculateDistance(points[30], points[16]))
 
+        // kat 1
+        points[59].addConnection(points[56], calculateDistance(points[59], points[56]))
+        points[56].addConnection(points[46], calculateDistance(points[56], points[46]))
+        points[46].addConnection(points[42], calculateDistance(points[46], points[42]))
+        points[42].addConnection(points[57], calculateDistance(points[42], points[57]))
+        points[57].addConnection(points[48], calculateDistance(points[57], points[48]))
+        points[48].addConnection(points[55], calculateDistance(points[48], points[55]))
+        points[55].addConnection(points[60], calculateDistance(points[55], points[60]))
+        points[60].addConnection(points[43], calculateDistance(points[60], points[43]))
+        points[58].addConnection(points[43], calculateDistance(points[58], points[43]))
+        points[43].addConnection(points[47], calculateDistance(points[43], points[47]))
+        points[47].addConnection(points[61], calculateDistance(points[47], points[61]))
+        points[61].addConnection(points[54], calculateDistance(points[61], points[54]))
+        points[54].addConnection(points[44], calculateDistance(points[54], points[44]))
+        points[50].addConnection(points[53], calculateDistance(points[50], points[53]))
+        points[53].addConnection(points[44], calculateDistance(points[53], points[44]))
+        points[44].addConnection(points[49], calculateDistance(points[44], points[49]))
+        points[49].addConnection(points[45], calculateDistance(points[49], points[45]))
+        points[42].addConnection(points[51], calculateDistance(points[42], points[51]))
+        points[51].addConnection(points[52], calculateDistance(points[51], points[52]))
+        points[52].addConnection(points[45], calculateDistance(points[52], points[45]))
 
         val path = Path()
         val fromIndex = SelectedShops.selectedOptionFromIndex

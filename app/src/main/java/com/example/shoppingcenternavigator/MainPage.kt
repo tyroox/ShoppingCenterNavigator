@@ -19,6 +19,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import kotlinx.coroutines.launch
+
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun MainPage(navController: NavController) {
@@ -30,6 +31,7 @@ fun MainPage(navController: NavController) {
     Scaffold(
         scaffoldState = scaffoldState,
         topBar = {
+            // TopAppBar code
             TopAppBar(
                 title = {
                     Row(modifier = Modifier.fillMaxSize(),
@@ -54,35 +56,39 @@ fun MainPage(navController: NavController) {
                 backgroundColor = colorResource(id = R.color.moonstone)
             )
         },
-
-        content = {            
-            if (selectedItem.value == 0){
-                Stores()
-            }
-            if (selectedItem.value == 1){
-                Settings()
-            }
-            if (selectedItem.value == 2){
-                navController.navigate("GPS")
-            }
-            if (selectedItem.value == 3){
-                HomePage(navController = navController, selectedItem = selectedItem)
-            }
-            if (selectedItem.value == 4){
-                User(navController = navController)
-            }
-            if (selectedItem.value == 5){
-                ShopSearchBar(navController = navController)
+        content = {
+            Box(modifier = Modifier.padding(bottom = 56.dp)) {
+                // Add the Modifier.padding modifier with bottom padding of 56.dp
+                // to the Box composable that wraps the content
+                if (selectedItem.value == 0){
+                    Stores()
+                }
+                if (selectedItem.value == 1){
+                    Settings()
+                }
+                if (selectedItem.value == 2){
+                    navController.navigate("GPS")
+                }
+                if (selectedItem.value == 3){
+                    HomePage(navController = navController, selectedItem = selectedItem)
+                }
+                if (selectedItem.value == 4){
+                    User(navController = navController)
+                }
+                if (selectedItem.value == 5){
+                    ShopSearchBar(navController = navController)
+                }
             }
         },
         drawerContent = {
+            // Drawer content code
             Column(modifier = Modifier
                 .fillMaxWidth()
                 .size(100.dp)
                 .background(colorResource(id = R.color.moonstone))) {
                 Column(modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally) {
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally) {
                     Icon(
                         painter = painterResource(id = R.drawable.user),
                         contentDescription = "",
@@ -120,6 +126,7 @@ fun MainPage(navController: NavController) {
         },
         drawerBackgroundColor = colorResource(id = R.color.isabelline),
         bottomBar = {
+            // BottomAppBar code
             BottomAppBar(
                 backgroundColor = colorResource(id = R.color.moonstone),
                 content = {

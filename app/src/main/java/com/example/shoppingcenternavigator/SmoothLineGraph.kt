@@ -43,7 +43,7 @@ fun SmoothLineGraph(navController: NavController) {
             .background(colorResource(id = R.color.isabelline))
             .fillMaxSize()
     ) {
-        Image(painter = painterResource(id = R.drawable.carousel_zemin_kat),
+        Image(painter = painterResource(id = R.drawable.carousel_0),
             contentDescription = "",
             contentScale = ContentScale.FillBounds,
             modifier = Modifier.fillMaxSize())

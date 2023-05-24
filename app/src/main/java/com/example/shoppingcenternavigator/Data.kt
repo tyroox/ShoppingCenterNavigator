@@ -65,6 +65,35 @@ val points = listOf(
     Point(0,588f,557f),     //40 Merdiven3
     Point(0,491f,493f),     //41 Merdiven4
 
+    // Corners First Floor
+    Point(1,324f,479f),     //42
+    Point(1,324f,662f),     //43
+    Point(1,628f,662f),     //44
+    Point(1,628f,479f),     //45
+
+    // Prime Points First Floor
+    Point(1,292f,457f),     //46 Batik
+    Point(1,399f,662f),     //47 Creaphone
+    Point(1,323f,569f),     //48 D'S Damat
+    Point(1,629f,519f),     //49 D&R
+    Point(1,689f,698f),     //50 Decathlon
+    Point(1,386f,479f),     //51 Dimalis
+    Point(1,565f,479f),     //52 ebebek
+    Point(1,649f,675f),     //53 Fizyoheal
+    Point(1,558f,662f),     //54 Gusto
+    Point(1,323f,617f),     //55 igs
+    Point(1,267f,441f),     //56 Jakamen
+    Point(1,323f,520f),     //57 Journey
+    Point(1,324f,662f),     //58 Mudo Collection
+    Point(1,260f,436f),     //59 MR DIY
+    Point(1,323f,659f),     //60 Perspective
+    Point(1,475f,662f),     //61 United Colors of Benetton
+
+    Point(1,365f,569f),     //62 Merdiven 5
+    Point(1,475f,638f),     //63 Merdiven 6
+    Point(1,592f,567f),     //64 Merdiven 7
+    Point(1,484f,499f),     //65 Merdiven 8
+
 )
 
 val prime = listOf(
@@ -99,6 +128,23 @@ val prime = listOf(
     Shops("W Collection Women Prime", 0,766f,386f),
     Shops("Watson's Prime", 0,333f,605f),
     Shops("Yves Rocher Prime", 0,726f,705f),
+
+    Shops("Batik Prime", 1,292f,457f),
+    Shops("Creaphone Prime", 1,399f,662f),
+    Shops("D'S Damat Prime", 1,323f,569f),
+    Shops("D&R Prime", 1,629f,519f),
+    Shops("Decathlon Prime", 1,689f,698f),
+    Shops("Dimalis Prime", 1,386f,479f),
+    Shops("ebebek Prime", 1,565f,479f),
+    Shops("Fizyoheal Prime", 1,649f,675f),
+    Shops("Gusto Prime", 1,558f,662f),
+    Shops("igs Prime", 1,323f,617f),
+    Shops("Jakamen Prime", 1,267f,441f),
+    Shops("Journey Prime", 1,323f,520f),
+    Shops("Mudo Collection Prime", 1,324f,662f),
+    Shops("MR DIY Prime", 1,260f,436f),
+    Shops("Perspective Prime", 1,323f,659f),
+    Shops("United Colors of Benetton Prime", 1,475f,662f)
 )
 
 val shops = listOf(
@@ -133,4 +179,21 @@ val shops = listOf(
     Shops("W Collection Women", 0,775f,402f),
     Shops("Watson's", 0,301f,605f),
     Shops("Yves Rocher", 0,714f,721f),
+
+    Shops("Batik", 1,312f,429f),
+    Shops("Creaphone", 1,399f,681f),
+    Shops("D'S Damat", 1,291f,569f),
+    Shops("D&R", 1,664f,519f),
+    Shops("Decathlon", 1,710f,710f),
+    Shops("Dimalis", 1,386f,457f),
+    Shops("ebebek", 1,565f,457f),
+    Shops("Fizyoheal", 1,633f,701f),
+    Shops("Gusto", 1,558f,681f),
+    Shops("igs", 1,291f,617f),
+    Shops("Jakamen", 1,246f,469f),
+    Shops("Journey", 1,291f,520f),
+    Shops("Mudo Collection", 1,324f,712f),
+    Shops("Mr DIY", 1,246f,426f),
+    Shops("Perspective", 1,291f,659f),
+    Shops("United Colors of Benetton", 1,475f,681f),
 )
