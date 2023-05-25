@@ -13,15 +13,20 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun HomePage(navController: NavController, selectedItem: MutableState<Int>){
+    val keyboardController = LocalSoftwareKeyboardController.current
+
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -64,6 +69,7 @@ fun HomePage(navController: NavController, selectedItem: MutableState<Int>){
                             .padding(vertical = 16.dp, horizontal = 16.dp)
                             .clickable {
                                 selectedItem.value = 5
+                                keyboardController?.hide()
                             })
                 }
             }

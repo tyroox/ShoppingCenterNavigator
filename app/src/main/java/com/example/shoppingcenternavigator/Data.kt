@@ -59,11 +59,11 @@ val points = listOf(
     Point(0,333f,605f),     //36 Watson's
     Point(0,726f,705f),     //37 Yves Rocher
 
-    // stairs
-    Point(0,368f,558f),     //38 Merdiven1
-    Point(0,482f,622f),     //39 Merdiven2
-    Point(0,588f,557f),     //40 Merdiven3
-    Point(0,491f,493f),     //41 Merdiven4
+    // Stairs
+    Point(0,368f,558f),     //38 Merdiven1 (bu kattan aşağıya iniş)
+    Point(0,482f,622f),     //39 Merdiven2 (bu kattan yukarıya çıkış)
+    Point(0,491f,493f),     //40 Merdiven3 (yukarıdan bu kata gelen)
+    Point(0,588f,557f),     //41 Merdiven4 (aşağıdan bu kata çıkan)
 
     // Corners First Floor
     Point(1,324f,479f),     //42
@@ -89,10 +89,10 @@ val points = listOf(
     Point(1,323f,659f),     //60 Perspective
     Point(1,475f,662f),     //61 United Colors of Benetton
 
-    Point(1,365f,569f),     //62 Merdiven 5
-    Point(1,475f,638f),     //63 Merdiven 6
-    Point(1,592f,567f),     //64 Merdiven 7
-    Point(1,484f,499f),     //65 Merdiven 8
+    Point(1,365f,569f),     //62 Merdiven 5 (aşağıdan 1.kata çıkış)
+    Point(1,475f,638f),     //63 Merdiven 6 (yukarıdan 1.kata iniş)
+    Point(1,592f,567f),     //64 Merdiven 7 (aşağı katlara iniş)
+    Point(1,484f,499f),     //65 Merdiven 8 (yukarı katlara çıkış)
 
     // Corners Basement One
     Point(-1,689f,692f),    //66
@@ -125,10 +125,10 @@ val points = listOf(
     Point(-1,379f,693f),    //91 Toyzz Shop
     Point(-1,145f,426f),    //92 Vodafone
 
-    Point(-1,464f,530f),    //93 Merdiven 9
-    Point(-1,468f,675f),    //94 Merdiven 10
-    Point(-1,604f,644f),    //95 Merdiven 11
-    Point(-1,604f,652f),    //96 Merdiven 12
+    Point(-1,464f,530f),    //93 Merdiven A (üst katlara çıkış)
+    Point(-1,468f,675f),    //94 Merdiven B (üst kattan iniş)
+    Point(-1,604f,648f),    //95 Merdiven C (-2 iniş ve çıkış)
+    Point(-1,464f,518f),    //96 Merdiven Bağlama Point
 
     //Corners Second Floor
     Point(2,262f,486f),     //97
@@ -157,8 +157,8 @@ val points = listOf(
     Point(2,659f,438f),     //117 Tam Sos Döner
 
     // stairs
-    Point(2,354f,586f),     //118 Merdiven 13
-    Point(2,578f,581f),     //119 Merdiven 14
+    Point(2,354f,584f),     //118 Merdiven 13 (kattan aşağı iniş)
+    Point(2,578f,582f),      //119 Merdiven 14 (aşağıdan yukarı çıkış)
 
     // Prime Points Basement Floor Two
     Point(-2,430f,571f),    //120 Coral Travel
@@ -168,8 +168,7 @@ val points = listOf(
     Point(-2,320f,571f),    //124 Migros
     Point(-2,497f,519f),    //125 Workinton
 
-    Point(-2,362f,614f),    //125 Merdiven 15
-
+    Point(-2,362f,614f),    //126 Merdiven 15
 )
 
 val prime = listOf(

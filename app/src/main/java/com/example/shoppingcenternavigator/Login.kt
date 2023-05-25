@@ -11,8 +11,10 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
@@ -25,6 +27,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun Login(context: ComponentActivity, navController: NavController) {
     val auth = Firebase.auth
@@ -35,6 +38,8 @@ fun Login(context: ComponentActivity, navController: NavController) {
     val scope = rememberCoroutineScope()
     val imeState = rememberImeState()
     val scrollState = rememberScrollState()
+    val keyboardController = LocalSoftwareKeyboardController.current
+
 
     LaunchedEffect(key1 = imeState.value) {
         if (imeState.value) {
@@ -117,10 +122,12 @@ fun Login(context: ComponentActivity, navController: NavController) {
                                 ).addOnCompleteListener(context){ task ->
                                     if (task.isSuccessful){
                                         navController.navigate("MainPage")
+                                        keyboardController?.hide()
                                     }else{
                                         scope.launch {
                                             scaffoldState.snackbarHostState.showSnackbar(message = "E-posta ile şifre uyuşmuyor veya doğru değil.")
                                         }
+                                        keyboardController?.hide()
                                     }
                                 }
                             }
@@ -128,6 +135,7 @@ fun Login(context: ComponentActivity, navController: NavController) {
                                 scope.launch {
                                     scaffoldState.snackbarHostState.showSnackbar(message = "Lütfen e-posta ve şifre giriniz.")
                                 }
+                                keyboardController?.hide()
                             }
                         },
                         modifier = Modifier
@@ -150,6 +158,7 @@ fun Login(context: ComponentActivity, navController: NavController) {
                     Text("Hesabınız yok mu?", color = colorResource(id = R.color.orangePeel))
                     TextButton(onClick = {
                         navController.navigate("RegisterPage")
+                        keyboardController?.hide()
                     }) {
                         Text("Kayıt olun.", color = colorResource(id = R.color.caribbeanCurrent))
                     }

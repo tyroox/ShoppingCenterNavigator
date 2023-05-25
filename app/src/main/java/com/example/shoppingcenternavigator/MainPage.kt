@@ -61,7 +61,7 @@ fun MainPage(navController: NavController) {
                 // Add the Modifier.padding modifier with bottom padding of 56.dp
                 // to the Box composable that wraps the content
                 if (selectedItem.value == 0){
-                    Stores()
+                    FloorPlans()
                 }
                 if (selectedItem.value == 1){
                     Settings()
@@ -105,7 +105,7 @@ fun MainPage(navController: NavController) {
                     scaffoldState.drawerState.close()
                 }
             }) {
-                Text(text = "Mağazalar")
+                Text(text = "Kat Planları")
             }
             DropdownMenuItem(onClick = {
                 selectedItem.value = 1

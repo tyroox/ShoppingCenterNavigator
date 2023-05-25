@@ -1,26 +1,48 @@
 package com.example.shoppingcenternavigator
 
+import android.graphics.PathMeasure
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.OutlinedButton
+import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.KeyboardArrowLeft
+import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithCache
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
+import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat
+import com.example.shoppingcenternavigator.ui.theme.caribbeanCurrent
+import com.example.shoppingcenternavigator.ui.theme.isabelline
+import com.example.shoppingcenternavigator.ui.theme.moonstone
+import java.lang.Math.PI
+import java.lang.Math.atan2
+import java.lang.Math.cos
+import java.lang.Math.sin
 import java.util.*
+
 
 @RequiresApi(Build.VERSION_CODES.N)
 fun dijkstraAlgorithm(start: Point, destination: Point): List<Point> {
@@ -95,7 +117,7 @@ fun WayFindingAlgorithm() {
             .fillMaxSize()
     ) {
 
-        // zemin
+        // basement
         points[31].addConnection(points[0], calculateDistance(points[31], points[0]))
         points[10].addConnection(points[0], calculateDistance(points[10], points[0]))
         points[0].addConnection(points[28], calculateDistance(points[0], points[28]))
@@ -133,6 +155,13 @@ fun WayFindingAlgorithm() {
         points[13].addConnection(points[6], calculateDistance(points[13], points[6]))
         points[6].addConnection(points[30], calculateDistance(points[6], points[30]))
         points[30].addConnection(points[16], calculateDistance(points[30], points[16]))
+        // basement stairs
+        points[38].addConnection(points[26], calculateDistance(points[38], points[26]))
+        points[39].addConnection(points[24], calculateDistance(points[39], points[24]))
+        points[40].addConnection(points[27], calculateDistance(points[40], points[27]))
+        points[40].addConnection(points[15], calculateDistance(points[40], points[15]))
+        points[41].addConnection(points[14], calculateDistance(points[41], points[14]))
+
 
         // kat 1
         points[59].addConnection(points[56], calculateDistance(points[59], points[56]))
@@ -155,6 +184,13 @@ fun WayFindingAlgorithm() {
         points[42].addConnection(points[51], calculateDistance(points[42], points[51]))
         points[51].addConnection(points[52], calculateDistance(points[51], points[52]))
         points[52].addConnection(points[45], calculateDistance(points[52], points[45]))
+        // kat 1 merdiven
+        points[48].addConnection(points[62], calculateDistance(points[48], points[62]))
+        points[61].addConnection(points[63], calculateDistance(points[61], points[63]))
+        points[44].addConnection(points[64], calculateDistance(points[44], points[64]))
+        points[49].addConnection(points[64], calculateDistance(points[49], points[64]))
+        points[52].addConnection(points[65], calculateDistance(points[52], points[65]))
+        points[51].addConnection(points[65], calculateDistance(points[51], points[65]))
 
         //Basement Minus One Floor
         points[78].addConnection(points[77], calculateDistance(points[78], points[77]))
@@ -184,6 +220,12 @@ fun WayFindingAlgorithm() {
         points[67].addConnection(points[72], calculateDistance(points[67], points[72]))
         points[72].addConnection(points[70], calculateDistance(points[72], points[70]))
         points[70].addConnection(points[68], calculateDistance(points[70], points[68]))
+        // -1 merdiven
+        points[93].addConnection(points[96], calculateDistance(points[93], points[96]))
+        points[94].addConnection(points[86], calculateDistance(points[94], points[86]))
+        points[95].addConnection(points[88], calculateDistance(points[95], points[88]))
+        points[95].addConnection(points[66], calculateDistance(points[95], points[66]))
+        points[95].addConnection(points[85], calculateDistance(points[95], points[85]))
 
         //second floor
         points[97].addConnection(points[116], calculateDistance(points[97], points[116]))
@@ -207,6 +249,9 @@ fun WayFindingAlgorithm() {
         points[112].addConnection(points[109], calculateDistance(points[112], points[109]))
         points[109].addConnection(points[110], calculateDistance(points[109], points[110]))
         points[110].addConnection(points[100], calculateDistance(points[110], points[100]))
+        // kat 2 merdiven
+        points[118].addConnection(points[105], calculateDistance(points[118], points[105]))
+        points[119].addConnection(points[109], calculateDistance(points[119], points[109]))
 
         // -2 tokmak koneksiyonu
         points[124].addConnection(points[121], calculateDistance(points[124], points[121]))
@@ -214,17 +259,24 @@ fun WayFindingAlgorithm() {
         points[123].addConnection(points[120], calculateDistance(points[123], points[120]))
         points[120].addConnection(points[122], calculateDistance(points[120], points[122]))
         points[122].addConnection(points[125], calculateDistance(points[122], points[125]))
+        // -2 tokmak merdivenleri
+        points[125].addConnection(points[121], calculateDistance(points[125], points[121]))
+        points[125].addConnection(points[123], calculateDistance(points[125], points[123]))
 
         val path = Path()
         val fromIndex = SelectedShops.selectedOptionFromIndex
         val toIndex = SelectedShops.selectedOptionToIndex
         val fromFloor = shops[fromIndex].Floor
         val toFloor = shops[toIndex].Floor
+        val context = LocalContext.current
+        val selectedItem = remember { mutableStateOf(fromFloor) }
+        var path1Visibility by remember { mutableStateOf(true) }
+        var path2Visibility by remember { mutableStateOf(false) }
+        var path3Visibility by remember { mutableStateOf(true) }
+        var path4Visibility by remember { mutableStateOf(false) }
 
         Log.d("kat bilgisi", "$fromFloor")
         Log.d("kat bilgisi 2", "$toFloor")
-
-
 
         val pointList: MutableList<Coordinate> = mutableListOf()
         for (point in points) {
@@ -242,8 +294,150 @@ fun WayFindingAlgorithm() {
 
         val shortestPath = dijkstraAlgorithm(start, destination)
 
+        when (fromFloor) {
+            -2 -> {
+                Image(painter = painterResource(id = R.drawable.carousel_b2),
+                    contentDescription = "",
+                    contentScale = ContentScale.FillBounds,
+                    modifier = Modifier.fillMaxSize())
+            }
+            -1 -> {
+                Image(painter = painterResource(id = R.drawable.carousel_b1),
+                    contentDescription = "",
+                    contentScale = ContentScale.FillBounds,
+                    modifier = Modifier.fillMaxSize())
+            }
+            0 -> {
+                Image(painter = painterResource(id = R.drawable.carousel_0),
+                    contentDescription = "",
+                    contentScale = ContentScale.FillBounds,
+                    modifier = Modifier.fillMaxSize())
+            }
+            1 -> {
+                Image(painter = painterResource(id = R.drawable.carousel_1),
+                    contentDescription = "",
+                    contentScale = ContentScale.FillBounds,
+                    modifier = Modifier.fillMaxSize())
+            }
+            2 -> {
+                Image(painter = painterResource(id = R.drawable.carousel_2),
+                    contentDescription = "",
+                    contentScale = ContentScale.FillBounds,
+                    modifier = Modifier.fillMaxSize())
+            }
+
+        }
+
         if (fromFloor == toFloor){
-            when (fromFloor) {
+            Spacer(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .align(Alignment.Center)
+                    .drawWithCache {
+
+                        onDrawBehind {
+                            val iconSize = 15.dp.toPx()
+                            val startX =
+                                shops[fromIndex].x * generateSize(coordinateSystem, size)[0]
+                            val startY =
+                                shops[fromIndex].y * generateSize(coordinateSystem, size)[1]
+                            val endX = shops[toIndex].x * generateSize(coordinateSystem, size)[0]
+                            val endY = shops[toIndex].y * generateSize(coordinateSystem, size)[1]
+
+                            path.moveTo(
+                                startX,
+                                startY
+                            )
+                            path.lineTo(
+                                prime[fromIndex].x * generateSize(coordinateSystem, size)[0],
+                                prime[fromIndex].y * generateSize(coordinateSystem, size)[1]
+                            )
+
+                            /*
+                             shortestPath.forEach { point ->
+                                path.lineTo(
+                                    point.x * generateSize(coordinateSystem, size)[0],
+                                    point.y * generateSize(coordinateSystem, size)[1]
+                                )
+                            }
+                             */
+
+                            shortestPath.forEachIndexed { index, point ->
+                                val currentX = point.x * generateSize(coordinateSystem, size)[0]
+                                val currentY = point.y * generateSize(coordinateSystem, size)[1]
+                                path.lineTo(currentX, currentY)
+
+                                if (index < shortestPath.size - 1) {
+                                    val nextPoint = shortestPath[index + 1]
+                                    val nextX = nextPoint.x * generateSize(coordinateSystem, size)[0]
+                                    val nextY = nextPoint.y * generateSize(coordinateSystem, size)[1]
+
+                                    val angle = atan2((nextY - currentY).toDouble(), (nextX - currentX).toDouble())
+
+                                    // drawing the arrow
+                                    val arrowLength = iconSize * 0f
+                                    val arrowWidth = iconSize * 0.6f
+
+                                    val arrowStartX = currentX + cos(angle).toFloat() * iconSize
+                                    val arrowStartY = currentY + sin(angle).toFloat() * iconSize
+
+                                    val arrowEndX = arrowStartX + cos(angle).toFloat() * arrowLength
+                                    val arrowEndY = arrowStartY + sin(angle).toFloat() * arrowLength
+
+                                    val arrowTip1X = arrowEndX + cos((angle - PI * 0.75)).toFloat() * arrowWidth
+                                    val arrowTip1Y = arrowEndY + sin((angle - PI * 0.75)).toFloat() * arrowWidth
+
+                                    val arrowTip2X = arrowEndX + cos((angle + PI * 0.75)).toFloat() * arrowWidth
+                                    val arrowTip2Y = arrowEndY + sin((angle + PI * 0.75)).toFloat() * arrowWidth
+
+                                    val arrowPath = Path()
+                                    arrowPath.moveTo(arrowStartX, arrowStartY)
+                                    arrowPath.lineTo(arrowEndX, arrowEndY)
+                                    arrowPath.lineTo(arrowTip1X, arrowTip1Y)
+                                    arrowPath.moveTo(arrowEndX, arrowEndY)
+                                    arrowPath.lineTo(arrowTip2X, arrowTip2Y)
+
+                                    drawPath(arrowPath, caribbeanCurrent, style = Stroke(3.dp.toPx()))
+                                }
+                            }
+                            path.lineTo(
+                                endX,
+                                endY
+                            )
+
+                            // drawing the line
+                            drawPath(path, caribbeanCurrent, style = Stroke(3.dp.toPx()))
+
+                            drawCircle(
+                                moonstone,
+                                radius = iconSize / 4,
+                                center = Offset(startX, startY)
+                            )
+                            drawCircle(
+                                Color.Red,
+                                radius = iconSize / 4,
+                                center = Offset(endX, endY)
+                            )
+
+                            /*
+                            drawIntoCanvas { canvas ->
+                                val icon = ContextCompat.getDrawable(context, R.drawable.marker)
+                                icon?.setBounds(
+                                    endX.toInt(),
+                                    endY.toInt() - (iconSize).toInt()/3,
+                                    endX.toInt() + (iconSize).toInt(),
+                                    endY.toInt() + (iconSize).toInt()/3
+                                )
+                                icon?.draw(canvas.nativeCanvas)
+                            }
+                             */
+                        }
+                    }
+            )
+
+        }
+        else{
+            when (selectedItem.value) {
                 -2 -> {
                     Image(painter = painterResource(id = R.drawable.carousel_b2),
                         contentDescription = "",
@@ -275,32 +469,297 @@ fun WayFindingAlgorithm() {
                         modifier = Modifier.fillMaxSize())
                 }
             }
-            Spacer(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .align(Alignment.Center)
-                    .drawWithCache {
+            if(fromFloor > toFloor){
+                Spacer(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .align(Alignment.Center)
+                        .drawWithCache {
 
-                        onDrawBehind {
-                            path.moveTo(shops[fromIndex].x * generateSize(coordinateSystem, size)[0],
-                                shops[fromIndex].y * generateSize(coordinateSystem, size)[1])
-                            path.lineTo(prime[fromIndex].x * generateSize(coordinateSystem, size)[0],
-                                prime[fromIndex].y * generateSize(coordinateSystem, size)[1])
+                            onDrawBehind {
+                                val iconSize = 15.dp.toPx()
+                                val startX =
+                                    shops[fromIndex].x * generateSize(coordinateSystem, size)[0]
+                                val startY =
+                                    shops[fromIndex].y * generateSize(coordinateSystem, size)[1]
+                                val startPoint = points[primeFromIndex]
+                                var endStair = Point(0, 0f, 0f)
 
-                            shortestPath.forEach {point ->
-                                path.lineTo(point.x * generateSize(coordinateSystem, size)[0],point.y * generateSize(coordinateSystem, size)[1])
+                                val endX = shops[toIndex].x * generateSize(coordinateSystem, size)[0]
+                                val endY = shops[toIndex].y * generateSize(coordinateSystem, size)[1]
+                                var startStair = Point(0,0f,0f)
+                                val endPoint = points[primeToIndex]
+
+                                when (fromFloor) {
+                                    2 -> {
+                                        endStair = points[118]
+                                    }
+
+                                    1 -> {
+                                        endStair = points[64]
+                                    }
+
+                                    0 -> {
+                                        endStair = points[38]
+                                    }
+
+                                    -1 -> {
+                                        endStair = points[95]
+                                    }
+                                }
+
+                                val shortestWayToStairs = dijkstraAlgorithm(startPoint, endStair)
+
+                                if (path1Visibility) {
+                                    path.moveTo(startX, startY)
+                                    path.lineTo(
+                                        prime[fromIndex].x * generateSize(
+                                            coordinateSystem,
+                                            size
+                                        )[0],
+                                        prime[fromIndex].y * generateSize(coordinateSystem, size)[1]
+                                    )
+
+                                    shortestWayToStairs.forEach { point ->
+                                        path.lineTo(
+                                            point.x * generateSize(
+                                                coordinateSystem,
+                                                size
+                                            )[0], point.y * generateSize(coordinateSystem, size)[1]
+                                        )
+                                    }
+                                    // drawing the line
+
+                                    drawPath(path, caribbeanCurrent, style = Stroke(3.dp.toPx()))
+
+                                    drawCircle(
+                                        moonstone,
+                                        radius = iconSize / 4,
+                                        center = Offset(startX, startY)
+                                    )
+                                    drawCircle(
+                                        Color.Red, radius = iconSize / 4, center = Offset(
+                                            endStair.x * generateSize(coordinateSystem, size)[0],
+                                            endStair.y * generateSize(coordinateSystem, size)[1]
+                                        )
+                                    )
+                                }
+
+                                when (toFloor) {
+                                    1 -> {
+                                        startStair = points[63]
+                                    }
+
+                                    0 -> {
+                                        startStair = points[40]
+                                    }
+
+                                    -1 -> {
+                                        startStair = points[94]
+                                    }
+
+                                    -2 -> {
+                                        startStair = points[126]
+                                    }
+                                }
+
+                                val shortestWayFromStairs = dijkstraAlgorithm(startStair, endPoint)
+
+                                if (path2Visibility) {
+                                    path.moveTo(startStair.x * generateSize(coordinateSystem, size)[0],
+                                        startStair.y  * generateSize(coordinateSystem, size)[1])
+
+                                    shortestWayFromStairs.forEach { point ->
+                                        path.lineTo(
+                                            point.x * generateSize(
+                                                coordinateSystem,
+                                                size
+                                            )[0], point.y * generateSize(coordinateSystem, size)[1]
+                                        )
+                                    }
+                                    path.lineTo(endX, endY)
+
+
+                                    // drawing the line
+                                    drawPath(path, caribbeanCurrent, style = Stroke(3.dp.toPx()))
+
+                                    drawCircle(
+                                        moonstone,
+                                        radius = iconSize / 4,
+                                        center = Offset(startStair.x * generateSize(coordinateSystem, size)[0],
+                                            startStair.y  * generateSize(coordinateSystem, size)[1])
+                                    )
+                                    drawCircle(
+                                        Color.Red, radius = iconSize / 4, center = Offset(
+                                            endX, endY
+                                        )
+                                    )
+                                }
+
+
                             }
-                            path.lineTo(
-                                shops[toIndex].x * generateSize(coordinateSystem, size)[0],
-                                shops[toIndex].y * generateSize(coordinateSystem, size)[1])
-
-                            // drawing the line
-                            drawPath(path, Color.Black, style = Stroke(3.dp.toPx()))
                         }
-                    })
-        }
-        else{
+                )
+            }
+            else if (fromFloor < toFloor) {
+                Spacer(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .align(Alignment.Center)
+                        .drawWithCache {
 
+                            onDrawBehind {
+                                val iconSize = 15.dp.toPx()
+                                val startX =
+                                    shops[fromIndex].x * generateSize(coordinateSystem, size)[0]
+                                val startY =
+                                    shops[fromIndex].y * generateSize(coordinateSystem, size)[1]
+                                val startPoint = points[primeFromIndex]
+                                var endStair = Point(0, 0f, 0f)
+
+                                val endX = shops[toIndex].x * generateSize(coordinateSystem, size)[0]
+                                val endY = shops[toIndex].y * generateSize(coordinateSystem, size)[1]
+                                var startStair = Point(0,0f,0f)
+                                val endPoint = points[primeToIndex]
+
+                                when (fromFloor) {
+                                    1 -> {
+                                        endStair = points[65]
+                                    }
+
+                                    0 -> {
+                                        endStair = points[39]
+                                    }
+
+                                    -1 -> {
+                                        endStair = points[93]
+                                    }
+
+                                    -2 -> {
+                                        endStair = points[126]
+                                    }
+                                }
+
+                                val shortestWayToStairs = dijkstraAlgorithm(startPoint, endStair)
+
+                                if (path1Visibility) {
+                                    path.moveTo(startX, startY)
+                                    path.lineTo(
+                                        prime[fromIndex].x * generateSize(
+                                            coordinateSystem,
+                                            size
+                                        )[0],
+                                        prime[fromIndex].y * generateSize(coordinateSystem, size)[1]
+                                    )
+
+                                    shortestWayToStairs.forEach { point ->
+                                        path.lineTo(
+                                            point.x * generateSize(
+                                                coordinateSystem,
+                                                size
+                                            )[0], point.y * generateSize(coordinateSystem, size)[1]
+                                        )
+                                    }
+                                    // drawing the line
+
+                                    drawPath(path, caribbeanCurrent, style = Stroke(3.dp.toPx()))
+
+                                    drawCircle(
+                                        moonstone,
+                                        radius = iconSize / 4,
+                                        center = Offset(startX, startY)
+                                    )
+                                    drawCircle(
+                                        Color.Red, radius = iconSize / 4, center = Offset(
+                                            endStair.x * generateSize(coordinateSystem, size)[0],
+                                            endStair.y * generateSize(coordinateSystem, size)[1]
+                                        )
+                                    )
+                                }
+
+                                when (toFloor) {
+                                    2 -> {
+                                        startStair = points[119]
+                                    }
+
+                                    1 -> {
+                                        startStair = points[62]
+                                    }
+
+                                    0 -> {
+                                        startStair = points[41]
+                                    }
+
+                                    -1 -> {
+                                        startStair = points[95]
+                                    }
+                                }
+
+                                val shortestWayFromStairs = dijkstraAlgorithm(startStair, endPoint)
+
+                                if (path2Visibility) {
+                                    path.moveTo(startStair.x * generateSize(coordinateSystem, size)[0],
+                                        startStair.y  * generateSize(coordinateSystem, size)[1])
+
+                                    shortestWayFromStairs.forEach { point ->
+                                        path.lineTo(
+                                            point.x * generateSize(
+                                                coordinateSystem,
+                                                size
+                                            )[0], point.y * generateSize(coordinateSystem, size)[1]
+                                        )
+                                    }
+                                    path.lineTo(endX, endY)
+
+
+                                    // drawing the line
+                                    drawPath(path, caribbeanCurrent, style = Stroke(3.dp.toPx()))
+
+                                    drawCircle(
+                                        moonstone,
+                                        radius = iconSize / 4,
+                                        center = Offset(startStair.x * generateSize(coordinateSystem, size)[0],
+                                            startStair.y  * generateSize(coordinateSystem, size)[1])
+                                    )
+                                    drawCircle(
+                                        Color.Red, radius = iconSize / 4, center = Offset(
+                                            endX, endY
+                                        )
+                                    )
+                                }
+
+
+                            }
+                        }
+                )
+            }
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .align(Alignment.BottomCenter),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                OutlinedButton(onClick = { selectedItem.value = fromFloor
+                    path1Visibility = true
+                    path2Visibility = false
+                    path3Visibility = true
+                    path4Visibility = false
+                },
+                    colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent)) {
+                    Icons.Default.KeyboardArrowLeft
+                }
+                OutlinedButton(onClick = { selectedItem.value = toFloor
+                    path1Visibility = false
+                    path2Visibility = true
+                    path3Visibility = false
+                    path4Visibility = true},
+                    colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent)) {
+                    Icons.Default.KeyboardArrowRight
+                }
+            }
         }
+
     }
+
 }

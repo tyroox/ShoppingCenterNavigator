@@ -3,30 +3,24 @@ package com.example.shoppingcenternavigator
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Divider
 import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
-import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Snackbar
 import androidx.compose.material.SnackbarHost
@@ -43,16 +37,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalComposeUiApi::class)
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun ShopSearchBar(navController: NavController) {
@@ -68,6 +63,8 @@ fun ShopSearchBar(navController: NavController) {
     val options = shops
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
+    val keyboardController = LocalSoftwareKeyboardController.current
+
 
     Scaffold(
         scaffoldState = scaffoldState,
@@ -83,6 +80,7 @@ fun ShopSearchBar(navController: NavController) {
         content = {
             ConstraintLayout(modifier = Modifier.fillMaxSize()) {
                 val (fromTextField, toTextField, button) = createRefs()
+
 
                 TextField(
                     modifier = Modifier.constrainAs(fromTextField) {
@@ -161,9 +159,11 @@ fun ShopSearchBar(navController: NavController) {
                         if (selectedOptionFromIndex == selectedOptionToIndex) {
                             scope.launch {
                                 scaffoldState.snackbarHostState.showSnackbar(message = "Zaten o mağazadasınız.")
+                                keyboardController?.hide()
                             }
                         } else {
                             navController.navigate("WayFindingAlgorithm")
+                            keyboardController?.hide()
                         }
                     },
                     enabled = selectedOptionFrom.isNotEmpty() && selectedOptionTo.isNotEmpty(),
@@ -192,6 +192,8 @@ fun ShopSearchBar(navController: NavController) {
                                 onValueChange = { searchTextFrom = it },
                                 modifier = Modifier.fillMaxWidth(),
                                 label = { Text("Ara", color = colorResource(id = R.color.caribbeanCurrent)) },
+                                keyboardActions = KeyboardActions(
+                                    onDone = {keyboardController?.hide()}),
                                 colors = TextFieldDefaults.textFieldColors(
                                     backgroundColor = colorResource(id = R.color.isabelline),
                                     cursorColor = colorResource(id = R.color.caribbeanCurrent),
@@ -213,6 +215,7 @@ fun ShopSearchBar(navController: NavController) {
                                             Log.d("from", "$selectedOptionFromIndex")
                                             expandedFrom = false
                                             searchTextFrom = ""
+                                            keyboardController?.hide()
                                         }
                                     ) {
                                         Text(option.Name)
@@ -274,6 +277,7 @@ fun ShopSearchBar(navController: NavController) {
                                             Log.d("to", "$selectedOptionToIndex")
                                             expandedTo = false
                                             searchTextTo = ""
+                                            keyboardController?.hide()
                                         }
                                     ) {
                                         Text(option.Name)
@@ -283,7 +287,9 @@ fun ShopSearchBar(navController: NavController) {
                             Divider(modifier = Modifier.fillMaxWidth(), color = colorResource(id = R.color.caribbeanCurrent))
 
                             Button(
-                                onClick = { expandedTo = false },
+                                onClick = { expandedTo = false
+                                    keyboardController?.hide()
+                                },
                                 modifier = Modifier
                                     .align(Alignment.End)
                                     .padding(top = 16.dp, bottom = 8.dp),
@@ -291,6 +297,7 @@ fun ShopSearchBar(navController: NavController) {
                                 )
                             ) {
                                 Text("Kapat", color = colorResource(id = R.color.isabelline))
+
                             }
                         }
                     }

@@ -12,7 +12,9 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
@@ -28,6 +30,7 @@ import kotlinx.coroutines.launch
 import java.util.regex.Pattern
 
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun Register(context: ComponentActivity, navController: NavController) {
     val auth = Firebase.auth
@@ -45,6 +48,8 @@ fun Register(context: ComponentActivity, navController: NavController) {
     val imeState = rememberImeState()
     val scrollState = rememberScrollState()
     val alertDialog = remember { mutableStateOf(value = true) }
+    val keyboardController = LocalSoftwareKeyboardController.current
+
 
     if (alertDialog.value){
         AlertDialog(
@@ -172,12 +177,14 @@ fun Register(context: ComponentActivity, navController: NavController) {
                             scope.launch {
                                 scaffoldState.snackbarHostState.showSnackbar(message = "Lütfen boş alanları doldurunuz")
                             }
+                            keyboardController?.hide()
                         }
                         else if (password.value.text.trim().isNotEmpty()) {
                             if (password.value.text.trim() != password1.value.text.trim()) {
                                 scope.launch {
                                     scaffoldState.snackbarHostState.showSnackbar(message = "Şifreler eşleşmiyor.")
                                 }
+                                keyboardController?.hide()
                             } else if (password.value.text.trim() == password1.value.text.trim()) {
                                 auth.createUserWithEmailAndPassword(
                                     email.value.text.trim(),
@@ -185,10 +192,12 @@ fun Register(context: ComponentActivity, navController: NavController) {
                                 ).addOnCompleteListener(context){ task ->
                                     if (task.isSuccessful){
                                         navController.navigate("MainPage")
+                                        keyboardController?.hide()
                                     }else{
                                         scope.launch {
                                             scaffoldState.snackbarHostState.showSnackbar(message = "Bu e-posta adresi zaten kayıtlı.")
                                         }
+                                        keyboardController?.hide()
                                     }
                                 }
                             }
@@ -216,6 +225,7 @@ fun Register(context: ComponentActivity, navController: NavController) {
                     Text("Hesabınız var mı?", color = colorResource(id = R.color.orangePeel))
                     TextButton(onClick = {
                         navController.navigate("LoginPage")
+                        keyboardController?.hide()
                     }) {
                         Text("Giriş yapın.", color = colorResource(id = R.color.caribbeanCurrent))
                     }
