@@ -3,6 +3,7 @@ package com.example.shoppingcenternavigator
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -20,6 +21,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Divider
 import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.Icon
@@ -29,6 +31,8 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Snackbar
 import androidx.compose.material.SnackbarHost
 import androidx.compose.material.Text
+import androidx.compose.material.TextField
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.rememberScaffoldState
@@ -41,7 +45,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
@@ -78,7 +84,7 @@ fun ShopSearchBar(navController: NavController) {
             ConstraintLayout(modifier = Modifier.fillMaxSize()) {
                 val (fromTextField, toTextField, button) = createRefs()
 
-                OutlinedTextField(
+                TextField(
                     modifier = Modifier.constrainAs(fromTextField) {
                         top.linkTo(parent.top, margin = 16.dp)
                         start.linkTo(parent.start)
@@ -88,19 +94,28 @@ fun ShopSearchBar(navController: NavController) {
                     onValueChange = { /* Nothing to do here */ },
                     readOnly = true,
                     enabled = false,
-                    label = { Text("Neredesiniz?") },
+                    label = { Text("Neredesiniz?",
+                        color = colorResource(id = R.color.caribbeanCurrent)) },
+                    colors = TextFieldDefaults.textFieldColors(
+                        backgroundColor = colorResource(id = R.color.isabelline),
+                        disabledTextColor = Color.Black,
+                        cursorColor = colorResource(id = R.color.caribbeanCurrent),
+                        unfocusedIndicatorColor = colorResource(id = R.color.caribbeanCurrent),
+                        focusedIndicatorColor = colorResource(id = R.color.caribbeanCurrent)
+                    ),
                     trailingIcon = {
                         IconButton(
                             onClick = { expandedFrom = !expandedFrom }
                         ) {
                             Icon(
                                 imageVector = Icons.Default.ArrowDropDown,
-                                contentDescription = ""
+                                contentDescription = "",
+                                tint = colorResource(id = R.color.caribbeanCurrent)
                             )
                         }
                     }
                 )
-                OutlinedTextField(
+                TextField(
                     modifier = Modifier.constrainAs(toTextField) {
                         top.linkTo(fromTextField.bottom, margin = 16.dp)
                         start.linkTo(parent.start)
@@ -110,24 +125,35 @@ fun ShopSearchBar(navController: NavController) {
                     onValueChange = { /* Nothing to do here */ },
                     readOnly = true,
                     enabled = false,
-                    label = { Text("Nereye gitmek istiyorsunuz?") },
+                    label = { Text("Nereye gitmek istiyorsunuz?",
+                        color = colorResource(id = R.color.caribbeanCurrent)) },
+                    colors = TextFieldDefaults.textFieldColors(
+                        backgroundColor = colorResource(id = R.color.isabelline),
+                        disabledTextColor = Color.Black,
+                        cursorColor = colorResource(id = R.color.caribbeanCurrent),
+                        unfocusedIndicatorColor = colorResource(id = R.color.caribbeanCurrent),
+                        focusedIndicatorColor = colorResource(id = R.color.caribbeanCurrent)
+                    ),
                     trailingIcon = {
                         IconButton(
                             onClick = { expandedTo = !expandedTo }
                         ) {
                             Icon(
                                 imageVector = Icons.Default.ArrowDropDown,
-                                contentDescription = ""
+                                contentDescription = "",
+                                tint = colorResource(id = R.color.caribbeanCurrent)
                             )
                         }
                     }
                 )
+
                 Button(
-                    modifier = Modifier.constrainAs(button) {
-                        bottom.linkTo(parent.bottom, margin = 64.dp)
-                        start.linkTo(parent.start)
-                        end.linkTo(parent.end)
-                    }
+                    modifier = Modifier
+                        .constrainAs(button) {
+                            bottom.linkTo(parent.bottom, margin = 16.dp)
+                            start.linkTo(parent.start)
+                            end.linkTo(parent.end)
+                        }
                         .fillMaxWidth()
                         .height(IntrinsicSize.Min)
                         .padding(vertical = 16.dp, horizontal = 64.dp),
@@ -140,9 +166,11 @@ fun ShopSearchBar(navController: NavController) {
                             navController.navigate("WayFindingAlgorithm")
                         }
                     },
-                    enabled = selectedOptionFrom.isNotEmpty() && selectedOptionTo.isNotEmpty()
+                    enabled = selectedOptionFrom.isNotEmpty() && selectedOptionTo.isNotEmpty(),
+                    colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(id = R.color.orangePeel)
+                    )
                 ) {
-                    Text(text = "Yol tarifinizi çiz!")
+                    Text(text = "Yol tarifinizi çiz!", color = colorResource(id = R.color.isabelline))
                 }
             }
                 if (expandedFrom) {
@@ -156,14 +184,20 @@ fun ShopSearchBar(navController: NavController) {
                         Column(
                             modifier = Modifier
                                 .fillMaxWidth(0.8f)
-                                .background(Color.White)
+                                .background(colorResource(id = R.color.isabelline))
                                 .padding(16.dp)
                         ) {
-                            OutlinedTextField(
+                            TextField(
                                 value = searchTextFrom,
                                 onValueChange = { searchTextFrom = it },
                                 modifier = Modifier.fillMaxWidth(),
-                                label = { Text("Ara") }
+                                label = { Text("Ara", color = colorResource(id = R.color.caribbeanCurrent)) },
+                                colors = TextFieldDefaults.textFieldColors(
+                                    backgroundColor = colorResource(id = R.color.isabelline),
+                                    cursorColor = colorResource(id = R.color.caribbeanCurrent),
+                                    unfocusedIndicatorColor = colorResource(id = R.color.caribbeanCurrent),
+                                    focusedIndicatorColor = colorResource(id = R.color.caribbeanCurrent)
+                                ),
                             )
                             LazyColumn(
                                 modifier = Modifier
@@ -185,12 +219,16 @@ fun ShopSearchBar(navController: NavController) {
                                     }
                                 }
                             }
-                            Divider(modifier = Modifier.fillMaxWidth())
+                            Divider(modifier = Modifier.fillMaxWidth(), color = colorResource(id = R.color.caribbeanCurrent))
 
                             Button(
-                                onClick = { expandedFrom = false }
+                                onClick = { expandedFrom = false },
+                                modifier = Modifier
+                                    .align(Alignment.End)
+                                    .padding(top = 16.dp, bottom = 8.dp),
+                                colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(id = R.color.orangePeel))
                             ) {
-                                Text("Kapat")
+                                Text("Kapat", color = colorResource(id = R.color.isabelline))
                             }
                         }
                     }
@@ -206,14 +244,20 @@ fun ShopSearchBar(navController: NavController) {
                         Column(
                             modifier = Modifier
                                 .fillMaxWidth(0.8f)
-                                .background(Color.White)
+                                .background(color = colorResource(id = R.color.isabelline))
                                 .padding(16.dp)
                         ) {
-                            OutlinedTextField(
+                            TextField(
                                 value = searchTextTo,
                                 onValueChange = { searchTextTo = it },
                                 modifier = Modifier.fillMaxWidth(),
-                                label = { Text("Ara") }
+                                label = { Text("Ara", color = colorResource(id = R.color.caribbeanCurrent)) },
+                                colors = TextFieldDefaults.textFieldColors(
+                                    backgroundColor = colorResource(id = R.color.isabelline),
+                                    cursorColor = colorResource(id = R.color.caribbeanCurrent),
+                                    unfocusedIndicatorColor = colorResource(id = R.color.caribbeanCurrent),
+                                    focusedIndicatorColor = colorResource(id = R.color.caribbeanCurrent)
+                                ),
                             )
 
                             LazyColumn(
@@ -236,12 +280,17 @@ fun ShopSearchBar(navController: NavController) {
                                     }
                                 }
                             }
-                            Divider(modifier = Modifier.fillMaxWidth())
+                            Divider(modifier = Modifier.fillMaxWidth(), color = colorResource(id = R.color.caribbeanCurrent))
 
                             Button(
-                                onClick = { expandedTo = false }
+                                onClick = { expandedTo = false },
+                                modifier = Modifier
+                                    .align(Alignment.End)
+                                    .padding(top = 16.dp, bottom = 8.dp),
+                                colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(id = R.color.orangePeel)
+                                )
                             ) {
-                                Text("Kapat")
+                                Text("Kapat", color = colorResource(id = R.color.isabelline))
                             }
                         }
                     }

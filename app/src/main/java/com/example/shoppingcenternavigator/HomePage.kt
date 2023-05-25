@@ -45,9 +45,11 @@ fun HomePage(navController: NavController, selectedItem: MutableState<Int>){
                         tint = colorResource(id = R.color.caribbeanCurrent))
                 },
                 colors = TextFieldDefaults.textFieldColors(
+                    backgroundColor = colorResource(id = R.color.isabelline),
                     cursorColor = colorResource(id = R.color.caribbeanCurrent),
+                    unfocusedIndicatorColor = colorResource(id = R.color.caribbeanCurrent),
                     focusedIndicatorColor = colorResource(id = R.color.caribbeanCurrent)
-                )
+                ),
             )
             Spacer(modifier = Modifier.height((16.dp)))
             LazyColumn(

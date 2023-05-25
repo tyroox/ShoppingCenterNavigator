@@ -94,10 +94,6 @@ fun WayFindingAlgorithm() {
             .background(colorResource(id = R.color.isabelline))
             .fillMaxSize()
     ) {
-        Image(painter = painterResource(id = R.drawable.carousel_1),
-            contentDescription = "",
-            contentScale = ContentScale.FillBounds,
-            modifier = Modifier.fillMaxSize())
 
         // zemin
         points[31].addConnection(points[0], calculateDistance(points[31], points[0]))
@@ -160,9 +156,75 @@ fun WayFindingAlgorithm() {
         points[51].addConnection(points[52], calculateDistance(points[51], points[52]))
         points[52].addConnection(points[45], calculateDistance(points[52], points[45]))
 
+        //Basement Minus One Floor
+        points[78].addConnection(points[77], calculateDistance(points[78], points[77]))
+        points[77].addConnection(points[92], calculateDistance(points[77], points[92]))
+        points[92].addConnection(points[83], calculateDistance(points[92], points[83]))
+        points[83].addConnection(points[89], calculateDistance(points[83], points[89]))
+        points[89].addConnection(points[87], calculateDistance(points[89], points[87]))
+        points[87].addConnection(points[82], calculateDistance(points[87], points[82]))
+        points[82].addConnection(points[68], calculateDistance(points[82], points[68]))
+        points[68].addConnection(points[73], calculateDistance(points[68], points[73]))
+        points[73].addConnection(points[81], calculateDistance(points[73], points[81]))
+        points[81].addConnection(points[90], calculateDistance(points[81], points[90]))
+        points[90].addConnection(points[74], calculateDistance(points[90], points[74]))
+        points[74].addConnection(points[69], calculateDistance(points[74], points[69]))
+        points[69].addConnection(points[91], calculateDistance(points[69], points[91]))
+        points[91].addConnection(points[86], calculateDistance(points[91], points[86]))
+        points[86].addConnection(points[85], calculateDistance(points[86], points[85]))
+        points[85].addConnection(points[66], calculateDistance(points[85], points[66]))
+        points[75].addConnection(points[66], calculateDistance(points[75], points[66]))
+        points[66].addConnection(points[71], calculateDistance(points[66], points[71]))
+        points[71].addConnection(points[88], calculateDistance(points[71], points[88]))
+        points[88].addConnection(points[80], calculateDistance(points[88], points[80]))
+        points[80].addConnection(points[79], calculateDistance(points[80], points[79]))
+        points[79].addConnection(points[76], calculateDistance(points[79], points[76]))
+        points[76].addConnection(points[67], calculateDistance(points[76], points[67]))
+        points[84].addConnection(points[67], calculateDistance(points[84], points[67]))
+        points[67].addConnection(points[72], calculateDistance(points[67], points[72]))
+        points[72].addConnection(points[70], calculateDistance(points[72], points[70]))
+        points[70].addConnection(points[68], calculateDistance(points[70], points[68]))
+
+        //second floor
+        points[97].addConnection(points[116], calculateDistance(points[97], points[116]))
+        points[116].addConnection(points[105], calculateDistance(points[116], points[105]))
+        points[105].addConnection(points[104], calculateDistance(points[105], points[104]))
+        points[104].addConnection(points[99], calculateDistance(points[104], points[99]))
+        points[99].addConnection(points[115], calculateDistance(points[99], points[115]))
+        points[115].addConnection(points[100], calculateDistance(points[115], points[100]))
+        points[97].addConnection(points[106], calculateDistance(points[97], points[106]))
+        points[106].addConnection(points[101], calculateDistance(points[106], points[101]))
+        points[101].addConnection(points[103], calculateDistance(points[101], points[103]))
+        points[101].addConnection(points[111], calculateDistance(points[101], points[111]))
+        points[111].addConnection(points[107], calculateDistance(points[111], points[107]))
+        points[107].addConnection(points[98], calculateDistance(points[107], points[98]))
+        points[98].addConnection(points[102], calculateDistance(points[98], points[102]))
+        points[102].addConnection(points[117], calculateDistance(points[102], points[117]))
+        points[102].addConnection(points[113], calculateDistance(points[102], points[113]))
+        points[102].addConnection(points[108], calculateDistance(points[102], points[108]))
+        points[108].addConnection(points[114], calculateDistance(points[108], points[114]))
+        points[98].addConnection(points[112], calculateDistance(points[98], points[112]))
+        points[112].addConnection(points[109], calculateDistance(points[112], points[109]))
+        points[109].addConnection(points[110], calculateDistance(points[109], points[110]))
+        points[110].addConnection(points[100], calculateDistance(points[110], points[100]))
+
+        // -2 tokmak koneksiyonu
+        points[124].addConnection(points[121], calculateDistance(points[124], points[121]))
+        points[121].addConnection(points[123], calculateDistance(points[121], points[123]))
+        points[123].addConnection(points[120], calculateDistance(points[123], points[120]))
+        points[120].addConnection(points[122], calculateDistance(points[120], points[122]))
+        points[122].addConnection(points[125], calculateDistance(points[122], points[125]))
+
         val path = Path()
         val fromIndex = SelectedShops.selectedOptionFromIndex
         val toIndex = SelectedShops.selectedOptionToIndex
+        val fromFloor = shops[fromIndex].Floor
+        val toFloor = shops[toIndex].Floor
+
+        Log.d("kat bilgisi", "$fromFloor")
+        Log.d("kat bilgisi 2", "$toFloor")
+
+
 
         val pointList: MutableList<Coordinate> = mutableListOf()
         for (point in points) {
@@ -180,29 +242,65 @@ fun WayFindingAlgorithm() {
 
         val shortestPath = dijkstraAlgorithm(start, destination)
 
-        Spacer(
-            modifier = Modifier
-                .fillMaxSize()
-                .align(Alignment.Center)
-                .drawWithCache {
+        if (fromFloor == toFloor){
+            when (fromFloor) {
+                -2 -> {
+                    Image(painter = painterResource(id = R.drawable.carousel_b2),
+                        contentDescription = "",
+                        contentScale = ContentScale.FillBounds,
+                        modifier = Modifier.fillMaxSize())
+                }
+                -1 -> {
+                    Image(painter = painterResource(id = R.drawable.carousel_b1),
+                        contentDescription = "",
+                        contentScale = ContentScale.FillBounds,
+                        modifier = Modifier.fillMaxSize())
+                }
+                0 -> {
+                    Image(painter = painterResource(id = R.drawable.carousel_0),
+                        contentDescription = "",
+                        contentScale = ContentScale.FillBounds,
+                        modifier = Modifier.fillMaxSize())
+                }
+                1 -> {
+                    Image(painter = painterResource(id = R.drawable.carousel_1),
+                        contentDescription = "",
+                        contentScale = ContentScale.FillBounds,
+                        modifier = Modifier.fillMaxSize())
+                }
+                2 -> {
+                    Image(painter = painterResource(id = R.drawable.carousel_2),
+                        contentDescription = "",
+                        contentScale = ContentScale.FillBounds,
+                        modifier = Modifier.fillMaxSize())
+                }
+            }
+            Spacer(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .align(Alignment.Center)
+                    .drawWithCache {
 
-                    onDrawBehind {
-                        path.moveTo(shops[fromIndex].x * generateSize(coordinateSystem, size)[0],
-                            shops[fromIndex].y * generateSize(coordinateSystem, size)[1])
-                        path.lineTo(prime[fromIndex].x * generateSize(coordinateSystem, size)[0],
-                            prime[fromIndex].y * generateSize(coordinateSystem, size)[1])
+                        onDrawBehind {
+                            path.moveTo(shops[fromIndex].x * generateSize(coordinateSystem, size)[0],
+                                shops[fromIndex].y * generateSize(coordinateSystem, size)[1])
+                            path.lineTo(prime[fromIndex].x * generateSize(coordinateSystem, size)[0],
+                                prime[fromIndex].y * generateSize(coordinateSystem, size)[1])
 
-                        shortestPath.forEach {point ->
-                            path.lineTo(point.x * generateSize(coordinateSystem, size)[0],point.y * generateSize(coordinateSystem, size)[1])
+                            shortestPath.forEach {point ->
+                                path.lineTo(point.x * generateSize(coordinateSystem, size)[0],point.y * generateSize(coordinateSystem, size)[1])
+                            }
+                            path.lineTo(
+                                shops[toIndex].x * generateSize(coordinateSystem, size)[0],
+                                shops[toIndex].y * generateSize(coordinateSystem, size)[1])
+
+                            // drawing the line
+                            drawPath(path, Color.Black, style = Stroke(3.dp.toPx()))
                         }
-                        path.lineTo(
-                            shops[toIndex].x * generateSize(coordinateSystem, size)[0],
-                            shops[toIndex].y * generateSize(coordinateSystem, size)[1])
+                    })
+        }
+        else{
 
-                        // drawing the line
-                        drawPath(path, Color.Black, style = Stroke(3.dp.toPx()))
-
-                    }
-                })
+        }
     }
 }

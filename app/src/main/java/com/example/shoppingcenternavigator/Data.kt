@@ -94,6 +94,82 @@ val points = listOf(
     Point(1,592f,567f),     //64 Merdiven 7
     Point(1,484f,499f),     //65 Merdiven 8
 
+    // Corners Basement One
+    Point(-1,689f,692f),    //66
+    Point(-1,689f,519f),    //67
+    Point(-1,305f,519f),    //68
+    Point(-1,305f,692f),    //69
+
+    // Prime Points Basement One
+    Point(-1,373f,518f),    //70 Armağan Oyuncak
+    Point(-1,689f,693f),    //71 Barok Diamond
+    Point(-1,553f,518f),    //72 Beko
+    Point(-1,305f,557f),    //73 Bücürük
+    Point(-1,305f,685f),    //74 Dagi
+    Point(-1,701f,721f),    //75 Defacto
+    Point(-1,689f,536f),    //76 Deichmann
+    Point(-1,112f,406f),    //77 Diva
+    Point(-1,103f,400f),    //78 Dry Center
+    Point(-1,689f,602f),    //79 Focaccia
+    Point(-1,689f,603f),    //80 Frederic Patric Parfum
+    Point(-1,305f,603f),    //81 Gratis
+    Point(-1,283f,505f),    //82 GS Store
+    Point(-1,181f,445f),    //83 İstikbal Yatak
+    Point(-1,699f,487f),    //84 Joy Park
+    Point(-1,548f,693f),    //85 Karaca
+    Point(-1,465f,693f),    //86 Linens
+    Point(-1,245f,484f),    //87 Özdilek
+    Point(-1,689f,649f),    //88 Penti
+    Point(-1,190f,452f),    //89 Rock N Roll
+    Point(-1,305f,648f),    //90 Siemens
+    Point(-1,379f,693f),    //91 Toyzz Shop
+    Point(-1,145f,426f),    //92 Vodafone
+
+    Point(-1,464f,530f),    //93 Merdiven 9
+    Point(-1,468f,675f),    //94 Merdiven 10
+    Point(-1,604f,644f),    //95 Merdiven 11
+    Point(-1,604f,652f),    //96 Merdiven 12
+
+    //Corners Second Floor
+    Point(2,262f,486f),     //97
+    Point(2,660f,486f),     //98
+    Point(2,262f,672f),     //99
+    Point(2,660f,672f),     //100
+    Point(2,337f,486f),     //101
+    Point(2,660f,438f),     //102
+
+
+    // Prime Points Second Floor
+    Point(2,337f,412f),     //103 Acıbadem Hastanesi
+    Point(2,262f,673f),     //104 Adabella Pizza
+    Point(2,262f,584f),     //105 Arby's
+    Point(2,295f,486f),     //106 Burger King
+    Point(2,546f,486f),     //107 Bursa Kebap Evi
+    Point(2,660f,381f),     //108 Chinese & Sushi Express
+    Point(2,660f,582f),     //109 Cici Fırın
+    Point(2,660f,655f),     //110 Cinema Pink
+    Point(2,378f,486f),     //111 Junior Chef
+    Point(2,660f,535f),     //112 Just Chik'n
+    Point(2,661f,438f),     //113 Köfteci Ramiz
+    Point(2,695f,381f),     //114 Mado
+    Point(2,410f,672f),     //115 Magic Play
+    Point(2,262f,534f),     //116 Salads Mixx
+    Point(2,659f,438f),     //117 Tam Sos Döner
+
+    // stairs
+    Point(2,354f,586f),     //118 Merdiven 13
+    Point(2,578f,581f),     //119 Merdiven 14
+
+    // Prime Points Basement Floor Two
+    Point(-2,430f,571f),    //120 Coral Travel
+    Point(-2,328f,571f),    //121 Ets Turizm
+    Point(-2,497f,571f),    //122 Gymotion
+    Point(-2,388f,571f),    //123 Jolly Tur
+    Point(-2,320f,571f),    //124 Migros
+    Point(-2,497f,519f),    //125 Workinton
+
+    Point(-2,362f,614f),    //125 Merdiven 15
+
 )
 
 val prime = listOf(
@@ -144,7 +220,55 @@ val prime = listOf(
     Shops("Mudo Collection Prime", 1,324f,662f),
     Shops("MR DIY Prime", 1,260f,436f),
     Shops("Perspective Prime", 1,323f,659f),
-    Shops("United Colors of Benetton Prime", 1,475f,662f)
+    Shops("United Colors of Benetton Prime", 1,475f,662f),
+
+    Shops("Armağan Oyuncak Prime", -1,373f,518f),
+    Shops("Barok Diamond Prime", -1,689f,693f),
+    Shops("Beko Prime", -1,553f,518f),
+    Shops("Bücürük Prime", -1,305f,557f),
+    Shops("Dagi Prime", -1,305f,685f),
+    Shops("Defacto Prime", -1,701f,721f),
+    Shops("Deichmann Prime", -1,689f,536f),
+    Shops("Diva Prime", -1,112f,406f),
+    Shops("Dry Center Prime", -1,103f,400f),
+    Shops("Focaccia Prime", -1,689f,602f),
+    Shops("Frederic Patric Parfum Prime", -1,689f,603f),
+    Shops("Gratis Prime", -1,305f,603f),
+    Shops("GS Store Prime", -1,283f,505f),
+    Shops("İstikbal Yatak Prime", -1,181f,445f),
+    Shops("Joy Park Prime", -1,699f,487f),
+    Shops("Karaca Prime", -1,548f,693f),
+    Shops("Linens Prime", -1,465f,693f),
+    Shops("Özdilek Prime", -1,245f,484f),
+    Shops("Penti Prime", -1,689f,649f),
+    Shops("Rock N Roll Prime", -1,190f,452f),
+    Shops("Siemens Prime", -1,305f,648f),
+    Shops("Toyzz Shop Prime", -1,379f,693f),
+    Shops("Vodafone Prime", -1,145f,426f),
+
+    Shops("Acıbadem Hastanesi Prime", 2,337f,412f),
+    Shops("Adabella Pizza Prime", 2,262f,673f),
+    Shops("Arby's Prime", 2,262f,584f),
+    Shops("Burger King Prime", 2,295f,486f),
+    Shops("Bursa Kebap Evi Prime", 2,546f,486f),
+    Shops("Chinese & Sushi Express Prime", 2,660f,381f),
+    Shops("Cici Fırın Prime", 2,660f,582f),
+    Shops("Cinema Pink Prime", 2,660f,655f),
+    Shops("Junior Chef Prime", 2,378f,486f),
+    Shops("Just Chik'n Prime", 2,660f,535f),
+    Shops("Köfteci Ramiz Prime", 2,661f,438f),
+    Shops("Mado Prime", 2,695f,381f),
+    Shops("Magic Play Prime", 2,410f,672f),
+    Shops("Salads Mixx Prime", 2,262f,534f),
+    Shops("Tam Sos Döner Prime", 2,659f,438f),
+
+    Shops("Coral Travel Prime", -2,430f,571f),
+    Shops("Ets Turizm Prime", -2,328f,571f),
+    Shops("Gymotion Prime", -2,497f,571f),
+    Shops("Jolly Tur Prime", -2,388f,571f),
+    Shops("Migros Prime", -2,320f,571f),
+    Shops("Workinton Prime", -2,497f,519f),
+
 )
 
 val shops = listOf(
@@ -196,4 +320,51 @@ val shops = listOf(
     Shops("Mr DIY", 1,246f,426f),
     Shops("Perspective", 1,291f,659f),
     Shops("United Colors of Benetton", 1,475f,681f),
+
+    Shops("Armağan Oyuncak", -1,373f,495f),
+    Shops("Barok Diamond", -1,738f,693f),
+    Shops("Beko", -1,553f,495f),
+    Shops("Bücürük", -1,274f,557f),
+    Shops("Dagi", -1,274f,685f),
+    Shops("Defacto", -1,705f,733f),
+    Shops("Deichmann", -1,738f,536f),
+    Shops("Diva", -1,124f,386f),
+    Shops("Dry Center", -1,93f,416f),
+    Shops("Focaccia", -1,665f,602f),
+    Shops("Frederic Patric Parfum", -1,738f,603f),
+    Shops("Gratis", -1,274f,603f),
+    Shops("GS Store", -1,300f,470f),
+    Shops("İstikbal Yatak", -1,192f,424f),
+    Shops("Joy Park", -1,704f,471f),
+    Shops("Karaca", -1,548f,709f),
+    Shops("Linens", -1,465f,709f),
+    Shops("Özdilek", -1,231f,509f),
+    Shops("Penti", -1,738f,649f),
+    Shops("Rock N Roll", -1,182f,467f),
+    Shops("Siemens", -1,274f,648f),
+    Shops("Toyzz Shop", -1,379f,709f),
+    Shops("Vodafone", -1,136f,441f),
+
+    Shops("Acıbadem Hastanesi", 2,382f,382f),
+    Shops("Adabella Pizza", 2,194f,673f),
+    Shops("Arby's", 2,194f,584f),
+    Shops("Burger King", 2,295f,462f),
+    Shops("Bursa Kebap Evi", 2,546f,462f),
+    Shops("Chinese & Sushi Express", 2,609f,381f),
+    Shops("Cici Fırın", 2,738f,582f),
+    Shops("Cinema Pink", 2,693f,655f),
+    Shops("Junior Chef", 2,378f,462f),
+    Shops("Just Chik'n", 2,738f,535f),
+    Shops("Köfteci Ramiz", 2,738f,438f),
+    Shops("Mado", 2,695f,313f),
+    Shops("Magic Play", 2,410f,692f),
+    Shops("Salads Mixx", 2,194f,534f),
+    Shops("Tam Sos Döner", 2,609f,438f),
+
+    Shops("Coral Travel", -2,430f,543f),
+    Shops("Ets Turizm", -2,328f,623f),
+    Shops("Gymotion", -2,521f,571f),
+    Shops("Jolly Tur", -2,388f,543f),
+    Shops("Migros", -2,304f,571f),
+    Shops("Workinton", -2,521f,519f),
 )
