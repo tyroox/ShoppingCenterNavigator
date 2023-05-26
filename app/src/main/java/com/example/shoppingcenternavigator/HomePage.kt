@@ -1,5 +1,6 @@
 package com.example.shoppingcenternavigator
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -68,7 +69,9 @@ fun HomePage(navController: NavController, selectedItem: MutableState<Int>){
                             .fillMaxWidth()
                             .padding(vertical = 16.dp, horizontal = 16.dp)
                             .clickable {
-                                selectedItem.value = 5
+                                SelectedShops.selectedMall = 1
+                                selectedItem.value = 2
+                                Log.d("aa","${SelectedShops.selectedMall}")
                                 keyboardController?.hide()
                             })
                 }

@@ -1,130 +1,57 @@
 package com.example.shoppingcenternavigator
 
 import android.os.Build
-import androidx.activity.compose.BackHandler
 import androidx.annotation.RequiresApi
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import kotlinx.coroutines.launch
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun MainPage(navController: NavController) {
-    val selectedItem = remember { mutableStateOf(3) }
+    val selectedItem = remember { mutableStateOf(2) }
     HomePage(navController, selectedItem)
     val scaffoldState = rememberScaffoldState(rememberDrawerState(DrawerValue.Closed))
     val scope = rememberCoroutineScope()
+    var selectedMall = SelectedShops.selectedMall
 
     Scaffold(
         scaffoldState = scaffoldState,
-        topBar = {
-            // TopAppBar code
-            TopAppBar(
-                title = {
-                    Row(modifier = Modifier.fillMaxSize(),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.menu),
-                            contentDescription = "",
-                            tint = colorResource(id = R.color.caribbeanCurrent),
-                            modifier = Modifier.clickable {
-                                scope.launch {
-                                    scaffoldState.drawerState.open()
-                                }
-                            })
-                        Image(painter = painterResource(id = R.drawable.shopping_center_navigator_app_icon),
-                            contentDescription = "",
-                            Modifier.size(50.dp),
-                        )
-                    }
-                },
-                backgroundColor = colorResource(id = R.color.moonstone)
-            )
-        },
         content = {
             Box(modifier = Modifier.padding(bottom = 56.dp)) {
                 // Add the Modifier.padding modifier with bottom padding of 56.dp
                 // to the Box composable that wraps the content
                 if (selectedItem.value == 0){
-                    FloorPlans()
+                    GPS()
                 }
                 if (selectedItem.value == 1){
-                    Settings()
+                    FloorPlans()
                 }
                 if (selectedItem.value == 2){
-                    navController.navigate("GPS")
-                }
-                if (selectedItem.value == 3){
-                    HomePage(navController = navController, selectedItem = selectedItem)
-                }
-                if (selectedItem.value == 4){
-                    User(navController = navController)
-                }
-                if (selectedItem.value == 5){
-                    ShopSearchBar(navController = navController)
-                }
-            }
-        },
-        drawerContent = {
-            // Drawer content code
-            Column(modifier = Modifier
-                .fillMaxWidth()
-                .size(100.dp)
-                .background(colorResource(id = R.color.moonstone))) {
-                Column(modifier = Modifier.fillMaxSize(),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.user),
-                        contentDescription = "",
-                        tint = colorResource(id = R.color.caribbeanCurrent),
-                        modifier = Modifier
-                            .size(50.dp)
-                    )
-                }
-            }
-
-            DropdownMenuItem(onClick = {
-                selectedItem.value = 0
-                scope.launch {
-                    scaffoldState.drawerState.close()
-                }
-            }) {
-                Text(text = "Kat Planları")
-            }
-            DropdownMenuItem(onClick = {
-                selectedItem.value = 1
-                scope.launch {
-                    scaffoldState.drawerState.close()
-                }
-            }) {
-                Text(text = "Ayarlar")
-            }
-
-            BackHandler(onBack = {
-                if(scaffoldState.drawerState.isOpen){
-                    scope.launch {
-                        scaffoldState.drawerState.close()
+                    if (selectedMall == 0){
+                        HomePage(navController = navController, selectedItem = selectedItem)
+                    }
+                    else{
+                        ShopSearchBar(navController = navController)
                     }
                 }
-            })
+                if (selectedItem.value == 3){
+                    Settings()
+                }
+            }
         },
-        drawerBackgroundColor = colorResource(id = R.color.isabelline),
         bottomBar = {
             // BottomAppBar code
             BottomAppBar(
@@ -132,8 +59,8 @@ fun MainPage(navController: NavController) {
                 content = {
                     BottomNavigation(backgroundColor = colorResource(id = R.color.moonstone)) {
                         BottomNavigationItem(
-                            selected = selectedItem.value == 2 ,
-                            onClick = { selectedItem.value = 2 },
+                            selected = selectedItem.value == 0 ,
+                            onClick = { selectedItem.value = 0 },
                             icon = {
                                 Icon(
                                     painter = painterResource(id = R.drawable.location),
@@ -145,11 +72,24 @@ fun MainPage(navController: NavController) {
                         )
 
                         BottomNavigationItem(
-                            selected = selectedItem.value == 3 ,
-                            onClick = { selectedItem.value = 3 },
+                            selected = selectedItem.value == 1 ,
+                            onClick = { selectedItem.value = 1 },
                             icon = {
                                 Icon(
-                                    painter = painterResource(id = R.drawable.homepage),
+                                    imageVector = Icons.Default.ShoppingCart,
+                                    contentDescription = "")
+                            },
+                            label = { Text(text = "Kat Planları")},
+                            selectedContentColor = colorResource(id = R.color.orangePeel),
+                            unselectedContentColor = colorResource(id = R.color.isabelline)
+                        )
+
+                        BottomNavigationItem(
+                            selected = selectedItem.value == 2 ,
+                            onClick = { selectedItem.value = 2 },
+                            icon = {
+                                Icon(
+                                    imageVector = Icons.Default.Search,
                                     contentDescription = "")
                             },
                             label = { Text(text = "Ana Sayfa")},
@@ -158,17 +98,18 @@ fun MainPage(navController: NavController) {
                         )
 
                         BottomNavigationItem(
-                            selected = selectedItem.value == 4 ,
-                            onClick = { selectedItem.value = 4 },
+                            selected = selectedItem.value == 3 ,
+                            onClick = { selectedItem.value = 3 },
                             icon = {
                                 Icon(
-                                    painter = painterResource(id = R.drawable.user),
+                                    imageVector = Icons.Default.Settings,
                                     contentDescription = "")
                             },
-                            label = { Text(text = "Kullanıcı")},
+                            label = { Text(text = "Ayarlar")},
                             selectedContentColor = colorResource(id = R.color.orangePeel),
                             unselectedContentColor = colorResource(id = R.color.isabelline)
                         )
+
                     }
                 }
             )

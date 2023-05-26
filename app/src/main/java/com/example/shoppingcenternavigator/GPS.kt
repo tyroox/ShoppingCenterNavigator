@@ -24,7 +24,7 @@ fun GPS() {
         val capacity = LatLng(40.977401270276204, 28.871080282120634)
         val carousel = LatLng(40.977830565212244, 28.873236778161665)
         val cameraPositionState = rememberCameraPositionState {
-            position = CameraPosition.fromLatLngZoom(istanbul, 9.5f)
+            position = CameraPosition.fromLatLngZoom(carousel, 15f)
         }
         GoogleMap(
             modifier = Modifier.fillMaxSize(),

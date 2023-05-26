@@ -7,4 +7,5 @@ import androidx.compose.runtime.setValue
 object SelectedShops {
     var selectedOptionFromIndex by mutableStateOf(0)
     var selectedOptionToIndex by mutableStateOf(0)
+    var selectedMall by mutableStateOf(0)
 }
