@@ -10,10 +10,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
@@ -26,9 +24,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
@@ -36,7 +34,6 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.shoppingcenternavigator.ui.theme.caribbeanCurrent
@@ -52,7 +49,12 @@ fun StoreSearchBar(
 
     // Define the map associating text with background image resources
     val backgroundImages = mapOf(
-        "acıbadem hastanesi" to R.drawable.acibadem
+        "acıbadem hastanesi" to R.drawable.acibadem_logo,
+        "adabella pizza" to R.drawable.adabella_pizza_logo,
+        "colin's" to R.drawable.colins_logo,
+        "hummel" to R.drawable.hummel_logo
+
+
         // Add more mappings for other text and corresponding image resources
     )
 
@@ -113,7 +115,8 @@ fun StoreSearchBar(
                             val backgroundPainter = backgroundResource?.let { painterResource(it) }
 
                             Box(
-                                modifier = Modifier.padding(vertical = 4.dp)
+                                modifier = Modifier
+                                    .padding(vertical = 4.dp)
                                     .size(boxSize)
                                     .padding(4.dp)
                                     .clip(RoundedCornerShape(4.dp))
@@ -122,26 +125,26 @@ fun StoreSearchBar(
                                         onBoxClick(index)
                                     }
                             ) {
-                                if (backgroundPainter != null) {
-                                    Box(
-                                        modifier = Modifier
-                                            .fillMaxSize()
-                                            .padding(top = 50.dp,
-                                                start = 50.dp,
-                                                end = 50.dp,
-                                                bottom = 50.dp) // Adjust the height as needed
-                                            .align(Alignment.TopCenter).size(20.dp)
-                                    ) {
+                                Column(
+                                    modifier = Modifier.fillMaxSize().padding(8.dp),
+                                    verticalArrangement = Arrangement.Top,
+                                    horizontalAlignment = Alignment.CenterHorizontally
+                                ) {
+                                    if (backgroundPainter != null) {
                                         Image(
                                             painter = backgroundPainter,
                                             contentDescription = null,
-                                            contentScale = ContentScale.Crop,
-                                            modifier = Modifier.fillMaxSize()
+                                            contentScale = ContentScale.Inside,
+                                            modifier = Modifier
+                                                .size(100.dp)
+                                                .clip(RectangleShape)
                                         )
                                     }
                                 }
                                 Column(
-                                    modifier = Modifier.fillMaxSize().padding(bottom = 16.dp),
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .padding(bottom = 16.dp),
                                     verticalArrangement = Arrangement.Bottom,
                                     horizontalAlignment = Alignment.CenterHorizontally
                                 ) {
@@ -170,6 +173,9 @@ fun StoreSearchBar(
                                 }
                             }
                     }
+                        else {
+                            Spacer(Modifier.size(boxSize))
+                        }
                 }
             }
         }

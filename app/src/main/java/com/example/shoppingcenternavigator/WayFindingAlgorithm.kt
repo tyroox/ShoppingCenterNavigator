@@ -341,10 +341,14 @@ fun WayFindingAlgorithm() {
 
         if (fromFloor == toFloor){
             val animatedPathProgress = remember { Animatable(0f) }
-            var animationSpeed = 2000
+
             LaunchedEffect(Unit) {
-                animatedPathProgress.animateTo(1f, animationSpec = tween(durationMillis = animationSpeed))
+                animatedPathProgress.animateTo(
+                    targetValue = 1f,
+                    animationSpec = infiniteRepeatable(tween(durationMillis = 5000), RepeatMode.Restart)
+                )
             }
+
             Spacer(
                 modifier = Modifier
                     .fillMaxSize()
@@ -358,16 +362,26 @@ fun WayFindingAlgorithm() {
 
                         onDrawBehind {
                             val currentPathProgress = animatedPathProgress.value
+                            path.reset()
 
                             path.moveTo(startX, startY)
-                            path.lineTo(
-                                prime[fromIndex].x * generateSize(coordinateSystem, size)[0],
-                                prime[fromIndex].y * generateSize(coordinateSystem, size)[1]
-                            )
+
+                            val pathLength = shortestPath.size - 1
+                            val pathProgress = currentPathProgress * pathLength
+                            Log.d("aa","${shops.size}")
+
+                            val initialPathProgress = 1f / pathLength
+                            if (initialPathProgress <= pathProgress) {
+                                path.lineTo(
+                                    prime[fromIndex].x * generateSize(coordinateSystem, size)[0],
+                                    prime[fromIndex].y * generateSize(coordinateSystem, size)[1]
+                                )
+                            }
 
                             shortestPath.forEachIndexed { i, point ->
-                                val pathProgress = (i + 1) / shortestPath.size.toFloat() // Calculate path progress for each point
-                                if (pathProgress <= currentPathProgress) {
+                                val pointProgress = i / pathLength.toFloat()
+
+                                if (pointProgress <= pathProgress) {
                                     path.lineTo(
                                         point.x * generateSize(coordinateSystem, size)[0],
                                         point.y * generateSize(coordinateSystem, size)[1]
@@ -375,7 +389,7 @@ fun WayFindingAlgorithm() {
                                 }
                             }
 
-                            if (currentPathProgress >= 1f) {
+                            if (pathProgress >= 1f) {
                                 path.lineTo(endX, endY)
                             }
 

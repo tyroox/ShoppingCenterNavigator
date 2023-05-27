@@ -38,7 +38,7 @@ val points = listOf(
     Point(0,562f,467f),     //15 Efor
     Point(0,855f,744f),     //16 Hayal Kahvesi
     Point(0,278f,433f),     //17 Hotiç
-    Point(0,559f,646f),     //18 Hummels
+    Point(0,559f,646f),     //18 Hummel
     Point(0,745f,398f),     //19 Jepublic
     Point(0,230f,402f),     //20 Jument
     Point(0,668f,445f),     //21 Kemal Tanca
@@ -47,7 +47,7 @@ val points = listOf(
     Point(0,482f,646f),     //24 Love My Body
     Point(0,333f,510f),     //25 Mavi
     Point(0,333f,558f),     //26 Pierre Cardin
-    Point(0,394f,467f),     //27 Polo
+    Point(0,394f,467f),     //27 U.S. Polo Assn
     Point(0,201f,384f),     //28 Saat&Saat
     Point(0,307f,451f),     //29 Sevil
     Point(0,814f,744f),     //30 Starbucks
@@ -183,7 +183,7 @@ val prime = listOf(
     Shops("Efor Prime", 0,562f,467f),
     Shops("Hayal Kahvesi Prime", 0,855f,744f),
     Shops("Hotiç Prime", 0,278f,433f),
-    Shops("Hummels Prime", 0,559f,646f),
+    Shops("Hummel Prime", 0,559f,646f),
     Shops("Jepublic Prime", 0,745f,398f),
     Shops("Jument Prime", 0,230f,402f),
     Shops("Kemal Tanca Prime", 0,668f,445f),
@@ -192,7 +192,7 @@ val prime = listOf(
     Shops("Love My Body Prime", 0,482f,646f),
     Shops("Mavi Prime", 0,333f,510f),
     Shops("Pierre Cardin Prime", 0,333f,558f),
-    Shops("Polo Prime",0,394f,467f),
+    Shops("U.S. Polo Assn Prime",0,394f,467f),
     Shops("Saat&Saat Prime", 0,201f,384f),
     Shops("Sevil Prime", 0,307f,451f),
     Shops("Starbucks Prime", 0, 814f,744f),
@@ -282,7 +282,7 @@ val shops = listOf(
     Shops("Efor", 0,562f,448f),
     Shops("Hayal Kahvesi", 0,855f,714f),
     Shops("Hotiç", 0,265f,451f),
-    Shops("Hummels", 0,559f,666f),
+    Shops("Hummel", 0,559f,666f),
     Shops("Jepublic", 0,757f,427f),
     Shops("Jument", 0,238f,386f),
     Shops("Kemal Tanca", 0,657f,427f),
@@ -291,7 +291,7 @@ val shops = listOf(
     Shops("Love My Body", 0,482f,666f),
     Shops("Mavi", 0,301f,510f),
     Shops("Pierre Cardin", 0,301f,558f),
-    Shops("Polo",0,394f,448f),
+    Shops("U.S. Polo Assn",0,394f,448f),
     Shops("Saat&Saat", 0,187f,403f),
     Shops("Sevil", 0,316f,434f),
     Shops("Starbucks", 0, 814f,772f),
