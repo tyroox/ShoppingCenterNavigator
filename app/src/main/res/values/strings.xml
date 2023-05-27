@@ -4,6 +4,7 @@
     <string name="floorPlans">Floor Plans</string>
     <string name="homePage">Home Page</string>
     <string name="settings">Settings</string>
+    <string name="stores">Stores</string>
     <string name="findMall">Find Mall</string>
     <string name="fromStore">Where are you?</string>
     <string name="toStore">Where would you like to go?</string>
@@ -11,4 +12,6 @@
     <string name="drawPathButton">Draw Path!</string>
     <string name="searchStoreButton">Search</string>
     <string name="closeButton">Close</string>
+    <string name="chooseMallErrorMessage">Please select a shopping mall from the main page.</string>
+    <string name="confirmButton">Okay</string>
 </resources>

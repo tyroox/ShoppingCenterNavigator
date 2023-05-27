@@ -42,6 +42,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
@@ -65,6 +66,7 @@ fun ShopSearchBar(navController: NavController) {
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
     val keyboardController = LocalSoftwareKeyboardController.current
+    val sameStoreErrorMessage = stringResource(id = R.string.sameStoreErrorMessage)
 
 
     Scaffold(
@@ -108,7 +110,8 @@ fun ShopSearchBar(navController: NavController) {
                     onValueChange = { /* Nothing to do here */ },
                     readOnly = true,
                     enabled = false,
-                    label = { Text("Neredesiniz?",
+                    label = { Text(
+                        stringResource(id = R.string.fromStore),
                         color = colorResource(id = R.color.caribbeanCurrent)) },
                     colors = TextFieldDefaults.textFieldColors(
                         backgroundColor = colorResource(id = R.color.isabelline),
@@ -139,7 +142,8 @@ fun ShopSearchBar(navController: NavController) {
                     onValueChange = { /* Nothing to do here */ },
                     readOnly = true,
                     enabled = false,
-                    label = { Text("Nereye gitmek istiyorsunuz?",
+                    label = { Text(
+                        stringResource(id = R.string.toStore),
                         color = colorResource(id = R.color.caribbeanCurrent)) },
                     colors = TextFieldDefaults.textFieldColors(
                         backgroundColor = colorResource(id = R.color.isabelline),
@@ -174,7 +178,7 @@ fun ShopSearchBar(navController: NavController) {
                     onClick = {
                         if (selectedOptionFromIndex == selectedOptionToIndex) {
                             scope.launch {
-                                scaffoldState.snackbarHostState.showSnackbar(message = "Zaten o mağazadasınız.")
+                                scaffoldState.snackbarHostState.showSnackbar(message = sameStoreErrorMessage)
                                 keyboardController?.hide()
                             }
                         } else {
@@ -186,7 +190,7 @@ fun ShopSearchBar(navController: NavController) {
                     colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(id = R.color.orangePeel)
                     )
                 ) {
-                    Text(text = "Yol tarifinizi çiz!", color = colorResource(id = R.color.isabelline))
+                    Text(text = stringResource(id = R.string.drawPathButton), color = colorResource(id = R.color.isabelline))
                 }
             }
                 if (expandedFrom) {
@@ -207,7 +211,7 @@ fun ShopSearchBar(navController: NavController) {
                                 value = searchTextFrom,
                                 onValueChange = { searchTextFrom = it },
                                 modifier = Modifier.fillMaxWidth(),
-                                label = { Text("Ara", color = colorResource(id = R.color.caribbeanCurrent)) },
+                                label = { Text(stringResource(id = R.string.searchStoreButton), color = colorResource(id = R.color.caribbeanCurrent)) },
                                 keyboardActions = KeyboardActions(
                                     onDone = {keyboardController?.hide()}),
                                 colors = TextFieldDefaults.textFieldColors(
@@ -249,7 +253,7 @@ fun ShopSearchBar(navController: NavController) {
                                     .padding(top = 16.dp, bottom = 8.dp),
                                 colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(id = R.color.orangePeel))
                             ) {
-                                Text("Kapat", color = colorResource(id = R.color.isabelline))
+                                Text(stringResource(id = R.string.closeButton), color = colorResource(id = R.color.isabelline))
                             }
                         }
                     }
@@ -272,7 +276,7 @@ fun ShopSearchBar(navController: NavController) {
                                 value = searchTextTo,
                                 onValueChange = { searchTextTo = it },
                                 modifier = Modifier.fillMaxWidth(),
-                                label = { Text("Ara", color = colorResource(id = R.color.caribbeanCurrent)) },
+                                label = { Text(stringResource(id = R.string.searchStoreButton), color = colorResource(id = R.color.caribbeanCurrent)) },
                                 colors = TextFieldDefaults.textFieldColors(
                                     backgroundColor = colorResource(id = R.color.isabelline),
                                     cursorColor = colorResource(id = R.color.caribbeanCurrent),
@@ -314,7 +318,7 @@ fun ShopSearchBar(navController: NavController) {
                                 colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(id = R.color.orangePeel)
                                 )
                             ) {
-                                Text("Kapat", color = colorResource(id = R.color.isabelline))
+                                Text(stringResource(id = R.string.closeButton), color = colorResource(id = R.color.isabelline))
 
                             }
                         }

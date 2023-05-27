@@ -4,11 +4,14 @@
     <string name="floorPlans">Kat Planları</string>
     <string name="homePage">Ana Sayfa</string>
     <string name="settings">Ayarlar</string>
-    <string name="findMall">AVM Bul</string>
+    <string name="stores">Mağazalar</string>
+    <string name="findMall">AVM bul</string>
     <string name="fromStore">Neredesiniz?</string>
     <string name="toStore">Nereye gitmek istiyorsunuz?</string>
-    <string name="sameStoreErrorMessage">Zaten o mağazadasınız!</string>
+    <string name="sameStoreErrorMessage">Zaten o mağazadasınız.</string>
     <string name="drawPathButton">Yol tarifini çiz!</string>
     <string name="searchStoreButton">Ara</string>
     <string name="closeButton">Kapat</string>
+    <string name="chooseMallErrorMessage">Lütfen anasayfadan bir alışveriş merkezi seçiniz.</string>
+    <string name="confirmButton">Tamam</string>
 </resources>
