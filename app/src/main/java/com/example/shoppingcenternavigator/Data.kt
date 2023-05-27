@@ -85,7 +85,7 @@ val points = listOf(
     Point(1,267f,441f),     //56 Jakamen
     Point(1,323f,520f),     //57 Journey
     Point(1,324f,662f),     //58 Mudo Collection
-    Point(1,260f,436f),     //59 MR DIY
+    Point(1,260f,436f),     //59 Mr. Diy
     Point(1,323f,659f),     //60 Perspective
     Point(1,475f,662f),     //61 United Colors of Benetton
 
@@ -114,7 +114,7 @@ val points = listOf(
     Point(-1,689f,603f),    //80 Frederic Patric Parfum
     Point(-1,305f,603f),    //81 Gratis
     Point(-1,283f,505f),    //82 GS Store
-    Point(-1,181f,445f),    //83 İstikbal Yatak
+    Point(-1,181f,445f),    //83 istikbal yatak
     Point(-1,699f,487f),    //84 Joy Park
     Point(-1,548f,693f),    //85 Karaca
     Point(-1,465f,693f),    //86 Linens
@@ -217,7 +217,7 @@ val prime = listOf(
     Shops("Jakamen Prime", 1,267f,441f),
     Shops("Journey Prime", 1,323f,520f),
     Shops("Mudo Collection Prime", 1,324f,662f),
-    Shops("MR. D.I.Y. Prime", 1,260f,436f),
+    Shops("Mr. Diy Prime", 1,260f,436f),
     Shops("Perspective Prime", 1,323f,659f),
     Shops("United Colors of Benetton Prime", 1,475f,662f),
 
@@ -234,7 +234,7 @@ val prime = listOf(
     Shops("Frederic Patric Parfum Prime", -1,689f,603f),
     Shops("Gratis Prime", -1,305f,603f),
     Shops("GS Store Prime", -1,283f,505f),
-    Shops("İstikbal Yatak Prime", -1,181f,445f),
+    Shops("istikbal yatak Prime", -1,181f,445f),
     Shops("Joy Park Prime", -1,699f,487f),
     Shops("Karaca Prime", -1,548f,693f),
     Shops("Linens Prime", -1,465f,693f),
@@ -316,7 +316,7 @@ val shops = listOf(
     Shops("Jakamen", 1,246f,469f),
     Shops("Journey", 1,291f,520f),
     Shops("Mudo Collection", 1,324f,712f),
-    Shops("MR. D.I.Y.", 1,246f,426f),
+    Shops("Mr. Diy", 1,246f,426f),
     Shops("Perspective", 1,291f,659f),
     Shops("United Colors of Benetton", 1,475f,681f),
 
@@ -333,7 +333,7 @@ val shops = listOf(
     Shops("Frederic Patric Parfum", -1,738f,603f),
     Shops("Gratis", -1,274f,603f),
     Shops("GS Store", -1,300f,470f),
-    Shops("İstikbal Yatak", -1,192f,424f),
+    Shops("istikbal yatak", -1,192f,424f),
     Shops("Joy Park", -1,704f,471f),
     Shops("Karaca", -1,548f,709f),
     Shops("Linens", -1,465f,709f),

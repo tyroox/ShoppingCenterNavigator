@@ -117,7 +117,7 @@ fun StoreSearchBar(
         "magic play" to R.drawable.magic_play_logo,
         "mavi" to R.drawable.mavi_logo,
         "migros" to R.drawable.migros_logo,
-        "mr. d.ı.y." to R.drawable.mr_diy_logo,
+        "mr. diy" to R.drawable.mr_diy_logo,
         "mudo collection" to R.drawable.mudo_collection_logo,
         "özdilek" to R.drawable.ozdilek_logo,
         "penti" to R.drawable.penti_logo,

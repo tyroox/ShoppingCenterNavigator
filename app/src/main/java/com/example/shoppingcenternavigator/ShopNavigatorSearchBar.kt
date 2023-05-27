@@ -52,7 +52,7 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalComposeUiApi::class)
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun ShopSearchBar(navController: NavController) {
+fun ShopNavigatorSearchBar(navController: NavController) {
 
     var expandedFrom by remember { mutableStateOf(false) }
     var expandedTo by remember { mutableStateOf(false) }
@@ -67,7 +67,6 @@ fun ShopSearchBar(navController: NavController) {
     val scope = rememberCoroutineScope()
     val keyboardController = LocalSoftwareKeyboardController.current
     val sameStoreErrorMessage = stringResource(id = R.string.sameStoreErrorMessage)
-
 
     Scaffold(
         scaffoldState = scaffoldState,
@@ -94,10 +93,11 @@ fun ShopSearchBar(navController: NavController) {
                 }
 
                 Text(text = selectedShoppingCenter,
-                    Modifier.padding(16.dp)
+                    Modifier
+                        .padding(16.dp)
                         .clickable(onClick = {
 
-                    }),
+                        }),
                     color = caribbeanCurrent)
 
                 TextField(
@@ -290,7 +290,9 @@ fun ShopSearchBar(navController: NavController) {
                                     .fillMaxWidth()
                                     .weight(1f)
                             ) {
-                                val filteredOptionsTo = options.filter { it.Name.contains(searchTextTo, ignoreCase = true) }
+                                val filteredOptionsTo = options.filter { it.Name.contains(searchTextFrom, ignoreCase = true) }
+                                    .sortedBy { it.Name }
+
                                 items(filteredOptionsTo) { option ->
                                     DropdownMenuItem(
                                         onClick = {

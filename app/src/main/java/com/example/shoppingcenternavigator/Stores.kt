@@ -1,6 +1,5 @@
 package com.example.shoppingcenternavigator
 
-import SearchBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -23,7 +22,6 @@ fun Stores(){
         // Perform the desired search operation
     }, onBoxClick = { clickedIndex ->
         selectedBoxIndex = clickedIndex
-
         keyboardController?.hide()
     })
 }

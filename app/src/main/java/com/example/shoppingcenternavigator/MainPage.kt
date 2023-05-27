@@ -6,9 +6,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -44,7 +42,7 @@ fun MainPage(navController: NavController) {
                         HomePage(selectedItem = selectedItem)
                     }
                     else{
-                        ShopSearchBar(navController = navController)
+                        ShopNavigatorSearchBar(navController = navController)
                     }
                 }
                 if (selectedItem.value == 1){

@@ -1,5 +1,7 @@
 package com.example.shoppingcenternavigator
 
+import android.annotation.SuppressLint
+import android.content.pm.ActivityInfo
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -18,9 +20,11 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
 class MainActivity : ComponentActivity() {
+    @SuppressLint("SourceLockedOrientationActivity")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         setContent {
             ShoppingCenterNavigatorTheme {
                 // A surface container using the 'background' color from the theme
@@ -58,8 +62,8 @@ fun NextPage(){
             composable("SmoothLineGraph"){
                 SmoothLineGraph(navController = navController)
             }
-            composable("ShopSearchBar"){
-                ShopSearchBar(navController = navController)
+            composable("ShopNavigatorSearchBar"){
+                ShopNavigatorSearchBar(navController = navController)
             }
             composable("WayFindingAlgorithm"){
                 WayFindingAlgorithm()
@@ -82,8 +86,8 @@ fun NextPage(){
             composable("SmoothLineGraph"){
                 SmoothLineGraph(navController = navController)
             }
-            composable("ShopSearchBar"){
-                ShopSearchBar(navController = navController)
+            composable("ShopNavigatorSearchBar"){
+                ShopNavigatorSearchBar(navController = navController)
             }
             composable("WayFindingAlgorithm"){
                 WayFindingAlgorithm()
