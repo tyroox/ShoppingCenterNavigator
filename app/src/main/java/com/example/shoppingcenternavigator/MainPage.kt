@@ -58,9 +58,9 @@ fun MainPage(navController: NavController) {
                         if (alertDialog.value){
                             AlertDialog(
                                 onDismissRequest = { alertDialog.value = false },
-                                text = { Text(text = "Lütfen anasayfadan bir mağaza seçiniz.",
+                                text = { Text(text = stringResource(id = R.string.chooseMallErrorMessage),
                                     color = colorResource(id = R.color.isabelline), fontSize = 18.sp) },
-                                confirmButton = { Text(text = "Tamam",
+                                confirmButton = { Text(text = stringResource(id = R.string.confirmButton),
                                     modifier = Modifier
                                         .padding(10.dp)
                                         .clickable {
@@ -123,7 +123,7 @@ fun MainPage(navController: NavController) {
                                     painter = painterResource(id = R.drawable.store),
                                     contentDescription = "")
                             },
-                            label = { Text(text = "Mağazalar", fontSize = 10.sp)},
+                            label = { Text(text = stringResource(id = R.string.stores), fontSize = 10.sp)},
                             selectedContentColor = Color.DarkGray,
                             unselectedContentColor = colorResource(id = R.color.isabelline)
 
