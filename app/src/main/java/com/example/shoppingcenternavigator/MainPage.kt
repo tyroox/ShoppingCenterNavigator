@@ -2,6 +2,7 @@ package com.example.shoppingcenternavigator
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -13,19 +14,24 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun MainPage(navController: NavController) {
-    val selectedItem = remember { mutableStateOf(2) }
-    HomePage(navController, selectedItem)
+    val selectedItem = remember { mutableStateOf(0) }
+    HomePage(selectedItem)
     val scaffoldState = rememberScaffoldState(rememberDrawerState(DrawerValue.Closed))
     val scope = rememberCoroutineScope()
     var selectedMall = SelectedShops.selectedMall
+    val alertDialog = remember { mutableStateOf(value = true) }
+
 
     Scaffold(
         scaffoldState = scaffoldState,
@@ -34,21 +40,45 @@ fun MainPage(navController: NavController) {
                 // Add the Modifier.padding modifier with bottom padding of 56.dp
                 // to the Box composable that wraps the content
                 if (selectedItem.value == 0){
-                    GPS()
-                }
-                if (selectedItem.value == 1){
-                    FloorPlans()
-                }
-                if (selectedItem.value == 2){
                     if (selectedMall == 0){
-                        HomePage(navController = navController, selectedItem = selectedItem)
+                        HomePage(selectedItem = selectedItem)
                     }
                     else{
                         ShopSearchBar(navController = navController)
                     }
                 }
+                if (selectedItem.value == 1){
+                    GPS()
+                }
+                if (selectedItem.value == 2){
+                    Stores()
+                }
                 if (selectedItem.value == 3){
-                    Settings()
+                    if (selectedMall == 0){
+                        if (alertDialog.value){
+                            AlertDialog(
+                                onDismissRequest = { alertDialog.value = false },
+                                text = { Text(text = "Lütfen anasayfadan bir mağaza seçiniz.",
+                                    color = colorResource(id = R.color.isabelline), fontSize = 18.sp) },
+                                confirmButton = { Text(text = "Tamam",
+                                    modifier = Modifier
+                                        .padding(10.dp)
+                                        .clickable {
+                                            alertDialog.value = false
+                                            selectedItem.value = 0
+                                        },
+                                    color = colorResource(id = R.color.isabelline))},
+                                backgroundColor = colorResource(id = R.color.caribbeanCurrent)
+                            )
+                        }
+                        alertDialog.value = true
+                    }
+                    else{
+                        FloorPlans()
+                    }
+                }
+                if (selectedItem.value == 4){
+                    Settings(navController)
                 }
             }
         },
@@ -63,11 +93,11 @@ fun MainPage(navController: NavController) {
                             onClick = { selectedItem.value = 0 },
                             icon = {
                                 Icon(
-                                    painter = painterResource(id = R.drawable.location),
+                                    painter = painterResource(id = R.drawable.homepage),
                                     contentDescription = "")
                             },
-                            label = { Text(text = "GPS")},
-                            selectedContentColor = colorResource(id = R.color.orangePeel),
+                            label = { Text(text = stringResource(id = R.string.homePage), fontSize = 10.sp)},
+                            selectedContentColor = Color.DarkGray,
                             unselectedContentColor = colorResource(id = R.color.isabelline)
                         )
 
@@ -76,12 +106,13 @@ fun MainPage(navController: NavController) {
                             onClick = { selectedItem.value = 1 },
                             icon = {
                                 Icon(
-                                    imageVector = Icons.Default.ShoppingCart,
+                                    painter = painterResource(id = R.drawable.location),
                                     contentDescription = "")
                             },
-                            label = { Text(text = "Kat Planları")},
-                            selectedContentColor = colorResource(id = R.color.orangePeel),
+                            label = { Text(text = "GPS", fontSize = 10.sp)},
+                            selectedContentColor = Color.DarkGray,
                             unselectedContentColor = colorResource(id = R.color.isabelline)
+
                         )
 
                         BottomNavigationItem(
@@ -89,12 +120,13 @@ fun MainPage(navController: NavController) {
                             onClick = { selectedItem.value = 2 },
                             icon = {
                                 Icon(
-                                    imageVector = Icons.Default.Search,
+                                    painter = painterResource(id = R.drawable.store),
                                     contentDescription = "")
                             },
-                            label = { Text(text = "Ana Sayfa")},
-                            selectedContentColor = colorResource(id = R.color.orangePeel),
+                            label = { Text(text = "Mağazalar", fontSize = 10.sp)},
+                            selectedContentColor = Color.DarkGray,
                             unselectedContentColor = colorResource(id = R.color.isabelline)
+
                         )
 
                         BottomNavigationItem(
@@ -102,13 +134,25 @@ fun MainPage(navController: NavController) {
                             onClick = { selectedItem.value = 3 },
                             icon = {
                                 Icon(
+                                    painter = painterResource(id = R.drawable.floorplan),
+                                    contentDescription = "")
+                            },
+                            label = { Text(text = stringResource(id = R.string.floorPlans), fontSize = 10.sp)},
+                            selectedContentColor = Color.DarkGray,
+                            unselectedContentColor = colorResource(id = R.color.isabelline)
+                        )
+
+                        BottomNavigationItem(
+                            selected = selectedItem.value == 4,
+                            onClick = { selectedItem.value = 4 },
+                            icon = {
+                                Icon(
                                     imageVector = Icons.Default.Settings,
                                     contentDescription = "")
                             },
-                            label = { Text(text = "Ayarlar")},
-                            selectedContentColor = colorResource(id = R.color.orangePeel),
-                            unselectedContentColor = colorResource(id = R.color.isabelline)
-                        )
+                            label = { Text(text = stringResource(id = R.string.settings), fontSize = 10.sp)},
+                            selectedContentColor = Color.DarkGray,
+                            unselectedContentColor = colorResource(id = R.color.isabelline))
 
                     }
                 }

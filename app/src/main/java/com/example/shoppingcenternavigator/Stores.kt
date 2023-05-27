@@ -1,9 +1,7 @@
 package com.example.shoppingcenternavigator
 
 import SearchBar
-import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -13,26 +11,19 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun HomePage(selectedItem: MutableState<Int>){
+fun Stores(){
     val keyboardController = LocalSoftwareKeyboardController.current
 
-    val malls = listOf("Carousel", "Capacity")
+    val stores = shops.sortedBy { it.Name }
 
     var selectedBoxIndex by remember { mutableStateOf(-1) }
 
-    SearchBar(variables = malls, onSearch = { searchQuery ->
+    StoreSearchBar(variables = stores, onSearch = { searchQuery ->
         // Handle search query
         // Perform the desired search operation
     }, onBoxClick = { clickedIndex ->
         selectedBoxIndex = clickedIndex
-        if(selectedBoxIndex == 0){
-            SelectedShops.selectedMall = 1
-            selectedItem.value = 0
-        }
-        else if(selectedBoxIndex == 1){
-            SelectedShops.selectedMall = 2
-            selectedItem.value = 0
-        }
+
         keyboardController?.hide()
     })
 }

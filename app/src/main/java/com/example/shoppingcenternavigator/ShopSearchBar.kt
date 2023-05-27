@@ -45,6 +45,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
+import com.example.shoppingcenternavigator.ui.theme.caribbeanCurrent
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalComposeUiApi::class)
@@ -81,10 +82,25 @@ fun ShopSearchBar(navController: NavController) {
             ConstraintLayout(modifier = Modifier.fillMaxSize()) {
                 val (fromTextField, toTextField, button) = createRefs()
 
+                var selectedShoppingCenter = ""
+
+                if (SelectedShops.selectedMall == 1){
+                    selectedShoppingCenter = allShoppingCenter[0].name
+                }
+                else if (SelectedShops.selectedMall == 2){
+                    selectedShoppingCenter = allShoppingCenter[1].name
+                }
+
+                Text(text = selectedShoppingCenter,
+                    Modifier.padding(16.dp)
+                        .clickable(onClick = {
+
+                    }),
+                    color = caribbeanCurrent)
 
                 TextField(
                     modifier = Modifier.constrainAs(fromTextField) {
-                        top.linkTo(parent.top, margin = 16.dp)
+                        top.linkTo(parent.top, margin = 64.dp)
                         start.linkTo(parent.start)
                         end.linkTo(parent.end)
                     },
@@ -207,6 +223,8 @@ fun ShopSearchBar(navController: NavController) {
                                     .weight(1f)
                             ) {
                                 val filteredOptionsFrom = options.filter { it.Name.contains(searchTextFrom, ignoreCase = true) }
+                                    .sortedBy { it.Name } // Sort the list alphabetically
+
                                 items(filteredOptionsFrom) { option ->
                                     DropdownMenuItem(
                                         onClick = {

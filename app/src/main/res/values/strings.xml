@@ -1,4 +1,14 @@
 <resources>
     <string name="app_name">Shopping Center Navigator</string>
     <string name="gcp_id">553313394578-6uuv2ohetikvrqkb6nekri7en4qbca74.example.com</string>
+    <string name="floorPlans">Floor Plans</string>
+    <string name="homePage">Home Page</string>
+    <string name="settings">Settings</string>
+    <string name="findMall">Find Mall</string>
+    <string name="fromStore">Where are you?</string>
+    <string name="toStore">Where would you like to go?</string>
+    <string name="sameStoreErrorMessage">You are already at that store!</string>
+    <string name="drawPathButton">Draw Path!</string>
+    <string name="searchStoreButton">Search</string>
+    <string name="closeButton">Close</string>
 </resources>

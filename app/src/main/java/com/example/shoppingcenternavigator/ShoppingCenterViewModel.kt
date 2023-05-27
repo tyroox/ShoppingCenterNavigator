@@ -49,7 +49,7 @@ data class ShoppingCenter(
     }
 }
 
-private val allShoppingCenter = listOf(
+val allShoppingCenter = listOf(
     ShoppingCenter("Carousel"),
     ShoppingCenter("Capacity")
 )

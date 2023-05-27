@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Shopping Center Navigator</string>
+    <string name="gcp_id">553313394578-6uuv2ohetikvrqkb6nekri7en4qbca74.example.com</string>
+    <string name="floorPlans">Kat Planları</string>
+    <string name="homePage">Ana Sayfa</string>
+    <string name="settings">Ayarlar</string>
+    <string name="findMall">AVM Bul</string>
+    <string name="fromStore">Neredesiniz?</string>
+    <string name="toStore">Nereye gitmek istiyorsunuz?</string>
+    <string name="sameStoreErrorMessage">Zaten o mağazadasınız!</string>
+    <string name="drawPathButton">Yol tarifini çiz!</string>
+    <string name="searchStoreButton">Ara</string>
+    <string name="closeButton">Kapat</string>
+</resources>
