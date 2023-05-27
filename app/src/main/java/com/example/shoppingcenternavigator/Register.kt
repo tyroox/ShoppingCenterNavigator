@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
@@ -49,14 +50,16 @@ fun Register(context: ComponentActivity, navController: NavController) {
     val scrollState = rememberScrollState()
     val alertDialog = remember { mutableStateOf(value = true) }
     val keyboardController = LocalSoftwareKeyboardController.current
-
+    val fillInTheBlanksErrorMessage = stringResource(id = R.string.fillInTheBlanksErrorMessage)
+    val passwordsDoNotMatchErrorMessage = stringResource(id = R.string.passwordsDoNotMatchErrorMessage)
+    val emailAlreadyRegisteredErrorMessage = stringResource(id = R.string.emailAlreadyRegisteredErrorMessage)
 
     if (alertDialog.value){
         AlertDialog(
             onDismissRequest = { alertDialog.value = false },
-            text = { Text(text = "Geçerli bir e-posta ve en az 6 haneli bir şifre giriniz.",
+            text = { Text(text = stringResource(id = R.string.enterValidCredentialsErrorMessage),
                 color = colorResource(id = R.color.isabelline), fontSize = 18.sp) },
-            confirmButton = { Text(text = "Tamam",
+            confirmButton = { Text(text = stringResource(id = R.string.confirmButton),
                 modifier = Modifier
                     .padding(10.dp)
                     .clickable { alertDialog.value = false },
@@ -98,12 +101,13 @@ fun Register(context: ComponentActivity, navController: NavController) {
                 )
                 TextField(
                     label = {
-                        Text("E-Posta", color = colorResource(id = R.color.caribbeanCurrent))
+                        Text(stringResource(id = R.string.email), color = colorResource(id = R.color.caribbeanCurrent))
                     },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
                     value = email.value,
                     singleLine = true,
-                    modifier = Modifier.padding(horizontal = 24.dp)
+                    modifier = Modifier
+                        .padding(horizontal = 24.dp)
                         .fillMaxWidth()
                         .height(IntrinsicSize.Min),
                     onValueChange = {
@@ -117,7 +121,7 @@ fun Register(context: ComponentActivity, navController: NavController) {
 
                 TextField(
                     label = {
-                        Text("Şifre", color = colorResource(id = R.color.caribbeanCurrent))
+                        Text(stringResource(id = R.string.password), color = colorResource(id = R.color.caribbeanCurrent))
                     },
                     singleLine = true,
                     visualTransformation = if (passwordVisibility) VisualTransformation.None else PasswordVisualTransformation(),
@@ -131,7 +135,8 @@ fun Register(context: ComponentActivity, navController: NavController) {
                     },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                     value = password.value,
-                    modifier = Modifier.padding(horizontal = 24.dp)
+                    modifier = Modifier
+                        .padding(horizontal = 24.dp)
                         .fillMaxWidth()
                         .height(IntrinsicSize.Min),
                     onValueChange = {
@@ -145,7 +150,7 @@ fun Register(context: ComponentActivity, navController: NavController) {
 
                 TextField(
                     label = {
-                        Text("Tekrar şifre giriniz", color = colorResource(id = R.color.caribbeanCurrent))
+                        Text(stringResource(id = R.string.confirmPassword), color = colorResource(id = R.color.caribbeanCurrent))
                     },
                     singleLine = true,
                     visualTransformation = if (passwordVisibility1) VisualTransformation.None else PasswordVisualTransformation(),
@@ -159,7 +164,8 @@ fun Register(context: ComponentActivity, navController: NavController) {
                     },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                     value = password1.value,
-                    modifier = Modifier.padding(horizontal = 24.dp)
+                    modifier = Modifier
+                        .padding(horizontal = 24.dp)
                         .fillMaxWidth()
                         .height(IntrinsicSize.Min),
                     onValueChange = {
@@ -175,14 +181,14 @@ fun Register(context: ComponentActivity, navController: NavController) {
                     Button(onClick = {
                         if (email.value.text.trim().isEmpty() and password.value.text.trim().isEmpty()){
                             scope.launch {
-                                scaffoldState.snackbarHostState.showSnackbar(message = "Lütfen boş alanları doldurunuz")
+                                scaffoldState.snackbarHostState.showSnackbar(message = fillInTheBlanksErrorMessage)
                             }
                             keyboardController?.hide()
                         }
                         else if (password.value.text.trim().isNotEmpty()) {
                             if (password.value.text.trim() != password1.value.text.trim()) {
                                 scope.launch {
-                                    scaffoldState.snackbarHostState.showSnackbar(message = "Şifreler eşleşmiyor.")
+                                    scaffoldState.snackbarHostState.showSnackbar(message = passwordsDoNotMatchErrorMessage)
                                 }
                                 keyboardController?.hide()
                             } else if (password.value.text.trim() == password1.value.text.trim()) {
@@ -195,7 +201,7 @@ fun Register(context: ComponentActivity, navController: NavController) {
                                         keyboardController?.hide()
                                     }else{
                                         scope.launch {
-                                            scaffoldState.snackbarHostState.showSnackbar(message = "Bu e-posta adresi zaten kayıtlı.")
+                                            scaffoldState.snackbarHostState.showSnackbar(message = emailAlreadyRegisteredErrorMessage)
                                         }
                                         keyboardController?.hide()
                                     }
@@ -211,7 +217,7 @@ fun Register(context: ComponentActivity, navController: NavController) {
                         ), enabled = emailState and passwordState and passwordState1
 
                     ) {
-                        Text(text = "Kayıt Ol", color = colorResource(id = R.color.isabelline))
+                        Text(text = stringResource(id = R.string.registerButton), color = colorResource(id = R.color.isabelline))
                     }
                 }
 
@@ -222,12 +228,12 @@ fun Register(context: ComponentActivity, navController: NavController) {
                 )
 
                 Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(bottom = 12.dp)) {
-                    Text("Hesabınız var mı?", color = colorResource(id = R.color.orangePeel))
+                    Text(stringResource(id = R.string.doHaveAccountButton), color = colorResource(id = R.color.orangePeel))
                     TextButton(onClick = {
                         navController.navigate("LoginPage")
                         keyboardController?.hide()
                     }) {
-                        Text("Giriş yapın.", color = colorResource(id = R.color.caribbeanCurrent))
+                        Text(stringResource(id = R.string.loginButton), color = colorResource(id = R.color.caribbeanCurrent))
                     }
                 }
             }

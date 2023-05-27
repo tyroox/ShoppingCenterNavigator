@@ -14,4 +14,20 @@
     <string name="closeButton">Kapat</string>
     <string name="chooseMallErrorMessage">Lütfen anasayfadan bir alışveriş merkezi seçiniz.</string>
     <string name="confirmButton">Tamam</string>
+    <string name="email">E-Posta</string>
+    <string name="password">Şifre</string>
+    <string name="emailAndPasswordDoesNotMatchErrorMessage">E-posta ile şifre uyuşmuyor veya doğru değil.</string>
+    <string name="enterCredentialsMessage">Lütfen e-posta ve şifre giriniz.</string>
+    <string name="loginButton">Giriş Yap</string>
+    <string name="doNotHaveAccountButton">Hesabınız yok mu?</string>
+    <string name="registerButton">Kayıt olun.</string>
+    <string name="enterValidCredentialsErrorMessage">Geçerli bir e-posta ve en az 6 haneli bir şifre giriniz.</string>
+    <string name="confirmPassword">Tekrar şifre giriniz</string>
+    <string name="fillInTheBlanksErrorMessage">Lütfen boş alanları doldurunuz</string>
+    <string name="passwordsDoNotMatchErrorMessage">Şifreler eşleşmiyor.</string>
+    <string name="emailAlreadyRegisteredErrorMessage">Bu e-posta adresi zaten kayıtlı.</string>
+    <string name="doHaveAccountButton">Hesabınız var mı?</string>
+    <string name="groundFloor">Zemin Kat</string>
+    <string name="floor">. Kat</string>
+
 </resources>

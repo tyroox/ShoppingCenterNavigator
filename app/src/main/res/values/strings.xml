@@ -13,5 +13,20 @@
     <string name="searchStoreButton">Search</string>
     <string name="closeButton">Close</string>
     <string name="chooseMallErrorMessage">Please select a shopping mall from the main page.</string>
-    <string name="confirmButton">Okay</string>
+    <string name="confirmButton">OK</string>
+    <string name="email">E-Mail</string>
+    <string name="password">Password</string>
+    <string name="emailAndPasswordDoesNotMatchErrorMessage">E-mail and password do not match or are not correct.</string>
+    <string name="enterCredentialsMessage">Please enter e-mail and password.</string>
+    <string name="loginButton">Login</string>
+    <string name="doNotHaveAccountButton">Do not have an account?</string>
+    <string name="registerButton">Register.</string>
+    <string name="enterValidCredentialsErrorMessage">Please enter a valid email and a password of at least 6 digits.</string>
+    <string name="confirmPassword">Confirm password</string>
+    <string name="fillInTheBlanksErrorMessage">Please fill in the blanks</string>
+    <string name="passwordsDoNotMatchErrorMessage">The passwords do not match.</string>
+    <string name="emailAlreadyRegisteredErrorMessage">This email address already belongs to an account.</string>
+    <string name="doHaveAccountButton">Do you have an account?</string>
+    <string name="groundFloor">Ground Floor</string>
+    <string name="floor">. Floor</string>
 </resources>

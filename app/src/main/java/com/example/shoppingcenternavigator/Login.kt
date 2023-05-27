@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
@@ -39,6 +40,8 @@ fun Login(context: ComponentActivity, navController: NavController) {
     val imeState = rememberImeState()
     val scrollState = rememberScrollState()
     val keyboardController = LocalSoftwareKeyboardController.current
+    val emailAndPasswordDoesNotMatchErrorMessage = stringResource(id = R.string.emailAndPasswordDoesNotMatchErrorMessage)
+    val enterCredentialsMessage = stringResource(id = R.string.enterCredentialsMessage)
 
 
     LaunchedEffect(key1 = imeState.value) {
@@ -79,7 +82,7 @@ fun Login(context: ComponentActivity, navController: NavController) {
                         .padding(horizontal = 24.dp)
                         .fillMaxWidth()
                         .height(IntrinsicSize.Min), // Set the same height as text fields
-                    label = { Text("E-Posta", color = colorResource(id = R.color.caribbeanCurrent)) },
+                    label = { Text(stringResource(id = R.string.email), color = colorResource(id = R.color.caribbeanCurrent)) },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
                     colors = TextFieldDefaults.textFieldColors(
                         cursorColor = colorResource(id = R.color.caribbeanCurrent),
@@ -93,7 +96,7 @@ fun Login(context: ComponentActivity, navController: NavController) {
                         .padding(horizontal = 24.dp)
                         .fillMaxWidth()
                         .height(IntrinsicSize.Min), // Set the same height as text fields
-                    label = { Text("Şifre", color = colorResource(id = R.color.caribbeanCurrent)) },
+                    label = { Text(stringResource(id = R.string.password), color = colorResource(id = R.color.caribbeanCurrent)) },
                     singleLine = true,
                     visualTransformation = if (passwordVisibility) VisualTransformation.None else PasswordVisualTransformation(),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
@@ -125,7 +128,7 @@ fun Login(context: ComponentActivity, navController: NavController) {
                                         keyboardController?.hide()
                                     }else{
                                         scope.launch {
-                                            scaffoldState.snackbarHostState.showSnackbar(message = "E-posta ile şifre uyuşmuyor veya doğru değil.")
+                                            scaffoldState.snackbarHostState.showSnackbar(message = emailAndPasswordDoesNotMatchErrorMessage)
                                         }
                                         keyboardController?.hide()
                                     }
@@ -133,7 +136,7 @@ fun Login(context: ComponentActivity, navController: NavController) {
                             }
                             else{
                                 scope.launch {
-                                    scaffoldState.snackbarHostState.showSnackbar(message = "Lütfen e-posta ve şifre giriniz.")
+                                    scaffoldState.snackbarHostState.showSnackbar(message = enterCredentialsMessage)
                                 }
                                 keyboardController?.hide()
                             }
@@ -144,7 +147,7 @@ fun Login(context: ComponentActivity, navController: NavController) {
                             .height(IntrinsicSize.Min), // Set the same height as text fields
                         colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(id = R.color.orangePeel))
                     ) {
-                        Text(text = "Giriş Yap", color = colorResource(id = R.color.isabelline))
+                        Text(text = stringResource(id = R.string.loginButton), color = colorResource(id = R.color.isabelline))
                     }
                 }
 
@@ -155,12 +158,12 @@ fun Login(context: ComponentActivity, navController: NavController) {
                 )
                 
                 Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(bottom = 12.dp)) {
-                    Text("Hesabınız yok mu?", color = colorResource(id = R.color.orangePeel))
+                    Text(stringResource(id = R.string.doNotHaveAccountButton), color = colorResource(id = R.color.orangePeel))
                     TextButton(onClick = {
                         navController.navigate("RegisterPage")
                         keyboardController?.hide()
                     }) {
-                        Text("Kayıt olun.", color = colorResource(id = R.color.caribbeanCurrent))
+                        Text(stringResource(id = R.string.registerButton), color = colorResource(id = R.color.caribbeanCurrent))
                     }
                 }
             }

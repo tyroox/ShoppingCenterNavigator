@@ -32,6 +32,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -210,7 +211,9 @@ fun StoreSearchBar(
                                     }
                             ) {
                                 Column(
-                                    modifier = Modifier.fillMaxSize().padding(8.dp),
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .padding(8.dp),
                                     verticalArrangement = Arrangement.Top,
                                     horizontalAlignment = Alignment.CenterHorizontally
                                 ) {
@@ -241,14 +244,14 @@ fun StoreSearchBar(
                                     )
                                     if (variable.Floor == 0) {
                                         Text(
-                                            text = "Zemin Kat",
+                                            text = stringResource(id = R.string.groundFloor),
                                             color = Color.Black,
                                             fontSize = 20.sp,
                                             textAlign = TextAlign.Center
                                         )
                                     } else {
                                         Text(
-                                            text = variable.Floor.toString() + ". Kat",
+                                            text = variable.Floor.toString() + stringResource(id = R.string.floor),
                                             color = Color.Black,
                                             fontSize = 20.sp,
                                             textAlign = TextAlign.Center
