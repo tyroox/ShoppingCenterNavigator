@@ -8,4 +8,6 @@ object SelectedShops {
     var selectedOptionFromIndex by mutableStateOf(-1)
     var selectedOptionToIndex by mutableStateOf(-1)
     var selectedMall by mutableStateOf(0)
+    var selectedStoreFromStores by mutableStateOf("")
 }
+

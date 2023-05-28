@@ -16,7 +16,7 @@ val coordinateSystem = listOf(
     Coordinate(1000f,1000f),
 )
 
-val points = listOf(
+val carouselPoints = listOf(
     // corners
     Point(0,170f,364f),   //0
     Point(0,333f,467f),   //1
@@ -171,7 +171,7 @@ val points = listOf(
     Point(-2,362f,614f),    //126 Merdiven 15
 )
 
-val prime = listOf(
+val carouselPrime = listOf(
     Shops("adL Prime", 0,403f,646f),
     Shops("Alaçatı Muhallebicisi Prime", 0,823f,350f),
     Shops("Atasun Optik Prime", 0,333f,645f),
@@ -270,7 +270,7 @@ val prime = listOf(
 
 )
 
-val shops = listOf(
+val carouselShops = listOf(
     Shops("adL", 0,403f,665f),
     Shops("Alaçatı Muhallebicisi", 0,846f,381f),
     Shops("Atasun Optik", 0,301f,645f),

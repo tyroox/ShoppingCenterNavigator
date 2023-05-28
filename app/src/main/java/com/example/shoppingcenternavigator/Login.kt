@@ -73,7 +73,7 @@ fun Login(context: ComponentActivity, navController: NavController) {
                 Image(
                     painter = painterResource(id = R.drawable.shopping_center_navigator_app_icon),
                     contentDescription = null,
-                    modifier = Modifier.size(260.dp)
+                    modifier = Modifier.size(250.dp)
                 )
                 TextField(
                     value = email.value,
