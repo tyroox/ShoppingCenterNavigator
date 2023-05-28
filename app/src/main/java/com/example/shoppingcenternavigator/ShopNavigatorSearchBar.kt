@@ -63,9 +63,9 @@ fun ShopNavigatorSearchBar(navController: NavController) {
     val selectedOptionFromIndex = SelectedShops.selectedOptionFromIndex
     val selectedOptionToIndex = SelectedShops.selectedOptionToIndex
     if (SelectedShops.selectedStoreFromStores != ""){
-        SelectedShops.selectedOptionToIndex = shops.indexOfFirst { it.Name == SelectedShops.selectedStoreFromStores }
+        SelectedShops.selectedOptionToIndex = carouselShops.indexOfFirst { it.Name == SelectedShops.selectedStoreFromStores }
     }
-    val options = shops
+    val options = carouselShops
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -240,7 +240,7 @@ fun ShopNavigatorSearchBar(navController: NavController) {
                                     DropdownMenuItem(
                                         onClick = {
                                             selectedOptionFrom = option.Name
-                                            SelectedShops.selectedOptionFromIndex = shops.indexOfFirst { it.Name == selectedOptionFrom }
+                                            SelectedShops.selectedOptionFromIndex = carouselShops.indexOfFirst { it.Name == selectedOptionFrom }
                                             Log.d("from", "$selectedOptionFromIndex")
                                             expandedFrom = false
                                             searchTextFrom = ""
@@ -305,7 +305,7 @@ fun ShopNavigatorSearchBar(navController: NavController) {
                                         onClick = {
                                             selectedOptionTo = option.Name
                                             SelectedShops.selectedStoreFromStores = ""
-                                            SelectedShops.selectedOptionToIndex = shops.indexOfFirst { it.Name == selectedOptionTo }
+                                            SelectedShops.selectedOptionToIndex = carouselShops.indexOfFirst { it.Name == selectedOptionTo }
                                             Log.d("to", "$selectedOptionToIndex")
                                             expandedTo = false
                                             searchTextTo = ""

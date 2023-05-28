@@ -67,7 +67,7 @@ fun SmoothLineGraph(navController: NavController) {
                     }
                 }
                 .drawWithCache {
-                    val path = generatePath(shops, points, coordinateSystem, size)
+                    val path = generatePath(carouselShops, carouselPoints, coordinateSystem, size)
 
                     onDrawBehind {
                         // drawing the line
@@ -135,14 +135,6 @@ fun generatePath(shop: List<Shops>, point: List<Point>, data: List<Coordinate>, 
     val widthPerCoordinate = size.width / rangeX
     val heightPerCoordinate = size.height / rangeY
 
-    points[0].addConnection(points[1], calculateDistance(points[0], points[1]))
-    points[1].addConnection(points[2], calculateDistance(points[1], points[2]))
-    points[1].addConnection(points[3], calculateDistance(points[1], points[3]))
-    points[2].addConnection(points[4], calculateDistance(points[2], points[4]))
-    points[3].addConnection(points[4], calculateDistance(points[3], points[4]))
-    points[3].addConnection(points[5], calculateDistance(points[3], points[5]))
-    points[4].addConnection(points[6], calculateDistance(points[4], points[6]))
-
 
     var distance = 1414.2136f
     var nextPoint = Coordinate(0f,0f)
@@ -155,46 +147,48 @@ fun generatePath(shop: List<Shops>, point: List<Point>, data: List<Coordinate>, 
     Log.d("toIndex", "$toIndex")
 
     var pointList: MutableList<Coordinate> = mutableListOf<Coordinate>()
-    for (point in points) {
+    for (point in carouselPoints) {
         pointList.add(Coordinate(point.x, point.y))
     }
 
-    path.moveTo(shops[fromIndex].x * widthPerCoordinate,
-        shops[fromIndex].y * heightPerCoordinate)
-    path.lineTo(prime[fromIndex].x * widthPerCoordinate,
-        prime[fromIndex].y * heightPerCoordinate)
+    path.moveTo(
+        carouselShops[fromIndex].x * widthPerCoordinate,
+        carouselShops[fromIndex].y * heightPerCoordinate)
+    path.lineTo(
+        carouselPrime[fromIndex].x * widthPerCoordinate,
+        carouselPrime[fromIndex].y * heightPerCoordinate)
     index = pointList.indexOf(Coordinate(
-        prime[fromIndex].x,
-        prime[fromIndex].y))
+        carouselPrime[fromIndex].x,
+        carouselPrime[fromIndex].y))
     pointList.removeAt(index)
 
     distance = distance(
-        shops[toIndex].x,
-        closestPoints(prime[fromIndex].x,prime[fromIndex].y,pointList)[0],
-        shops[toIndex].y,
-        closestPoints(prime[fromIndex].x,prime[fromIndex].y,pointList)[1])
+        carouselShops[toIndex].x,
+        closestPoints(carouselPrime[fromIndex].x,carouselPrime[fromIndex].y,pointList)[0],
+        carouselShops[toIndex].y,
+        closestPoints(carouselPrime[fromIndex].x,carouselPrime[fromIndex].y,pointList)[1])
     nextPoint = Coordinate(
-        closestPoints(prime[fromIndex].x,prime[fromIndex].y,pointList)[0],
-        closestPoints(prime[fromIndex].x,prime[fromIndex].y,pointList)[1])
+        closestPoints(carouselPrime[fromIndex].x,carouselPrime[fromIndex].y,pointList)[0],
+        closestPoints(carouselPrime[fromIndex].x,carouselPrime[fromIndex].y,pointList)[1])
 
     Log.d("bulduğu nokta 1","${nextPoint}]")
     Log.d("bulduğu nokta 2","${Coordinate(
-        closestPoints(prime[fromIndex].x,prime[fromIndex].y,pointList)[2],
-        closestPoints(prime[fromIndex].x,prime[fromIndex].y,pointList)[3])}]")
+        closestPoints(carouselPrime[fromIndex].x,carouselPrime[fromIndex].y,pointList)[2],
+        closestPoints(carouselPrime[fromIndex].x,carouselPrime[fromIndex].y,pointList)[3])}]")
 
     if (distance > (distance(
-            shops[toIndex].x,
-            closestPoints(prime[fromIndex].x,prime[fromIndex].y,pointList)[2] ,
-            shops[toIndex].y,
-            closestPoints(prime[fromIndex].x,prime[fromIndex].y,pointList)[3]))){
+            carouselShops[toIndex].x,
+            closestPoints(carouselPrime[fromIndex].x,carouselPrime[fromIndex].y,pointList)[2] ,
+            carouselShops[toIndex].y,
+            closestPoints(carouselPrime[fromIndex].x,carouselPrime[fromIndex].y,pointList)[3]))){
         distance = distance(
-            shops[toIndex].x,
-            closestPoints(prime[fromIndex].x,prime[fromIndex].y,pointList)[2] ,
-            shops[toIndex].y,
-            closestPoints(prime[fromIndex].x,prime[fromIndex].y,pointList)[3])
+            carouselShops[toIndex].x,
+            closestPoints(carouselPrime[fromIndex].x,carouselPrime[fromIndex].y,pointList)[2] ,
+            carouselShops[toIndex].y,
+            closestPoints(carouselPrime[fromIndex].x,carouselPrime[fromIndex].y,pointList)[3])
         nextPoint = Coordinate(
-            closestPoints(prime[fromIndex].x,prime[fromIndex].y,pointList)[2],
-            closestPoints(prime[fromIndex].x,prime[fromIndex].y,pointList)[3])
+            closestPoints(carouselPrime[fromIndex].x,carouselPrime[fromIndex].y,pointList)[2],
+            closestPoints(carouselPrime[fromIndex].x,carouselPrime[fromIndex].y,pointList)[3])
     }
 
     path.lineTo(nextPoint.x * widthPerCoordinate,
@@ -205,13 +199,13 @@ fun generatePath(shop: List<Shops>, point: List<Point>, data: List<Coordinate>, 
     Log.d("gittiği nokta","${pointList[index]}]")
     pointList.removeAt(index)
 
-    while (!((nextPoint.x == prime[toIndex].x) and (nextPoint.y == prime[toIndex].y))){
+    while (!((nextPoint.x == carouselPrime[toIndex].x) and (nextPoint.y == carouselPrime[toIndex].y))){
         lastPoint = nextPoint
 
         distance = distance(
-            shops[toIndex].x,
+            carouselShops[toIndex].x,
             closestPoints(nextPoint.x,nextPoint.y,pointList)[0] ,
-            shops[toIndex].y,
+            carouselShops[toIndex].y,
             closestPoints(nextPoint.x,nextPoint.y,pointList)[1])
         nextPoint = Coordinate(
             closestPoints(nextPoint.x,nextPoint.y,pointList)[0],
@@ -223,14 +217,14 @@ fun generatePath(shop: List<Shops>, point: List<Point>, data: List<Coordinate>, 
             closestPoints(lastPoint.x,lastPoint.y,pointList)[3])}]")
 
         if (distance > (distance(
-                shops[toIndex].x,
+                carouselShops[toIndex].x,
                 closestPoints(lastPoint.x,lastPoint.y,pointList)[2] ,
-                shops[toIndex].y,
+                carouselShops[toIndex].y,
                 closestPoints(lastPoint.x,lastPoint.y,pointList)[3]))){
             distance = distance(
-                shops[toIndex].x,
+                carouselShops[toIndex].x,
                 closestPoints(lastPoint.x,lastPoint.y,pointList)[2] ,
-                shops[toIndex].y,
+                carouselShops[toIndex].y,
                 closestPoints(lastPoint.x,lastPoint.y,pointList)[3])
             nextPoint = Coordinate(
                 closestPoints(lastPoint.x,lastPoint.y,pointList)[2],
@@ -246,7 +240,7 @@ fun generatePath(shop: List<Shops>, point: List<Point>, data: List<Coordinate>, 
         Log.d("gittiği nokta","${pointList[index]}]")
         pointList.removeAt(index)
     }
-    path.lineTo(shops[toIndex].x * widthPerCoordinate, shops[toIndex].y * heightPerCoordinate)
+    path.lineTo(carouselShops[toIndex].x * widthPerCoordinate, carouselShops[toIndex].y * heightPerCoordinate)
 
     return path
 }

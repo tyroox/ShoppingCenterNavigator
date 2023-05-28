@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.sp
 fun Stores(selectedItem: MutableState<Int>){
     val keyboardController = LocalSoftwareKeyboardController.current
 
-    val stores = shops.sortedBy { it.Name }
+    val stores = carouselShops.sortedBy { it.Name }
 
     var selectedBoxIndex by remember { mutableStateOf(-1) }
 
@@ -64,8 +64,8 @@ fun Stores(selectedItem: MutableState<Int>){
     }, onBoxClick = { clickedIndex ->
         selectedBoxIndex = clickedIndex
         // bunu var dan val yaptım sıkıntı çıkarsa bakarız
-        val shopFromBoxNameIndex= shops.indexOf(stores[clickedIndex])
-        SelectedShops.selectedStoreFromStores = shops[shopFromBoxNameIndex].Name
+        val shopFromBoxNameIndex= carouselShops.indexOf(stores[clickedIndex])
+        SelectedShops.selectedStoreFromStores = carouselShops[shopFromBoxNameIndex].Name
         alertDialog.value = true
 
 

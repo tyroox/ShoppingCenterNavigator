@@ -11,7 +11,7 @@ class ShopViewModel: ViewModel() {
     private val _isSearching = MutableStateFlow(false)
     val isSearching =  _isSearching.asStateFlow()
 
-    private val _shops = MutableStateFlow((shops))
+    private val _shops = MutableStateFlow((carouselShops))
     val shop1 = searchText
         .combine(_shops){ text, shop ->
             if(text.isBlank()){

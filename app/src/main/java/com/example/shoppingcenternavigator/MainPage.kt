@@ -97,7 +97,7 @@ fun MainPage(navController: NavController) {
                     }
                 }
                 if (selectedItem.value == 4){
-                    Settings(navController)
+                    Settings()
                 }
             }
         },
