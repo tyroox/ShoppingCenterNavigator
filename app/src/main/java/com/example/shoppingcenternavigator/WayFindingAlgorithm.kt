@@ -229,8 +229,9 @@ fun WayFindingAlgorithm() {
         points[76].addConnection(points[67], calculateDistance(points[76], points[67]))
         points[84].addConnection(points[67], calculateDistance(points[84], points[67]))
         points[67].addConnection(points[72], calculateDistance(points[67], points[72]))
-        points[72].addConnection(points[70], calculateDistance(points[72], points[70]))
         points[70].addConnection(points[68], calculateDistance(points[70], points[68]))
+        points[70].addConnection(points[96], calculateDistance(points[70], points[96]))
+        points[72].addConnection(points[96], calculateDistance(points[70], points[68]))
         // -1 merdiven
         points[93].addConnection(points[96], calculateDistance(points[93], points[96]))
         points[94].addConnection(points[86], calculateDistance(points[94], points[86]))
