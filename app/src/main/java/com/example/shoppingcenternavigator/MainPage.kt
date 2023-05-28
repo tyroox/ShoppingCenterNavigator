@@ -49,7 +49,28 @@ fun MainPage(navController: NavController) {
                     GPS()
                 }
                 if (selectedItem.value == 2){
-                    Stores()
+                    if (selectedMall == 0){
+                        if (alertDialog.value){
+                            AlertDialog(
+                                onDismissRequest = { alertDialog.value = false },
+                                text = { Text(text = stringResource(id = R.string.chooseMallErrorMessage),
+                                    color = colorResource(id = R.color.isabelline), fontSize = 18.sp) },
+                                confirmButton = { Text(text = stringResource(id = R.string.confirmButton),
+                                    modifier = Modifier
+                                        .padding(10.dp)
+                                        .clickable {
+                                            alertDialog.value = false
+                                            selectedItem.value = 0
+                                        },
+                                    color = colorResource(id = R.color.isabelline))},
+                                backgroundColor = colorResource(id = R.color.caribbeanCurrent)
+                            )
+                        }
+                        alertDialog.value = true
+                    }
+                    else{
+                        Stores(selectedItem = selectedItem)
+                    }
                 }
                 if (selectedItem.value == 3){
                     if (selectedMall == 0){

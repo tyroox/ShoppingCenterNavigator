@@ -16,6 +16,8 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
@@ -366,7 +368,7 @@ fun WayFindingAlgorithm() {
 
                             path.moveTo(startX, startY)
 
-                            val pathLength = shortestPath.size - 1
+                            val pathLength = shortestPath.size
                             val pathProgress = currentPathProgress * pathLength
                             Log.d("aa","${shops.size}")
 
@@ -393,7 +395,7 @@ fun WayFindingAlgorithm() {
                                 path.lineTo(endX, endY)
                             }
 
-                            drawPath(path, caribbeanCurrent, style = Stroke(3.dp.toPx()))
+                            drawPath(path, caribbeanCurrent, style = Stroke(4.dp.toPx()))
 
 
                             // drawing the line
@@ -521,7 +523,7 @@ fun WayFindingAlgorithm() {
                                     }
                                     // drawing the line
 
-                                    drawPath(path, caribbeanCurrent, style = Stroke(3.dp.toPx()))
+                                    drawPath(path, caribbeanCurrent, style = Stroke(4.dp.toPx()))
 
                                     drawCircle(
                                         moonstone,
@@ -574,7 +576,7 @@ fun WayFindingAlgorithm() {
 
 
                                     // drawing the line
-                                    drawPath(path, caribbeanCurrent, style = Stroke(3.dp.toPx()))
+                                    drawPath(path, caribbeanCurrent, style = Stroke(4.dp.toPx()))
 
                                     drawCircle(
                                         moonstone,
@@ -590,8 +592,6 @@ fun WayFindingAlgorithm() {
                                         )
                                     )
                                 }
-
-
                             }
                         }
                 )
@@ -659,7 +659,7 @@ fun WayFindingAlgorithm() {
                                     }
                                     // drawing the line
 
-                                    drawPath(path, caribbeanCurrent, style = Stroke(3.dp.toPx()))
+                                    drawPath(path, caribbeanCurrent, style = Stroke(4.dp.toPx()))
 
                                     drawCircle(
                                         moonstone,
@@ -712,7 +712,7 @@ fun WayFindingAlgorithm() {
 
 
                                     // drawing the line
-                                    drawPath(path, caribbeanCurrent, style = Stroke(3.dp.toPx()))
+                                    drawPath(path, caribbeanCurrent, style = Stroke(4.dp.toPx()))
 
                                     drawCircle(
                                         moonstone,
@@ -741,22 +741,38 @@ fun WayFindingAlgorithm() {
                     .align(Alignment.BottomCenter),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                OutlinedButton(onClick = { selectedItem.value = fromFloor
+                IconButton(onClick = { selectedItem.value = fromFloor
                     path1Visibility = true
                     path2Visibility = false
                     path3Visibility = true
                     path4Visibility = false
-                },
-                    colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent)) {
-                    Icons.Default.KeyboardArrowLeft
+                    }
+                ) {
+                    Icon(
+                        Icons.Default.KeyboardArrowLeft,
+                        contentDescription = "Arrow Left",
+                        modifier = Modifier.size(50.dp),
+                        tint = caribbeanCurrent
+                        // You can customize the appearance of the icon here
+                    )
                 }
-                OutlinedButton(onClick = { selectedItem.value = toFloor
-                    path1Visibility = false
-                    path2Visibility = true
-                    path3Visibility = false
-                    path4Visibility = true},
-                    colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent)) {
-                    Icons.Default.KeyboardArrowRight
+
+                IconButton(
+                    onClick = {
+                        selectedItem.value = toFloor
+                        path1Visibility = false
+                        path2Visibility = true
+                        path3Visibility = false
+                        path4Visibility = true
+                    }
+                ) {
+                    Icon(
+                        Icons.Default.KeyboardArrowRight,
+                        contentDescription = "Arrow Right",
+                        modifier = Modifier.size(50.dp),
+                        tint = caribbeanCurrent
+                        // You can customize the appearance of the icon here
+                    )
                 }
             }
         }

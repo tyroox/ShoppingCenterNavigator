@@ -12,6 +12,6 @@
     <string name="drawPathButton">Yol tarifini çiz!</string>
     <string name="searchStoreButton">Ara</string>
     <string name="closeButton">Kapat</string>
-    <string name="chooseMallErrorMessage">Lütfen anasayfadan bir alışveriş merkezi seçiniz.</string>
+    <string name="chooseMallErrorMessage">Lütfen ana sayfadan bir alışveriş merkezi seçiniz.</string>
     <string name="confirmButton">Tamam</string>
 </resources>

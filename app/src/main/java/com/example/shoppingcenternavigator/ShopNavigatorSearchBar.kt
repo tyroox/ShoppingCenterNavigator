@@ -59,9 +59,12 @@ fun ShopNavigatorSearchBar(navController: NavController) {
     var searchTextFrom by remember { mutableStateOf("") }
     var searchTextTo by remember { mutableStateOf("") }
     var selectedOptionFrom by remember { mutableStateOf("") }
-    var selectedOptionTo by remember { mutableStateOf("") }
+    var selectedOptionTo by remember { mutableStateOf(SelectedShops.selectedStoreFromStores) }
     val selectedOptionFromIndex = SelectedShops.selectedOptionFromIndex
     val selectedOptionToIndex = SelectedShops.selectedOptionToIndex
+    if (SelectedShops.selectedStoreFromStores != ""){
+        SelectedShops.selectedOptionToIndex = shops.indexOfFirst { it.Name == SelectedShops.selectedStoreFromStores }
+    }
     val options = shops
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
@@ -101,7 +104,9 @@ fun ShopNavigatorSearchBar(navController: NavController) {
                     color = caribbeanCurrent)
 
                 TextField(
-                    modifier = Modifier.constrainAs(fromTextField) {
+                    modifier = Modifier.clickable {
+                        expandedFrom = !expandedFrom
+                    }.constrainAs(fromTextField) {
                         top.linkTo(parent.top, margin = 64.dp)
                         start.linkTo(parent.start)
                         end.linkTo(parent.end)
@@ -133,7 +138,9 @@ fun ShopNavigatorSearchBar(navController: NavController) {
                     }
                 )
                 TextField(
-                    modifier = Modifier.constrainAs(toTextField) {
+                    modifier = Modifier.clickable {
+                        expandedFrom = !expandedFrom
+                    }.constrainAs(toTextField) {
                         top.linkTo(fromTextField.bottom, margin = 16.dp)
                         start.linkTo(parent.start)
                         end.linkTo(parent.end)
@@ -290,13 +297,14 @@ fun ShopNavigatorSearchBar(navController: NavController) {
                                     .fillMaxWidth()
                                     .weight(1f)
                             ) {
-                                val filteredOptionsTo = options.filter { it.Name.contains(searchTextFrom, ignoreCase = true) }
+                                val filteredOptionsTo = options.filter { it.Name.contains(searchTextTo, ignoreCase = true) }
                                     .sortedBy { it.Name }
 
                                 items(filteredOptionsTo) { option ->
                                     DropdownMenuItem(
                                         onClick = {
                                             selectedOptionTo = option.Name
+                                            SelectedShops.selectedStoreFromStores = ""
                                             SelectedShops.selectedOptionToIndex = shops.indexOfFirst { it.Name == selectedOptionTo }
                                             Log.d("to", "$selectedOptionToIndex")
                                             expandedTo = false

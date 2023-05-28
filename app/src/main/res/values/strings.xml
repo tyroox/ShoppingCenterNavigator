@@ -12,6 +12,6 @@
     <string name="drawPathButton">Draw Path!</string>
     <string name="searchStoreButton">Search</string>
     <string name="closeButton">Close</string>
-    <string name="chooseMallErrorMessage">Please select a shopping mall from the main page.</string>
+    <string name="chooseMallErrorMessage">Please select a shopping center from the home page.</string>
     <string name="confirmButton">Okay</string>
 </resources>
