@@ -12,7 +12,7 @@
     <string name="drawPathButton">Yol tarifini çiz!</string>
     <string name="searchStoreButton">Ara</string>
     <string name="closeButton">Kapat</string>
-    <string name="chooseMallErrorMessage">Lütfen anasayfadan bir alışveriş merkezi seçiniz.</string>
+    <string name="chooseMallErrorMessage">Lütfen ana sayfadan bir alışveriş merkezi seçiniz.</string>
     <string name="confirmButton">Tamam</string>
     <string name="email">E-Posta</string>
     <string name="password">Şifre</string>
@@ -29,5 +29,11 @@
     <string name="doHaveAccountButton">Hesabınız var mı?</string>
     <string name="groundFloor">Zemin Kat</string>
     <string name="floor">. Kat</string>
+    <string name="FAQQuestion1">Nasıl yol tarifi alabilirim?</string>
+    <string name="FAQAnswer1">Alışveriş merkezi içerisinde yol tarifi almak için aşağıdaki adımları izleyebilirsiniz:\n\n1. Anasayfadan bulunduğunuz alışveriş merkezini seçin.\n
+        2. Seçtiğiniz alışveriş merkezinin içerisinde bulunduğunuz mağazanın adını belirtin.\n
+                3. Gitmek istediğiniz mağazanın adını girin.\n
+                \nBu bilgileri girdikten sonra, alışveriş merkezi içindeki yol tarifi size sunulacaktır.
+                Bu yöntemle, istediğiniz mağazaya en hızlı ve etkili şekilde ulaşabilirsiniz.</string>
 
 </resources>

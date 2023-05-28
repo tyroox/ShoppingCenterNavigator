@@ -12,7 +12,7 @@
     <string name="drawPathButton">Draw Path!</string>
     <string name="searchStoreButton">Search</string>
     <string name="closeButton">Close</string>
-    <string name="chooseMallErrorMessage">Please select a shopping mall from the main page.</string>
+    <string name="chooseMallErrorMessage">Please select a shopping center from the home page.</string>
     <string name="confirmButton">OK</string>
     <string name="email">E-Mail</string>
     <string name="password">Password</string>
@@ -29,4 +29,12 @@
     <string name="doHaveAccountButton">Do you have an account?</string>
     <string name="groundFloor">Ground Floor</string>
     <string name="floor">. Floor</string>
+    <string name="FAQQuestion1">How can I get directions?</string>
+    <string name="FAQAnswer1">You can follow the steps below to get directions inside the mall:\n\n
+        1. Select the shopping center you are in from the homepage.\n
+        2. Specify the name of the store you are in in the shopping center you have chosen.\n
+                3. Enter the name of the store you want to go to.\n
+                \nAfter entering this information, you will be presented with directions inside the mall.
+        With this method, you can reach the store you want in the fastest and most effective way.</string>
+
 </resources>
