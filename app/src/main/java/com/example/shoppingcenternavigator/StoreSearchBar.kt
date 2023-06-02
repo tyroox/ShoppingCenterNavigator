@@ -264,14 +264,14 @@ fun StoreSearchBar(
                                     )
                                     if (variable.Floor == 0) {
                                         Text(
-                                            text = "Zemin Kat",
+                                            text = stringResource(id = R.string.groundFloor),
                                             color = Color.Black,
                                             fontSize = 20.sp,
                                             textAlign = TextAlign.Center
                                         )
                                     } else {
                                         Text(
-                                            text = variable.Floor.toString() + ". Kat",
+                                            text = variable.Floor.toString() + stringResource(id = R.string.floor),
                                             color = Color.Black,
                                             fontSize = 20.sp,
                                             textAlign = TextAlign.Center
