@@ -85,7 +85,7 @@ fun Register(context: ComponentActivity, navController: NavController) {
                 Image(
                     painter = painterResource(id = R.drawable.register_icon),
                     contentDescription = null,
-                    modifier = Modifier.size(300.dp)
+                    modifier = Modifier.size(250.dp)
                 )
                 Column() {
                     TextField(

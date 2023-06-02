@@ -58,7 +58,7 @@ val carouselPoints = listOf(
     Point(0,679f,439f),     //33 Vakko
     Point(0,632f,512f),     //34 W Collection Men
     Point(0,766f,386f),     //35 W Collection Women
-    Point(0,333f,605f),     //36 Watson's
+    Point(0,333f,605f),     //36 Watsons
     Point(0,726f,705f),     //37 Yves Rocher
 
     // Stairs
@@ -164,7 +164,7 @@ val carouselPoints = listOf(
 
     // Prime Points Basement Floor Two
     Point(-2,430f,571f),    //120 Coral Travel
-    Point(-2,328f,571f),    //121 Ets Turizm
+    Point(-2,328f,571f),    //121 ETS Turizm
     Point(-2,497f,571f),    //122 Gymotion
     Point(-2,388f,571f),    //123 Jolly Tur
     Point(-2,320f,571f),    //124 Migros
@@ -203,7 +203,7 @@ val carouselPrime = listOf(
     Shops("Vakko Prime", 0,690f,434f),
     Shops("W Collection Men Prime", 0,632f,512f),
     Shops("W Collection Women Prime", 0,766f,386f),
-    Shops("Watson's Prime", 0,333f,605f),
+    Shops("Watsons Prime", 0,333f,605f),
     Shops("Yves Rocher Prime", 0,726f,705f),
 
     Shops("Batik Prime", 1,292f,457f),
@@ -264,7 +264,7 @@ val carouselPrime = listOf(
     Shops("Tam Sos Döner Prime", 2,659f,438f),
 
     Shops("Coral Travel Prime", -2,430f,571f),
-    Shops("Ets Turizm Prime", -2,328f,571f),
+    Shops("ETS Turizm Prime", -2,328f,571f),
     Shops("Gymotion Prime", -2,497f,571f),
     Shops("Jolly Tur Prime", -2,388f,571f),
     Shops("Migros Prime", -2,320f,571f),
@@ -302,7 +302,7 @@ val carouselShops = listOf(
     Shops("Vakko", 0,699f,449f),
     Shops("W Collection Men", 0,661f,512f),
     Shops("W Collection Women", 0,775f,402f),
-    Shops("Watson's", 0,301f,605f),
+    Shops("Watsons", 0,301f,605f),
     Shops("Yves Rocher", 0,714f,721f),
 
     Shops("Batik", 1,312f,429f),
@@ -363,7 +363,7 @@ val carouselShops = listOf(
     Shops("Tam Sos Döner", 2,609f,438f),
 
     Shops("Coral Travel", -2,430f,543f),
-    Shops("Ets Turizm", -2,328f,623f),
+    Shops("ETS Turizm", -2,328f,623f),
     Shops("Gymotion", -2,521f,571f),
     Shops("Jolly Tur", -2,388f,543f),
     Shops("Migros", -2,304f,571f),
@@ -619,7 +619,7 @@ val capacityPoints = listOf(
     Point(-1,512f,525f),      // 216 - B-12/Eve
     Point(-1,442f,525f),      // 217- B-13/Atasun Optik
     Point(-1,315f,557f),      // 218 - B-14/Safranbolu Lokumcusu
-    Point(-1,315f,598f),      // 219 - B-15/ETS Tur
+    Point(-1,315f,598f),      // 219 - B-15/ETS Turizm
     Point(-1,315f,640f),      // 220 - B-16/Jolly Tur
     Point(-1,249f,642f),      // 221 - B-17/Migros MMM
     Point(-1,188f,640f),      // 222 - B-18/Şenol Zeytinoğlu - Kadın
@@ -808,7 +808,7 @@ val capacityPrime = listOf (
     Shops("Eve Prime", -1,512f,525f),                             // B-12
     Shops("Atasun Optik Prime", -1,442f,525f),                    // B-13
     Shops("Safranbolu Lokumcusu Prime", -1,315f,557f),            // B-14
-    Shops("ETS Tur Prime", -1,315f,598f),                         // B-15
+    Shops("ETS Turizm Prime", -1,315f,598f),                         // B-15
     Shops("Jolly Tur Prime", -1,315f,640f),                       // B-16
     Shops("Migros MMM Prime", -1,249f,642f),                      // B-17
     Shops("Şenol Zeytinoğlu - Kadın Prime", -1,188f,640f),        // B-18
@@ -990,7 +990,7 @@ val capacityShops = listOf(
     Shops("Eve", -1,512f,545f),                             // B-12
     Shops("Atasun Optik", -1,442f,545f),                    // B-13
     Shops("Safranbolu Lokumcusu", -1,326f,557f),            // B-14
-    Shops("ETS Tur", -1,326f,598f),                         // B-15
+    Shops("ETS Turizm", -1,326f,598f),                         // B-15
     Shops("Jolly Tur", -1,326f,640f),                       // B-16
     Shops("Migros MMM", -1,249f,660f),                      // B-17
     Shops("Şenol Zeytinoğlu - Kadın", -1,172f,640f),        // B-18

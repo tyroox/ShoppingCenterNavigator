@@ -1,6 +1,5 @@
 package com.example.shoppingcenternavigator
 
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -15,7 +14,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Text
@@ -45,6 +43,7 @@ import androidx.compose.ui.unit.sp
 import com.example.shoppingcenternavigator.ui.theme.caribbeanCurrent
 import com.example.shoppingcenternavigator.ui.theme.skyBlue
 import com.example.shoppingcenternavigator.ui.theme.wineBerry
+import java.util.Locale
 
 @Composable
 fun StoreSearchBar(
@@ -146,10 +145,156 @@ fun StoreSearchBar(
         "vodafone" to R.drawable.vodafone_logo,
         "w collection men" to R.drawable.w_collection_logo,
         "w collection women" to R.drawable.w_collection_logo,
-        "watson's" to R.drawable.watsons_logo,
+        "watsons" to R.drawable.watsons_logo,
         "workinton" to R.drawable.workinton_logo,
-        "yves rocher" to R.drawable.yves_rocher_logo
-    )
+        "yves rocher" to R.drawable.yves_rocher_logo,
+
+        // Capacity Shops
+        "adidas" to R.drawable.adidas_logo,
+        "akıl ve zeka oyunları" to R.drawable.akil_ve_zeka_oyunlari_logo,
+        "arçelik" to R.drawable.arcelik_logo,
+        "arifoğlu" to R.drawable.arifoglu_logo,
+        "atasay" to R.drawable.atasay_logo,
+        "atelier rebul" to R.drawable.atelier_rebul_logo,
+        "avon" to R.drawable.avon_logo,
+        "avva" to R.drawable.avva_logo,
+        "ayakkabı dünyası" to R.drawable.ayakkabi_dunyasi_logo,
+        "aydın döviz & altın" to R.drawable.aydin_doviz_altin_logo,
+        "b&g store" to R.drawable.b_g_store_logo,
+        "bavra pide" to R.drawable.bavra_pide_logo,
+        "bershka" to R.drawable.bershka_logo,
+        "beymen club" to R.drawable.beymen_club_logo,
+        "birkenstock" to R.drawable.birkenstock_logo,
+        "blue diamond" to R.drawable.blue_diamond_logo,
+        "boble bubble tea" to R.drawable.boble_bubble_tea_logo,
+        "cacharel" to R.drawable.cacharel_logo,
+        "cafe poi" to R.drawable.cafe_poi_logo,
+        "calzedonia" to R.drawable.calzedonia_logo,
+        "camper" to R.drawable.camper_logo,
+        "capacity eczane" to R.drawable.capacity_eczane_logo,
+        "cella" to R.drawable.cella_logo,
+        "ceyo" to R.drawable.ceyo_logo,
+        "cezve kahve" to R.drawable.cezve_kahve_logo,
+        "chocolate" to R.drawable.chocolate_logo,
+        "çiğköftem" to R.drawable.cigkoftem_logo,
+        "columbia" to R.drawable.columbia_logo,
+        "cookshop" to R.drawable.cookshop_logo,
+        "damat tween" to R.drawable.damat_tween_logo,
+        "direct protect" to R.drawable.direct_protect_logo,
+        "divarese" to R.drawable.divarese_logo,
+        "dürümle" to R.drawable.durumle_logo,
+        "elle" to R.drawable.elle_logo,
+        "ender spor" to R.drawable.ender_spor_logo,
+        "english home" to R.drawable.english_home_logo,
+        "eve" to R.drawable.eve_logo,
+        "faik sönmez" to R.drawable.faik_sonmez_logo,
+        "fitcity" to R.drawable.fitcity_logo,
+        "flo" to R.drawable.flo_logo,
+        "flormar" to R.drawable.flormar_logo,
+        "gloria jeans coffees" to R.drawable.gloria_jeans_logo,
+        "gmg firenze" to R.drawable.gmg_firenze_logo,
+        "golden rose" to R.drawable.golden_rose_logo,
+        "gözgrup optik" to R.drawable.gozgrup_optik_logo,
+        "green salads" to R.drawable.green_salads_logo,
+        "greyder" to R.drawable.greyder_logo,
+        "günaydın" to R.drawable.gunaydin_logo,
+        "gurmeburger kasap" to R.drawable.gurmeburger_kasap_logo,
+        "haribo çok şeker" to R.drawable.haribo_logo,
+        "hd iskender" to R.drawable.hd_iskender_logo,
+        "home sweet home" to R.drawable.home_sweet_home_logo,
+        "hugo boss" to R.drawable.hugo_boss_logo,
+        "intimissimi" to R.drawable.intimissimi_logo,
+        "ipekyol" to R.drawable.ipekyol_logo,
+        "jimmy key" to R.drawable.jimmy_key_logo,
+        "jumbo" to R.drawable.jumbo_logo,
+        "kartal yuvası" to R.drawable.kartal_yuvasi_logo,
+        "kfc" to R.drawable.kfc_logo,
+        "kifidis" to R.drawable.kifidis_logo,
+        "kiko" to R.drawable.kiko_logo,
+        "konyalı saat" to R.drawable.konyali_saat_logo,
+        "korkmaz" to R.drawable.korkmaz_logo,
+        "kosmika" to R.drawable.kosmika_logo,
+        "koton" to R.drawable.koton_logo,
+        "krispy kreme" to R.drawable.krispy_kreme_logo,
+        "lacoste" to R.drawable.lacoste_logo,
+        "lc waikiki" to R.drawable.lc_waikiki_logo,
+        "lee wrangler" to R.drawable.lee_wrangler_logo,
+        "lelas" to R.drawable.lelas_logo,
+        "lizay" to R.drawable.lizay_logo,
+        "l'occitane" to R.drawable.loccitane_logo,
+        "loris" to R.drawable.loris_logo,
+        "ltb" to R.drawable.ltb_logo,
+        "luapie" to R.drawable.luapie_logo,
+        "lufian" to R.drawable.lufian_logo,
+        "mac" to R.drawable.mac_logo,
+        "mad parfumeur" to R.drawable.mad_parfumeur_logo,
+        "madame coco" to R.drawable.madame_coco_logo,
+        "makarnam" to R.drawable.makarnam_logo,
+        "malatya pazarı palancı" to R.drawable.malatya_pazari_logo,
+        "mamino" to R.drawable.mamino_logo,
+        "mango" to R.drawable.mango_logo,
+        "marks&spencer" to R.drawable.marks_spencer_logo,
+        "massimo dutti" to R.drawable.massimo_dutti_logo,
+        "mediamarkt" to R.drawable.media_markt_logo,
+        "mi store" to R.drawable.mi_store_logo,
+        "midpoint" to R.drawable.midpoint_logo,
+        "migros mmm" to R.drawable.migros_logo,
+        "mocassini" to R.drawable.mocassini_logo,
+        "molasera" to R.drawable.molasera_logo,
+        "network men" to R.drawable.network_logo,
+        "network women" to R.drawable.network_logo,
+        "nike" to R.drawable.nike_logo,
+        "oxxo" to R.drawable.oxxo_logo,
+        "oysho" to R.drawable.oysho_logo,
+        "oyun zamanı" to R.drawable.oyun_zamani_logo,
+        "özsüt" to R.drawable.ozsut_logo,
+        "panço" to R.drawable.panco_logo,
+        "pandora" to R.drawable.pandora_logo,
+        "panista" to R.drawable.panista_logo,
+        "paribu cineverse" to R.drawable.paribu_cineverse_logo,
+        "paşabahçe mağazaları" to R.drawable.pasabahce_logo,
+        "pelit" to R.drawable.pelit_logo,
+        "phone hospital" to R.drawable.phone_hospital_logo,
+        "pidem" to R.drawable.pidem_logo,
+        "popeyes" to R.drawable.popeyes_logo,
+        "pull&bear" to R.drawable.pull_bear_logo,
+        "rainwater" to R.drawable.rainwater_logo,
+        "ramsey" to R.drawable.ramsey_logo,
+        "safranbolu lokumcusu" to R.drawable.safranbolu_lokumcusu_logo,
+        "samsonite" to R.drawable.samsonite_logo,
+        "samsung" to R.drawable.samsung_logo,
+        "şenol zeytinoğlu - kadın" to R.drawable.senol_zeytinoglu_logo,
+        "sephora" to R.drawable.sephora_logo,
+        "sihirli eller" to R.drawable.sihirli_eller_logo,
+        "skechers" to R.drawable.skechers_logo,
+        "sneaks up" to R.drawable.sneaks_up_logo,
+        "so chic" to R.drawable.so_chic_logo,
+        "stradivarius" to R.drawable.stradivarius_logo,
+        "stylish" to R.drawable.stylish_logo,
+        "sunglass hut / ray-ban" to R.drawable.sunglass_hut_logo,
+        "superstep" to R.drawable.superstep_logo,
+        "suwen" to R.drawable.suwen_logo,
+        "swarovski" to R.drawable.swarovski_logo,
+        "tanca plus" to R.drawable.tanca_plus_logo,
+        "tavuk dünyası" to R.drawable.tavuk_dunyasi_logo,
+        "tchibo" to R.drawable.tchibo_logo,
+        "tefal" to R.drawable.tefal_logo,
+        "the north face" to R.drawable.the_north_face_logo,
+        "timberland" to R.drawable.timberland_logo,
+        "tobacco shop" to R.drawable.tobacco_shop_logo,
+        "tommy hilfiger" to R.drawable.tommy_hilfiger_logo,
+        "turkcell-genpa" to R.drawable.turkcell_logo,
+        "tüzün" to R.drawable.tuzun_logo,
+        "twist" to R.drawable.twist_logo,
+        "usta dönerci" to R.drawable.usta_donerci_logo,
+        "utopian" to R.drawable.utopian_logo,
+        "vodafone-cep point" to R.drawable.vodafone_logo,
+        "w collection" to R.drawable.w_collection_logo,
+        "yatsan" to R.drawable.yatsan_logo,
+        "zara" to R.drawable.zara_logo,
+        "zen" to R.drawable.zen_logo,
+
+        )
 
     Column(Modifier.fillMaxWidth()) {
         // Search bar
@@ -194,7 +339,7 @@ fun StoreSearchBar(
             variables
         } else {
             variables.filter { variable ->
-                variable.Name.toLowerCase().contains(searchQuery.toLowerCase())
+                variable.Name.lowercase(Locale.getDefault()).contains(searchQuery.lowercase(Locale.getDefault()))
             }
         }
 
@@ -216,7 +361,7 @@ fun StoreSearchBar(
                         if (index < filteredVariables.size) {
                             val variable = filteredVariables[index]
                             val backgroundResource =
-                                backgroundImages[variable.Name.toLowerCase()]
+                                backgroundImages[variable.Name.lowercase(Locale.getDefault())]
                             val backgroundPainter = backgroundResource?.let { painterResource(it) }
 
                             Box(
