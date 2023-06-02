@@ -270,7 +270,7 @@ val carouselPrime = listOf(
     Shops("Migros Prime", -2,320f,571f),
     Shops("Workinton Prime", -2,497f,519f),
 
-)
+    )
 
 val carouselShops = listOf(
     Shops("adL", 0,403f,665f),
@@ -616,7 +616,7 @@ val capacityPoints = listOf(
     Point(-1,745f,564f),      // 213 - B-09/Vodafone
     Point(-1,704f,569f),      // 214 - B-10/Turkcell-Genpa
     Point(-1,580f,525f),      // 215 - B-11/Ender Spor
-    Point(-1,512f,525f),      // 216 - B-12/Eve
+    Point(-1,509f,525f),      // 216 - B-12/Eve
     Point(-1,442f,525f),      // 217- B-13/Atasun Optik
     Point(-1,315f,557f),      // 218 - B-14/Safranbolu Lokumcusu
     Point(-1,315f,598f),      // 219 - B-15/ETS Turizm
@@ -630,14 +630,15 @@ val capacityPoints = listOf(
     Point(-1,188f,332f),      // 227 - B-24/Kifidis
     Point(-1,188f,298f),      // 228 - B-25/Mamino
     Point(-1,205f,270f),      // 229 - B-26/Toyzz Shop
+
     Point(-1,263f,237f),      // 230 - B-27/Armağan Oyuncak
     Point(-1,324f,202f),      // 231 - B-28/Flo
     Point(-1,393f,191f),      // 232 - B-29/Ceyo
     Point(-1,453f,191f),      // 233 - B-30/Korkmaz
     Point(-1,525f,191f),      // 234 - B-31/Arçelik
     Point(-1,593f,191f),      // 235 - B-32/Samsung
-    Point(-1,675f,186f),      // 236 - B-33/Tefal
-    Point(-1,723f,178f),      // 237 - B-34/Home Sweet Home
+    Point(-1,673f,186f),      // 236 - B-33/Tefal
+    Point(-1,722f,178f),      // 237 - B-34/Home Sweet Home
     Point(-1,407f,291f),      // 238 - B-35/LC Waikiki
     Point(-1,705f,373f),      // 239 - B-36/Columbia
     Point(-1,705f,409f),      // 240 - B-37/The North Face
@@ -650,20 +651,20 @@ val capacityPoints = listOf(
     //Red Points Primes
     Point(-1,283f,642f),      // 246 - B-43/Çiğköftem
     Point(-1,215f,642f),      // 247 - B-44/Haribo Çok Şeker
-    Point(-1,187f,523f),      // 248 - B-45/Aydın Döviz & Altın
-    Point(-1,250f,480f),      // 249 - B-46/Mad Parfumeur
+    Point(-1,188f,523f),      // 248 - B-45/Aydın Döviz & Altın
+    Point(-1,250f,463f),      // 249 - B-46/Mad Parfumeur
     Point(-1,251f,433f),      // 250 - B-47/Malatya Pazarı Palancı
     Point(-1,250f,433f),      // 251 - B-48/Arifoğlu
     Point(-1,251f,371f),      // 252 - B-49/Krispy Kreme
     Point(-1,250f,371f),      // 253 - B-50/Cafe Poi
     Point(-1,570f,219f),      // 254 - B-51/Sihirli Eller
     Point(-1,710f,178f),      // 255 - B-52/Rainwater
-    Point(-1,705f,273f),      // 256 - B-53/Akıl ve Zeka Oyunları
+    Point(-1,705f,280f),      // 256 - B-53/Akıl ve Zeka Oyunları
     Point(-1,615f,525f),      // 257 - B-54/Cezve Kahve
 
     // Stairs
     Point(-1,788f,223f),      // 258 stairs 1
-    Point(-1,783f,525f),      // 259 stairs 2
+    Point(-1,782f,525f),      // 259 stairs 2
     Point(-1,315f,525f),      // 260 stairs 3
 )
 
@@ -805,7 +806,7 @@ val capacityPrime = listOf (
     Shops("Vodafone Prime", -1,745f,564f),                        // B-09
     Shops("Turkcell-Genpa Prime", -1,704f,569f),                  // B-10
     Shops("Ender Spor Prime", -1,580f,525f),                      // B-11
-    Shops("Eve Prime", -1,512f,525f),                             // B-12
+    Shops("Eve Prime", -1,509f,525f),                             // B-12
     Shops("Atasun Optik Prime", -1,442f,525f),                    // B-13
     Shops("Safranbolu Lokumcusu Prime", -1,315f,557f),            // B-14
     Shops("ETS Turizm Prime", -1,315f,598f),                         // B-15
@@ -825,8 +826,8 @@ val capacityPrime = listOf (
     Shops("Korkmaz Prime", -1,453f,191f),                         // B-30
     Shops("Arçelik Prime", -1,525f,191f),                         // B-31
     Shops("Samsung Prime", -1,593f,191f),                         // B-32
-    Shops("Tefal Prime", -1,675f,186f),                           // B-33
-    Shops("Home Sweet Home Prime", -1,723f,178f),                 // B-34
+    Shops("Tefal Prime", -1,673f,186f),                           // B-33
+    Shops("Home Sweet Home Prime", -1,722f,178f),                 // B-34
     Shops("LC Waikiki Prime", -1,407f,291f),                      // B-35
     Shops("Columbia Prime", -1,705f,373f),                        // B-36
     Shops("The North Face Prime", -1,705f,409f),                  // B-37
@@ -839,15 +840,15 @@ val capacityPrime = listOf (
     //Red points
     Shops("Çiğköftem Prime", -1,283f,642f),                       // B-43
     Shops("Haribo Çok Şeker Prime", -1,215f,642f),                // B-44
-    Shops("Aydın Döviz & Altın Prime", -1,187f,523f),             // B-45
-    Shops("Mad Parfumeur Prime", -1,250f,480f),                   // B-46
+    Shops("Aydın Döviz & Altın Prime", -1,188f,523f),             // B-45
+    Shops("Mad Parfumeur Prime", -1,250f,463f),                   // B-46
     Shops("Malatya Pazarı Palancı Prime", -1,251f,433f),          // B-47
     Shops("Arifoğlu Prime", -1,250f,433f),                        // B-48
     Shops("Krispy Kreme Prime", -1,251f,371f),                    // B-49
     Shops("Cafe Poi Prime", -1,250f,371f),                        // B-50
     Shops("Sihirli Eller Prime", -1,570f,219f),                   // B-51
     Shops("Rainwater Prime", -1,710f,178f),                       // B-52
-    Shops("Akıl ve Zeka Oyunları Prime", -1,705f,273f),           // B-53
+    Shops("Akıl ve Zeka Oyunları Prime", -1,705f,280f),           // B-53
     Shops("Cezve Kahve Prime", -1,615f,525f),                     // B-54
 )
 
@@ -918,7 +919,7 @@ val capacityShops = listOf(
     Shops("GurmeBurger Kasap", 2,153f,454f),                // 216 - 217
     Shops("Bavra Pide", 2,153f,396f),                       // 218
     Shops("Köfteci Ramiz", 2,153f,355f),                    // 219
-    Shops("Makarnam", 2,153f,318f),                          // 220
+    Shops("Makarnam", 2,153f,318f),                         // 220
     Shops("Dürümle", 2,175f,280f),                          // 221
     Shops("Burger King", 2,202f,242f),                      // 222
     Shops("Mado", 2,276f,220f),                             // 223
@@ -987,10 +988,10 @@ val capacityShops = listOf(
     Shops("Vodafone", -1,752f,576f),                        // B-09
     Shops("Turkcell-Genpa", -1,704f,581f),                  // B-10
     Shops("Ender Spor", -1,580f,545f),                      // B-11
-    Shops("Eve", -1,512f,545f),                             // B-12
+    Shops("Eve", -1,509f,545f),                             // B-12
     Shops("Atasun Optik", -1,442f,545f),                    // B-13
     Shops("Safranbolu Lokumcusu", -1,326f,557f),            // B-14
-    Shops("ETS Turizm", -1,326f,598f),                         // B-15
+    Shops("ETS Turizm", -1,326f,598f),                      // B-15
     Shops("Jolly Tur", -1,326f,640f),                       // B-16
     Shops("Migros MMM", -1,249f,660f),                      // B-17
     Shops("Şenol Zeytinoğlu - Kadın", -1,172f,640f),        // B-18
@@ -1029,7 +1030,7 @@ val capacityShops = listOf(
     Shops("Cafe Poi", -1,250f,356f),                        // B-50
     Shops("Sihirli Eller", -1,553f,219f),                   // B-51
     Shops("Rainwater", -1,710f,182f),                       // B-52
-    Shops("Akıl ve Zeka Oyunları", -1,705f,267f),           // B-53
-    Shops("Cezve Kahve", -1,625f,524f),                     // B-54
+    Shops("Akıl ve Zeka Oyunları", -1,705f,270f),           // B-53
+    Shops("Cezve Kahve", -1,625f,525f),                     // B-54
 
 )
