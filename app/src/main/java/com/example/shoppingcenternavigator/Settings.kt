@@ -14,6 +14,7 @@ import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.Person
@@ -24,6 +25,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.Center
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
+import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
@@ -50,78 +54,97 @@ fun Settings(navController: NavController, selectedItem: MutableState<Int>) {
     ) {
 
     Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
-        //Divider(color = Color.Black)
+        /*
         Row(modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 16.dp)
-            .clickable { selectedItem.value = 5 }, verticalAlignment = Alignment.CenterVertically) {
-            Icon(Icons.Default.Person, contentDescription = "", modifier = Modifier.padding(top = 2.dp, end = 4.dp), tint = Color.White)
-            Text(text = "Account Settings", style = MaterialTheme.typography.h5, color = wineBerry)
+            .clickable { selectedItem.value = 5 }, verticalAlignment = CenterVertically) {
+            Icon(Icons.Default.Person, contentDescription = "", modifier = Modifier.padding(top = 2.dp, end = 12.dp), tint = Color.White)
+            Text(text = "Account Information", style = MaterialTheme.typography.h5, color = wineBerry)
             Spacer(modifier = Modifier.weight(1f))
-            Icon(Icons.Default.KeyboardArrowRight, contentDescription = "", tint = Color.White)
+            Icon(painter = painterResource(id = R.drawable.arrow_forward), contentDescription = "", tint = Color.White)
         }
-        Divider(color = Color.White)
+        Divider(color = wineBerry)
+
+         */
         Row(modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 16.dp),
-            verticalAlignment = Alignment.CenterVertically) {
-            Icon(painter = painterResource(id = R.drawable.language), modifier = Modifier.padding(top = 2.dp, end = 4.dp), contentDescription = "", tint = Color.White)
+            verticalAlignment = CenterVertically) {
+            Icon(painter = painterResource(id = R.drawable.language), modifier = Modifier.padding(top = 2.dp, end = 12.dp), contentDescription = "", tint = Color.White)
             Text(text = "Language Settings", style = MaterialTheme.typography.h5, color = wineBerry)
             Spacer(modifier = Modifier.weight(1f))
-            Text(text = selectedLanguage.language.toUpperCase(), modifier = Modifier
-                .clickable { expanded = true }
-                .align(Alignment.CenterVertically)
+            Text(text = selectedLanguage.language.toUpperCase(),
+                color = Color.White,
+                modifier = Modifier.align(CenterVertically)
             )
-            DropdownMenu(
-                expanded = expanded,
-                onDismissRequest = { expanded = false },
-                modifier = Modifier.wrapContentSize()
-            ) {
-                DropdownMenuItem(
-                    onClick = {
-                        selectedLanguage = Locale("en")
-                        updateLocale(configuration, context, selectedLanguage)
-                        expanded = false
-                        recreateActivity(context)
+            Icon(Icons.Default.ArrowDropDown, contentDescription = "",
+                modifier = Modifier.clickable {
+                expanded = true
+            } ,tint = Color.White)
 
-                    },
-                    // English option
-                    content = { Text(text = "EN", color = wineBerry) }
-                )
-                DropdownMenuItem(
-                    onClick = {
-                        selectedLanguage = Locale("tr")
-                        updateLocale(configuration, context, selectedLanguage)
-                        expanded = false
-                        recreateActivity(context)
+            Box(modifier = Modifier.align(Alignment.Bottom)) {
+                DropdownMenu(
+                    expanded = expanded,
+                    onDismissRequest = { expanded = false },
+                    modifier = Modifier.wrapContentSize()
+                ) {
+                    DropdownMenuItem(
+                        onClick = {
+                            selectedLanguage = Locale("en")
+                            updateLocale(configuration, context, selectedLanguage)
+                            expanded = false
+                            recreateActivity(context)
 
-                    },
-                    // Turkish option
-                    content = { Text(text = "TR", color = wineBerry) }
-                )
+                        },
+                        // English option
+                        content = { Text(text = "EN", color = wineBerry) }
+                    )
+                    DropdownMenuItem(
+                        onClick = {
+                            selectedLanguage = Locale("tr")
+                            updateLocale(configuration, context, selectedLanguage)
+                            expanded = false
+                            recreateActivity(context)
+
+                        },
+                        // Turkish option
+                        content = { Text(text = "TR", color = wineBerry) }
+                    )
+                }
             }
+
         }
-        Divider(color = Color.White)
+        Divider(color = wineBerry)
         Row(modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 16.dp)
-            .clickable { selectedItem.value = 6 }, horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
-            Icon(painter = painterResource(id = R.drawable.help), contentDescription = "", modifier = Modifier.padding(top = 2.dp, end = 4.dp), tint = Color.White)
+            .clickable { selectedItem.value = 6 }, horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = CenterVertically) {
+            Icon(painter = painterResource(id = R.drawable.help), contentDescription = "", modifier = Modifier.padding(top = 2.dp, end = 12.dp), tint = Color.White)
             Text(text = "Help", style = MaterialTheme.typography.h5, color = wineBerry)
             Spacer(modifier = Modifier.weight(1f))
-            Icon(Icons.Default.KeyboardArrowRight, contentDescription = "", tint = Color.White)
+            Icon(painter = painterResource(id = R.drawable.arrow_forward), contentDescription = "", tint = Color.White)
         }
-        Divider(color = Color.White)
+        Divider(color = wineBerry)
         Row(modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 16.dp)
-            .clickable { selectedItem.value = 7 }, horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
-            Icon(Icons.Default.Info, contentDescription = "", modifier = Modifier.padding(top = 2.dp, end = 4.dp), tint = Color.White)
+            .clickable { selectedItem.value = 7 }, horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = CenterVertically) {
+            Icon(Icons.Default.Info, contentDescription = "", modifier = Modifier.padding(top = 2.dp, end = 12.dp), tint = Color.White)
             Text(text = "About", style = MaterialTheme.typography.h5, color = wineBerry)
             Spacer(modifier = Modifier.weight(1f))
-            Icon(Icons.Default.KeyboardArrowRight, contentDescription = "", tint = Color.White)
+            Icon(painter = painterResource(id = R.drawable.arrow_forward), contentDescription = "", tint = Color.White)
         }
-        Divider(color = Color.White)
+        Divider(color = wineBerry)
+        Row(modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 16.dp)
+            .clickable { selectedItem.value = 7 }, horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = CenterVertically) {
+            Icon(painter = painterResource(id = R.drawable.logout), contentDescription = "", modifier = Modifier.padding(top = 2.dp, end = 12.dp), tint = Color.White)
+            Text(text = "Logout", style = MaterialTheme.typography.h5, color = wineBerry)
+            Spacer(modifier = Modifier.weight(1f))
+        }
+        Divider(color = wineBerry)
 
     }
 }}
