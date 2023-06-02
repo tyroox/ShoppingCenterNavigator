@@ -2,20 +2,32 @@ package com.example.shoppingcenternavigator
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.KeyboardArrowLeft
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -24,12 +36,13 @@ import com.example.shoppingcenternavigator.ui.theme.wineBerry
 @Composable
 fun FAQPage(selectedItem: MutableState<Int>) {
     BackHandler(onBack = {selectedItem.value = 4})
+    val scrollState = rememberScrollState()
     val faqList = listOf(
         stringResource(id = R.string.FAQQuestion1) to stringResource(id = R.string.FAQAnswer1),
-        "Can I track my order?" to "Yes, you can track your order by...",
-        "What is the return policy?" to "Our return policy allows...",
-        "How do I contact customer support?" to "You can contact our customer support team...",
-        "Do you offer international shipping?" to "Yes, we offer international shipping to..."
+        "What features does the app offer?\n" to "Yes, you can track your order by...",
+        "Can I use the app in multiple shopping centers?\n" to "Yes, you can choose the shopping center from the home page.",
+        "How can I get directions to the shopping centers?\n" to "You can contact our customer support team...",
+        "Is there a map of the shopping center available within the app?\n" to "Yes, we offer international shipping to..."
     )
 
     Box(
@@ -37,33 +50,56 @@ fun FAQPage(selectedItem: MutableState<Int>) {
         contentAlignment = Alignment.TopCenter
     ) {
 
-    Column(modifier = Modifier.padding(16.dp)) {
-        Row(modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 16.dp), verticalAlignment = Alignment.CenterVertically){
-            Icon(Icons.Default.KeyboardArrowLeft,
-                contentDescription = "",
+        Column(
+            modifier = Modifier.padding(16.dp).verticalScroll(scrollState),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Row(
                 modifier = Modifier
-                    .padding(start = 0.dp, end = 4.dp)
-                    .size(40.dp)
-                    .clickable {
-                        selectedItem.value = 4
-                    }, tint = Color.White)
-            Text(
-                text = "Frequently Asked Questions",
-                style = MaterialTheme.typography.h5,
-                modifier = Modifier.padding(bottom = 2.dp),
-                color = Color.White
-            )
-        }
+                    .fillMaxWidth()
+                    .padding(vertical = 16.dp), verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.arrow_back),
+                    contentDescription = "",
+                    modifier = Modifier
+                        .padding(top = 2.dp, end = 4.dp)
+                        .clickable { selectedItem.value = 4 },
+                    tint = Color.White
+                )
+                Text(
+                    text = "Help",
+                    style = MaterialTheme.typography.h5,
+                    color = wineBerry
+                )
+            }
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.TopCenter
+            ) {
 
-        Spacer(modifier = Modifier.height(8.dp))
-        faqList.forEachIndexed { index, (question, answer) ->
-            FAQItem(index + 1, question, answer)
-            Spacer(modifier = Modifier.height(8.dp))
+                Column(modifier = Modifier.padding(4.dp)) {
+                    Row(modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 16.dp), verticalAlignment = Alignment.CenterVertically){
+                        Text(
+                            text = "Frequently Asked Questions",
+                            style = MaterialTheme.typography.h5,
+                            color = wineBerry
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.height(8.dp))
+                    faqList.forEachIndexed { index, (question, answer) ->
+                        FAQItem(index + 1, question, answer)
+                        Spacer(modifier = Modifier.height(8.dp))
+                    }
+                }
+            }
         }
     }
-}}
+}
 
 
 @Composable
@@ -84,12 +120,13 @@ fun FAQItem(index: Int, question: String, answer: String) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
                     text = "$index. ",
-                    style = MaterialTheme.typography.h5,
-                    modifier = Modifier.width(32.dp)
+                    style = MaterialTheme.typography.h6,
+                    modifier = Modifier.width(32.dp),
+                    color = Color.White
                 )
                 Text(
                     text = question,
-                    style = MaterialTheme.typography.h5,
+                    style = MaterialTheme.typography.h6,
                     maxLines = if (expanded) Int.MAX_VALUE else 1,
                     overflow = TextOverflow.Ellipsis
                 )
@@ -97,7 +134,7 @@ fun FAQItem(index: Int, question: String, answer: String) {
             if (expanded) {
                 Text(
                     text = answer,
-                    style = MaterialTheme.typography.body1,
+                    style = MaterialTheme.typography.subtitle1,
                     color = Color.White
                 )
             }

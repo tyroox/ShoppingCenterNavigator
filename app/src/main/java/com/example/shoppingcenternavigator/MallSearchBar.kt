@@ -380,7 +380,7 @@ fun MallSearchBar(navController: NavController) {
                         }
                     }
                 }
-            }//, backgroundColor = colorResource(id = R.color.isabelline)
+            }
     )
 }
 

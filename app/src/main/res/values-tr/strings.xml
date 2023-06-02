@@ -29,11 +29,7 @@
     <string name="doHaveAccountButton">Hesabınız var mı?</string>
     <string name="groundFloor">Zemin Kat</string>
     <string name="floor">. Kat</string>
-    <string name="FAQQuestion1">Nasıl yol tarifi alabilirim?</string>
-    <string name="FAQAnswer1">Alışveriş merkezi içerisinde yol tarifi almak için aşağıdaki adımları izleyebilirsiniz:\n\n1. Anasayfadan bulunduğunuz alışveriş merkezini seçin.\n
-        2. Seçtiğiniz alışveriş merkezinin içerisinde bulunduğunuz mağazanın adını belirtin.\n
-                3. Gitmek istediğiniz mağazanın adını girin.\n
-                \nBu bilgileri girdikten sonra, alışveriş merkezi içindeki yol tarifi size sunulacaktır.
-                Bu yöntemle, istediğiniz mağazaya en hızlı ve etkili şekilde ulaşabilirsiniz.</string>
+    <string name="FAQQuestion1">Nasıl yol tarifi alabilirim?\n</string>
+    <string name="FAQAnswer1">Alışveriş merkezi içerisinde yol tarifi almak için aşağıdaki adımları izleyebilirsiniz:\n\n1. Ana sayfadan bulunduğunuz alışveriş merkezini seçiniz.\n2. Seçtiğiniz alışveriş merkezinin içerisinde veya yakınında bulunduğunuz mağazanın adını belirtiniz.\n\n3. Yol tarifi almak istediğiniz mağazanın adını giriniz.\n\nArdından, alışveriş merkezi içindeki yol tarifi size sunulacaktır.Çizilen yolu takip ederek, istediğiniz mağazaya en kısa şekilde ulaşabilirsiniz.</string>
 
 </resources>

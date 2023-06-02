@@ -49,7 +49,7 @@ import java.util.Locale
 fun StoreSearchBar(
     variables: List<Shops>,
     onSearch: (String) -> Unit,
-    onBoxClick: (Int) -> Unit,
+    onBoxClick: (String) -> Unit,
     selectedItem: MutableState<Int>
 ) {
 
@@ -372,7 +372,7 @@ fun StoreSearchBar(
                                     .clip(RoundedCornerShape(4.dp))
                                     .background(skyBlue.copy(alpha = 0.25f))
                                     .clickable {
-                                        onBoxClick(index)
+                                        onBoxClick(variable.Name)
                                     }
                             ) {
                                 Column(

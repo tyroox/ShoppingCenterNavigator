@@ -33,8 +33,6 @@ fun Stores(selectedItem: MutableState<Int>){
 
     val stores = xShop.sortedBy { it.Name }
 
-    var selectedBoxIndex by remember { mutableStateOf(-1) }
-
     val alertDialog = remember { mutableStateOf(value = false) }
 
     if (alertDialog.value){
@@ -70,10 +68,8 @@ fun Stores(selectedItem: MutableState<Int>){
     StoreSearchBar(variables = stores, onSearch = { searchQuery ->
         // Handle search query
         // Perform the desired search operation
-    }, onBoxClick = { clickedIndex ->
-        selectedBoxIndex = clickedIndex
-        // bunu var dan val yaptım sıkıntı çıkarsa bakarız
-        val shopFromBoxNameIndex= xShop.indexOf(stores[clickedIndex])
+    }, onBoxClick = { clickedName ->
+        val shopFromBoxNameIndex= xShop.indexOfFirst { it.Name == clickedName }
         SelectedShops.selectedStoreFromStores = xShop[shopFromBoxNameIndex].Name
         alertDialog.value = true
 

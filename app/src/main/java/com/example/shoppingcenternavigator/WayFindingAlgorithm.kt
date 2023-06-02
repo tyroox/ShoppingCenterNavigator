@@ -42,7 +42,8 @@ import com.example.shoppingcenternavigator.ui.theme.caribbeanCurrent
 import com.example.shoppingcenternavigator.ui.theme.moonstone
 import kotlinx.coroutines.delay
 import java.util.*
-
+import kotlin.math.sqrt
+import kotlin.math.pow
 
 @RequiresApi(Build.VERSION_CODES.N)
 fun dijkstraAlgorithm(start: Point, destination: Point): List<Point> {
@@ -114,6 +115,14 @@ fun generateSize(data: List<Coordinate>, size: Size): MutableList<Float> {
     returnList.add(heightPerCoordinate)
 
     return returnList
+}
+
+fun distance(x1: Float, x2: Float, y1: Float, y2: Float): Float {
+    return sqrt((x2 - x1).pow(2) + (y2 - y1).pow(2))
+}
+
+fun calculateDistance(point1: Point, point2: Point): Float {
+    return distance(point1.x, point2.x, point1.y, point2.y)
 }
 
 @Composable
@@ -262,15 +271,16 @@ fun WayFindingAlgorithm() {
         carouselPoints[118].addConnection(carouselPoints[105], calculateDistance(carouselPoints[118], carouselPoints[105]))
         carouselPoints[119].addConnection(carouselPoints[109], calculateDistance(carouselPoints[119], carouselPoints[109]))
 
-        // -2 tokmak koneksiyonu
+        // -2 carousel
         carouselPoints[124].addConnection(carouselPoints[121], calculateDistance(carouselPoints[124], carouselPoints[121]))
         carouselPoints[121].addConnection(carouselPoints[123], calculateDistance(carouselPoints[121], carouselPoints[123]))
         carouselPoints[123].addConnection(carouselPoints[120], calculateDistance(carouselPoints[123], carouselPoints[120]))
         carouselPoints[120].addConnection(carouselPoints[122], calculateDistance(carouselPoints[120], carouselPoints[122]))
         carouselPoints[122].addConnection(carouselPoints[125], calculateDistance(carouselPoints[122], carouselPoints[125]))
-        // -2 tokmak merdivenleri
-        carouselPoints[125].addConnection(carouselPoints[121], calculateDistance(carouselPoints[125], carouselPoints[121]))
-        carouselPoints[125].addConnection(carouselPoints[123], calculateDistance(carouselPoints[125], carouselPoints[123]))
+
+        // -2 carousel stairs
+        carouselPoints[126].addConnection(carouselPoints[121], calculateDistance(carouselPoints[126], carouselPoints[121]))
+        carouselPoints[126].addConnection(carouselPoints[123], calculateDistance(carouselPoints[126], carouselPoints[123]))
 
         // Capacity First Floor
         capacityPoints[18].addConnection(capacityPoints[68], calculateDistance(capacityPoints[18], capacityPoints[68]))

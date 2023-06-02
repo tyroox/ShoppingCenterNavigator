@@ -17,6 +17,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -33,7 +34,7 @@ import com.example.shoppingcenternavigator.ui.theme.wineBerry
 fun MainPage(navController: NavController) {
     val selectedItem = remember { mutableStateOf(0) }
     HomePage(selectedItem)
-    Settings(navController, selectedItem)
+    Settings(navController, selectedItem, LocalContext.current)
     val scaffoldState = rememberScaffoldState(rememberDrawerState(DrawerValue.Closed))
     val scope = rememberCoroutineScope()
     var selectedMall = SelectedShops.selectedMall
@@ -94,7 +95,7 @@ fun MainPage(navController: NavController) {
 
                 }
                 if (selectedItem.value == 4){
-                    Settings(navController = navController, selectedItem)
+                    Settings(navController = navController, selectedItem, LocalContext.current)
                 }
                 if (selectedItem.value == 5){
                     User(navController = navController, selectedItem)

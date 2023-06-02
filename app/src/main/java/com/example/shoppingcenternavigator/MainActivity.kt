@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.pm.ActivityInfo
 import android.os.Build
 import android.os.Bundle
-import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -72,9 +71,6 @@ fun NextPage(){
             composable("GPS"){
                 GPS()
             }
-            composable("SmoothLineGraph"){
-                SmoothLineGraph(navController = navController)
-            }
             composable("MallSearchBar"){
                 MallSearchBar(navController = navController)
             }
@@ -98,9 +94,6 @@ fun NextPage(){
             }
             composable("GPS"){
                 GPS()
-            }
-            composable("SmoothLineGraph"){
-                SmoothLineGraph(navController = navController)
             }
             composable("MallSearchBar"){
                 MallSearchBar(navController = navController)

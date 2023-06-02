@@ -364,7 +364,7 @@ val carouselShops = listOf(
 
     Shops("Coral Travel", -2,430f,543f),
     Shops("ETS Turizm", -2,328f,623f),
-    Shops("Gymotion", -2,521f,571f),
+    Shops("Gymotion", -2,497f,595f),
     Shops("Jolly Tur", -2,388f,543f),
     Shops("Migros", -2,304f,571f),
     Shops("Workinton", -2,521f,519f),
