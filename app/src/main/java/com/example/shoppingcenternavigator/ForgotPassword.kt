@@ -3,26 +3,21 @@ package com.example.shoppingcenternavigator
 import androidx.activity.ComponentActivity
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.shoppingcenternavigator.ui.theme.wineBerry
@@ -32,19 +27,14 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun Login(context: ComponentActivity, navController: NavController) {
+fun ForgotPassword(context: ComponentActivity, navController: NavController) {
     val auth = Firebase.auth
     val scaffoldState = rememberScaffoldState()
     val email = remember { mutableStateOf(TextFieldValue()) }
-    val password = remember { mutableStateOf(TextFieldValue()) }
-    var passwordVisibility by rememberSaveable { mutableStateOf(value = false) }
     val scope = rememberCoroutineScope()
     val imeState = rememberImeState()
     val scrollState = rememberScrollState()
     val keyboardController = LocalSoftwareKeyboardController.current
-    val emailAndPasswordDoesNotMatchErrorMessage = stringResource(id = R.string.emailAndPasswordDoesNotMatchErrorMessage)
-    val enterCredentialsMessage = stringResource(id = R.string.enterCredentialsMessage)
-
 
     LaunchedEffect(key1 = imeState.value) {
         if (imeState.value) {
@@ -96,63 +86,26 @@ fun Login(context: ComponentActivity, navController: NavController) {
                         textColor = colorResource(id = R.color.white)
                     )
                 )
-                TextField(
-                    value = password.value,
-                    onValueChange = { password.value = it },
-                    modifier = Modifier
-                        .padding(horizontal = 24.dp)
-                        .fillMaxWidth()
-                        .height(IntrinsicSize.Min), // Set the same height as text fields
-                    label = { Text(stringResource(id = R.string.password), color = wineBerry) },
-                    singleLine = true,
-                    visualTransformation = if (passwordVisibility) VisualTransformation.None else PasswordVisualTransformation(),
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-                    colors = TextFieldDefaults.textFieldColors(
-                        cursorColor = colorResource(id = R.color.white),
-                        focusedIndicatorColor = colorResource(id = R.color.white),
-                        textColor = colorResource(id = R.color.white),
-                    ),
-                    trailingIcon = {
-                        IconButton(onClick = { passwordVisibility = !passwordVisibility }) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.visibility),
-                                contentDescription = "Toggle Password Visibility",
-                                tint = wineBerry
-                            )
-                        }
-                    }
-                )
-
-                Text(text = "Şifreni mi unuttun?", color = Color.White, modifier = Modifier.align(
-                    Alignment.End
-                ).padding(end = 24.dp).clickable {
-                    navController.navigate("ForgotPasswordPage")
-                })
 
                 Box(modifier = Modifier.fillMaxWidth()) {
                     Button(
                         onClick = {
-                            if (email.value.text.trim().isNotEmpty() and password.value.text.trim().isNotEmpty()){
-                                auth.signInWithEmailAndPassword(
-                                    email.value.text.trim(),
-                                    password.value.text.trim()
-                                ).addOnCompleteListener(context){ task ->
+                            if (email.value.text.trim().isNotEmpty()){
+                                auth.sendPasswordResetEmail(email.value.text.trim())
+                                    .addOnCompleteListener(context){ task ->
                                     if (task.isSuccessful){
-                                        navController.navigate("MainPage")
+                                        scope.launch {
+                                            scaffoldState.snackbarHostState.showSnackbar(
+                                                message = "Şifre sıfırlama linki e-postanıza gönderildi. Sıfırladıktan sonra giriş yapabilirsiniz.")
+                                        }
                                         keyboardController?.hide()
                                     }else{
                                         scope.launch {
-                                            scaffoldState.snackbarHostState.showSnackbar(message = emailAndPasswordDoesNotMatchErrorMessage)
+                                            scaffoldState.snackbarHostState.showSnackbar(message = "E-posta sisteme kayıtlı değil veya yanlış girildi.")
                                         }
                                         keyboardController?.hide()
                                     }
                                 }
-                            }
-                            else{
-                                scope.launch {
-                                    scaffoldState.snackbarHostState.showSnackbar(message = enterCredentialsMessage)
-                                }
-                                keyboardController?.hide()
                             }
                         },
                         modifier = Modifier
@@ -161,7 +114,7 @@ fun Login(context: ComponentActivity, navController: NavController) {
                             .height(IntrinsicSize.Min), // Set the same height as text fields
                         colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(id = R.color.white))
                     ) {
-                        Text(text = stringResource(id = R.string.loginButton), color = wineBerry)
+                        Text(text = "Şifre sıfırlama e-postası gönder", color = wineBerry)
                     }
                 }
 
@@ -172,12 +125,11 @@ fun Login(context: ComponentActivity, navController: NavController) {
                 )
 
                 Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(bottom = 12.dp)) {
-                    Text(stringResource(id = R.string.doNotHaveAccountButton), color = wineBerry)
                     TextButton(onClick = {
-                        navController.navigate("RegisterPage")
+                        navController.navigate("LoginPage")
                         keyboardController?.hide()
                     }) {
-                        Text(stringResource(id = R.string.registerButton), color = colorResource(id = R.color.white))
+                        Text("Giriş yap", color = colorResource(id = R.color.white))
                     }
                 }
             }
