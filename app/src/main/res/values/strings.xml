@@ -29,6 +29,6 @@
     <string name="doHaveAccountButton">Do you have an account?</string>
     <string name="groundFloor">Ground Floor</string>
     <string name="floor">. Floor</string>
-    <string name="FAQQuestion1">How can I get directions?\n</string>
-    <string name="FAQAnswer1">You can follow the steps below to get directions inside the mall:\n\n1. Select the shopping center you are in from the homepage.\n\n2. Specify the name of the store you are inside or nearby in the shopping center you have chosen.\n\n3. Enter the name of the store you want to get directions to.\n\nThen, you will be presented with directions inside the mall. By following the path, you can reach the store you want, in the shortest way.</string>
+    <string name="FAQQuestion1">How can I get directions?</string>
+    <string name="FAQAnswer1">\nYou can follow the steps below to get directions inside the mall:\n\n1. Select the shopping center you are in from the homepage.\n\n2. Specify the name of the store you are inside or nearby in the shopping center you have chosen.\n\n3. Enter the name of the store you want to get directions to.\n\nThen, you will be presented with directions inside the mall. By following the path, you can reach the store you want, in the shortest way.</string>
 </resources>

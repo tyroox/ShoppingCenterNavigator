@@ -4,6 +4,7 @@ import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -47,6 +48,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -143,8 +145,6 @@ fun MallSearchBar(navController: NavController) {
                     }
                 }
 
-
-
                 TextField(
                     modifier = Modifier
                         .clickable {
@@ -181,6 +181,7 @@ fun MallSearchBar(navController: NavController) {
                         }
                     }
                 )
+
                 TextField(
                     modifier = Modifier
                         .clickable {

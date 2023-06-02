@@ -39,10 +39,10 @@ fun FAQPage(selectedItem: MutableState<Int>) {
     val scrollState = rememberScrollState()
     val faqList = listOf(
         stringResource(id = R.string.FAQQuestion1) to stringResource(id = R.string.FAQAnswer1),
-        "What features does the app offer?\n" to "Yes, you can track your order by...",
-        "Can I use the app in multiple shopping centers?\n" to "Yes, you can choose the shopping center from the home page.",
-        "How can I get directions to the shopping centers?\n" to "You can contact our customer support team...",
-        "Is there a map of the shopping center available within the app?\n" to "Yes, we offer international shipping to..."
+        "What features does the app offer?" to "\nThe MallPS app offers features such as: navigation inside the shopping center by providing directions between desired stores, locations of the shopping centers, shops in the selected shopping centers and their floor plans.",
+        "Can I use the app in multiple shopping centers?" to "\nYes, you can choose the shopping center from the 'Home Page'.",
+        "How can I get directions to the shopping centers?" to "\nYou can view the locations of the shopping centers in the application from the 'GPS' page. This page can direct you to Google Maps and provide directions from your location.",
+        "Is there a map of the shopping center available within the app?" to "\nYes, after the shopping center is selected, you can view the floor plans from the 'Stores' page by taping the 'Floor Plans' option and switch between the floors as you wish"
     )
 
     Box(
