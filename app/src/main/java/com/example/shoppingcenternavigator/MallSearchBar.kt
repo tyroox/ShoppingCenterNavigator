@@ -3,6 +3,7 @@ package com.example.shoppingcenternavigator
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -14,16 +15,19 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Divider
+import androidx.compose.material.DropdownMenu
 import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Snackbar
 import androidx.compose.material.SnackbarHost
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
@@ -31,6 +35,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -52,8 +57,29 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalComposeUiApi::class)
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun ShopNavigatorSearchBar(navController: NavController) {
+fun MallSearchBar(navController: NavController) {
 
+    var selectedShoppingCenter = ""
+
+    var xShop = carouselShops
+    var xPrime = carouselPrime
+    var xPoint = carouselPoints
+
+    // carousel
+    if (SelectedShops.selectedMall == 0){
+        selectedShoppingCenter = malls[0]
+        xShop = carouselShops
+        xPrime = carouselPrime
+        xPoint = carouselPoints
+    }
+    // capacity
+    else if (SelectedShops.selectedMall == 1){
+        selectedShoppingCenter = malls[1]
+        xShop = capacityShops
+        xPrime = capacityPrime
+        xPoint = capacityPoints
+    }
+    var expanded by remember { mutableStateOf(false) }
     var expandedFrom by remember { mutableStateOf(false) }
     var expandedTo by remember { mutableStateOf(false) }
     var searchTextFrom by remember { mutableStateOf("") }
@@ -63,9 +89,9 @@ fun ShopNavigatorSearchBar(navController: NavController) {
     val selectedOptionFromIndex = SelectedShops.selectedOptionFromIndex
     val selectedOptionToIndex = SelectedShops.selectedOptionToIndex
     if (SelectedShops.selectedStoreFromStores != ""){
-        SelectedShops.selectedOptionToIndex = carouselShops.indexOfFirst { it.Name == SelectedShops.selectedStoreFromStores }
+        SelectedShops.selectedOptionToIndex = xShop.indexOfFirst { it.Name == SelectedShops.selectedStoreFromStores }
     }
-    val options = carouselShops
+
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -83,34 +109,52 @@ fun ShopNavigatorSearchBar(navController: NavController) {
             }
         },
         content = {
+            Surface (modifier = Modifier.fillMaxSize()){
+                VerticalGradient()
+            }
             ConstraintLayout(modifier = Modifier.fillMaxSize()) {
                 val (fromTextField, toTextField, button) = createRefs()
 
-                var selectedShoppingCenter = ""
+                Box{
+                    Text(text = selectedShoppingCenter,
+                        Modifier
+                            .padding(16.dp)
+                            .clickable { expanded = true }, color = caribbeanCurrent)
 
-                if (SelectedShops.selectedMall == 1){
-                    selectedShoppingCenter = allShoppingCenter[0].name
+                    DropdownMenu(
+                        expanded = expanded,
+                        onDismissRequest = { expanded = false }
+                    ) {
+                        DropdownMenuItem(
+                            onClick = {
+                                SelectedShops.selectedMall = 0
+                                expanded = false
+
+                            },
+                            content = { Text(text = "Carousel", color = caribbeanCurrent) }
+                        )
+                        DropdownMenuItem(
+                            onClick = {
+                                SelectedShops.selectedMall = 1
+                                expanded = false
+                            },
+                            content = { Text(text = "Capacity", color = caribbeanCurrent) }
+                        )
+                    }
                 }
-                else if (SelectedShops.selectedMall == 2){
-                    selectedShoppingCenter = allShoppingCenter[1].name
-                }
 
-                Text(text = selectedShoppingCenter,
-                    Modifier
-                        .padding(16.dp)
-                        .clickable(onClick = {
 
-                        }),
-                    color = caribbeanCurrent)
 
                 TextField(
-                    modifier = Modifier.clickable {
-                        expandedFrom = !expandedFrom
-                    }.constrainAs(fromTextField) {
-                        top.linkTo(parent.top, margin = 64.dp)
-                        start.linkTo(parent.start)
-                        end.linkTo(parent.end)
-                    },
+                    modifier = Modifier
+                        .clickable {
+                            expandedFrom = !expandedFrom
+                        }
+                        .constrainAs(fromTextField) {
+                            top.linkTo(parent.top, margin = 64.dp)
+                            start.linkTo(parent.start)
+                            end.linkTo(parent.end)
+                        },
                     value = selectedOptionFrom,
                     onValueChange = { /* Nothing to do here */ },
                     readOnly = true,
@@ -138,13 +182,15 @@ fun ShopNavigatorSearchBar(navController: NavController) {
                     }
                 )
                 TextField(
-                    modifier = Modifier.clickable {
-                        expandedFrom = !expandedFrom
-                    }.constrainAs(toTextField) {
-                        top.linkTo(fromTextField.bottom, margin = 16.dp)
-                        start.linkTo(parent.start)
-                        end.linkTo(parent.end)
-                    },
+                    modifier = Modifier
+                        .clickable {
+                            expandedTo = !expandedTo
+                        }
+                        .constrainAs(toTextField) {
+                            top.linkTo(fromTextField.bottom, margin = 16.dp)
+                            start.linkTo(parent.start)
+                            end.linkTo(parent.end)
+                        },
                     value = selectedOptionTo,
                     onValueChange = { /* Nothing to do here */ },
                     readOnly = true,
@@ -233,14 +279,14 @@ fun ShopNavigatorSearchBar(navController: NavController) {
                                     .fillMaxWidth()
                                     .weight(1f)
                             ) {
-                                val filteredOptionsFrom = options.filter { it.Name.contains(searchTextFrom, ignoreCase = true) }
+                                val filteredOptionsFrom = xShop.filter { it.Name.contains(searchTextFrom, ignoreCase = true) }
                                     .sortedBy { it.Name } // Sort the list alphabetically
 
                                 items(filteredOptionsFrom) { option ->
                                     DropdownMenuItem(
                                         onClick = {
                                             selectedOptionFrom = option.Name
-                                            SelectedShops.selectedOptionFromIndex = carouselShops.indexOfFirst { it.Name == selectedOptionFrom }
+                                            SelectedShops.selectedOptionFromIndex = xShop.indexOfFirst { it.Name == selectedOptionFrom }
                                             Log.d("from", "$selectedOptionFromIndex")
                                             expandedFrom = false
                                             searchTextFrom = ""
@@ -297,7 +343,7 @@ fun ShopNavigatorSearchBar(navController: NavController) {
                                     .fillMaxWidth()
                                     .weight(1f)
                             ) {
-                                val filteredOptionsTo = options.filter { it.Name.contains(searchTextTo, ignoreCase = true) }
+                                val filteredOptionsTo = xShop.filter { it.Name.contains(searchTextTo, ignoreCase = true) }
                                     .sortedBy { it.Name }
 
                                 items(filteredOptionsTo) { option ->
@@ -305,7 +351,7 @@ fun ShopNavigatorSearchBar(navController: NavController) {
                                         onClick = {
                                             selectedOptionTo = option.Name
                                             SelectedShops.selectedStoreFromStores = ""
-                                            SelectedShops.selectedOptionToIndex = carouselShops.indexOfFirst { it.Name == selectedOptionTo }
+                                            SelectedShops.selectedOptionToIndex = xShop.indexOfFirst { it.Name == selectedOptionTo }
                                             Log.d("to", "$selectedOptionToIndex")
                                             expandedTo = false
                                             searchTextTo = ""
@@ -334,7 +380,7 @@ fun ShopNavigatorSearchBar(navController: NavController) {
                         }
                     }
                 }
-            }, backgroundColor = colorResource(id = R.color.isabelline)
+            }//, backgroundColor = colorResource(id = R.color.isabelline)
     )
 }
 

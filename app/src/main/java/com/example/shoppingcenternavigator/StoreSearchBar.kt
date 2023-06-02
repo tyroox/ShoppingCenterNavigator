@@ -1,5 +1,6 @@
 package com.example.shoppingcenternavigator
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -14,10 +15,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -32,19 +37,23 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.shoppingcenternavigator.ui.theme.caribbeanCurrent
 import com.example.shoppingcenternavigator.ui.theme.skyBlue
+import com.example.shoppingcenternavigator.ui.theme.wineBerry
 
 @Composable
 fun StoreSearchBar(
     variables: List<Shops>,
     onSearch: (String) -> Unit,
-    onBoxClick: (Int) -> Unit
+    onBoxClick: (Int) -> Unit,
+    selectedItem: MutableState<Int>
 ) {
+
     var searchQuery by remember { mutableStateOf("") }
 
     // Define the map associating text with background image resources
@@ -152,7 +161,7 @@ fun StoreSearchBar(
             },
             placeholder = { Text("Ara", color = caribbeanCurrent) },
             colors = TextFieldDefaults.textFieldColors(
-                backgroundColor = colorResource(id = R.color.isabelline),
+                backgroundColor = Color.Transparent,
                 disabledTextColor = Color.Black,
                 cursorColor = colorResource(id = R.color.caribbeanCurrent),
                 unfocusedIndicatorColor = colorResource(id = R.color.caribbeanCurrent),
@@ -162,6 +171,16 @@ fun StoreSearchBar(
                 .fillMaxWidth()
                 .padding(8.dp)
         )
+
+        Row(Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center) {
+            OutlinedButton(onClick = { selectedItem.value = 3 },
+                colors = ButtonDefaults.buttonColors(backgroundColor = skyBlue.copy(alpha = 0.25f),
+                    contentColor = wineBerry)) {
+                Text(text = stringResource(id = R.string.floorPlans))
+            }
+        }
 
         // Box-shaped items
         val screenWidth = with(LocalDensity.current) {
@@ -184,12 +203,14 @@ fun StoreSearchBar(
         LazyColumn(
             modifier = Modifier.fillMaxWidth()
         ) {
+
             items(numRows) { row ->
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceEvenly,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
+
                     for (col in 0 until 2) {
                         val index = row * 2 + col
                         if (index < filteredVariables.size) {
@@ -210,7 +231,9 @@ fun StoreSearchBar(
                                     }
                             ) {
                                 Column(
-                                    modifier = Modifier.fillMaxSize().padding(8.dp),
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .padding(8.dp),
                                     verticalArrangement = Arrangement.Top,
                                     horizontalAlignment = Alignment.CenterHorizontally
                                 ) {

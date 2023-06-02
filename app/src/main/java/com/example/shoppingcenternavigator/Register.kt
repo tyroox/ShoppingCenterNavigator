@@ -3,7 +3,6 @@ package com.example.shoppingcenternavigator
 import androidx.activity.ComponentActivity
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
@@ -25,10 +24,10 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.shoppingcenternavigator.ui.theme.wineBerry
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
-import java.util.regex.Pattern
 
 
 @OptIn(ExperimentalComposeUiApi::class)
@@ -36,7 +35,7 @@ import java.util.regex.Pattern
 fun Register(context: ComponentActivity, navController: NavController) {
     val auth = Firebase.auth
     val scaffoldState = rememberScaffoldState()
-    val email  = remember { mutableStateOf(TextFieldValue()) }
+    val email = remember { mutableStateOf(TextFieldValue()) }
     val password = remember { mutableStateOf(TextFieldValue()) }
     val password1 = remember { mutableStateOf(TextFieldValue()) }
     var passwordVisibility by rememberSaveable { mutableStateOf(value = false) }
@@ -44,7 +43,8 @@ fun Register(context: ComponentActivity, navController: NavController) {
     var emailState by remember { mutableStateOf(false) }
     var passwordState by remember { mutableStateOf(false) }
     var passwordState1 by remember { mutableStateOf(false) }
-    val emailValidationRegex = Regex("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}$", RegexOption.IGNORE_CASE)
+    val emailValidationRegex =
+        Regex("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}$", RegexOption.IGNORE_CASE)
     val scope = rememberCoroutineScope()
     val imeState = rememberImeState()
     val scrollState = rememberScrollState()
@@ -62,13 +62,19 @@ fun Register(context: ComponentActivity, navController: NavController) {
         snackbarHost = {
             SnackbarHost(it) {
                 Snackbar(
-                    backgroundColor = colorResource(id = R.color.orangePeel),
-                    contentColor = colorResource(id = R.color.isabelline),
+                    backgroundColor = colorResource(id = R.color.white),
+                    contentColor = wineBerry,
                     snackbarData = it
                 )
             }
         },
         content = {
+            Surface(
+                modifier = Modifier.fillMaxSize(),
+                color = MaterialTheme.colors.background
+            ) {
+                VerticalGradient()
+            }
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -77,14 +83,14 @@ fun Register(context: ComponentActivity, navController: NavController) {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.shopping_center_navigator_app_icon),
+                    painter = painterResource(id = R.drawable.register_icon),
                     contentDescription = null,
-                    modifier = Modifier.size(250.dp)
+                    modifier = Modifier.size(300.dp)
                 )
                 Column() {
                     TextField(
                         label = {
-                            Text("E-Posta", color = colorResource(id = R.color.caribbeanCurrent))
+                            Text("E-Posta", color = wineBerry)
                         },
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
                         value = email.value,
@@ -99,8 +105,9 @@ fun Register(context: ComponentActivity, navController: NavController) {
                         },
 
                         colors = TextFieldDefaults.textFieldColors(
-                            cursorColor = colorResource(id = R.color.caribbeanCurrent),
-                            focusedIndicatorColor = colorResource(id = R.color.caribbeanCurrent)
+                            cursorColor = colorResource(id = R.color.white),
+                            focusedIndicatorColor = colorResource(id = R.color.white),
+                            textColor = colorResource(id = R.color.white)
                         )
                     )
                     // Warning for invalid email
@@ -108,7 +115,7 @@ fun Register(context: ComponentActivity, navController: NavController) {
                         Text(
                             text = "Geçerli bir e-posta adresi giriniz.",
                             fontSize = 14.sp,
-                            color = Color.Red,
+                            color = Color.White,
                             modifier = Modifier.padding(start = 24.dp)
                         )
                     }
@@ -117,7 +124,7 @@ fun Register(context: ComponentActivity, navController: NavController) {
                 Column() {
                     TextField(
                         label = {
-                            Text("Şifre", color = colorResource(id = R.color.caribbeanCurrent))
+                            Text("Şifre", color = wineBerry)
                         },
                         singleLine = true,
                         visualTransformation = if (passwordVisibility) VisualTransformation.None else PasswordVisualTransformation(),
@@ -128,7 +135,7 @@ fun Register(context: ComponentActivity, navController: NavController) {
                                 Icon(
                                     painter = painterResource(id = R.drawable.visibility),
                                     contentDescription = "",
-                                    tint = colorResource(id = R.color.caribbeanCurrent)
+                                    tint = wineBerry
                                 )
                             }
                         },
@@ -143,8 +150,9 @@ fun Register(context: ComponentActivity, navController: NavController) {
                             passwordState = password.value.text.length >= 6
                         },
                         colors = TextFieldDefaults.textFieldColors(
-                            cursorColor = colorResource(id = R.color.caribbeanCurrent),
-                            focusedIndicatorColor = colorResource(id = R.color.caribbeanCurrent)
+                            cursorColor = colorResource(id = R.color.white),
+                            focusedIndicatorColor = colorResource(id = R.color.white),
+                            textColor = colorResource(id = R.color.white)
                         )
                     )
 
@@ -153,7 +161,7 @@ fun Register(context: ComponentActivity, navController: NavController) {
                         Text(
                             text = "Şifre en az 6 karakter olmalıdır.",
                             fontSize = 14.sp,
-                            color = Color.Red,
+                            color = Color.White,
                             modifier = Modifier.padding(start = 24.dp)
                         )
                     }
@@ -162,7 +170,7 @@ fun Register(context: ComponentActivity, navController: NavController) {
                 Column() {
                     TextField(
                         label = {
-                            Text("Tekrar şifre giriniz", color = colorResource(id = R.color.caribbeanCurrent))
+                            Text("Tekrar şifre giriniz", color = wineBerry)
                         },
                         singleLine = true,
                         visualTransformation = if (passwordVisibility1) VisualTransformation.None else PasswordVisualTransformation(),
@@ -173,7 +181,7 @@ fun Register(context: ComponentActivity, navController: NavController) {
                                 Icon(
                                     painter = painterResource(id = R.drawable.visibility),
                                     contentDescription = "",
-                                    tint = colorResource(id = R.color.caribbeanCurrent)
+                                    tint = wineBerry
                                 )
                             }
                         },
@@ -188,8 +196,9 @@ fun Register(context: ComponentActivity, navController: NavController) {
                             passwordState1 = password.value.text.length >= 6
                         },
                         colors = TextFieldDefaults.textFieldColors(
-                            cursorColor = colorResource(id = R.color.caribbeanCurrent),
-                            focusedIndicatorColor = colorResource(id = R.color.caribbeanCurrent)
+                            cursorColor = colorResource(id = R.color.white),
+                            focusedIndicatorColor = colorResource(id = R.color.white),
+                            textColor = colorResource(id = R.color.white)
                         )
                     )
 
@@ -198,7 +207,7 @@ fun Register(context: ComponentActivity, navController: NavController) {
                         Text(
                             text = "Şifreler eşleşmiyor!",
                             fontSize = 14.sp,
-                            color = Color.Red,
+                            color = Color.White,
                             modifier = Modifier.padding(start = 24.dp)
                         )
                     }
@@ -207,7 +216,9 @@ fun Register(context: ComponentActivity, navController: NavController) {
                 Box(modifier = Modifier.fillMaxWidth()) {
                     Button(
                         onClick = {
-                            if (email.value.text.trim().isEmpty() && password.value.text.trim().isEmpty()) {
+                            if (email.value.text.trim().isEmpty() && password.value.text.trim()
+                                    .isEmpty()
+                            ) {
                                 scope.launch {
                                     scaffoldState.snackbarHostState.showSnackbar(message = "Lütfen boş alanları doldurunuz")
                                 }
@@ -241,16 +252,16 @@ fun Register(context: ComponentActivity, navController: NavController) {
                             .fillMaxWidth()
                             .height(IntrinsicSize.Min), // Set the same height as text fields
                         colors = ButtonDefaults.buttonColors(
-                            backgroundColor = colorResource(id = R.color.orangePeel)
+                            backgroundColor = colorResource(id = R.color.white)
                         ), enabled = emailState && passwordState && passwordState1
 
                     ) {
-                        Text(text = "Kayıt Ol", color = colorResource(id = R.color.isabelline))
+                        Text(text = "Kayıt Ol", color = wineBerry)
                     }
                 }
 
                 Divider(
-                    color = colorResource(id = R.color.orangePeel),
+                    color = colorResource(id = R.color.white),
                     thickness = 1.dp,
                     modifier = Modifier.padding(top = 24.dp, start = 24.dp, end = (24.dp))
                 )
@@ -259,16 +270,16 @@ fun Register(context: ComponentActivity, navController: NavController) {
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier.padding(bottom = 12.dp)
                 ) {
-                    Text("Hesabınız var mı?", color = colorResource(id = R.color.orangePeel))
+                    Text("Hesabınız var mı?", color = wineBerry)
                     TextButton(onClick = {
                         navController.navigate("LoginPage")
                         keyboardController?.hide()
                     }) {
-                        Text("Giriş yapın.", color = colorResource(id = R.color.caribbeanCurrent))
+                        Text("Giriş yapın.", color = colorResource(id = R.color.white))
                     }
                 }
             }
         },
-        backgroundColor = colorResource(id = R.color.isabelline)
+        backgroundColor = colorResource(id = R.color.white)
     )
 }

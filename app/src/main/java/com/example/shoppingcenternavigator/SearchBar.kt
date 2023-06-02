@@ -59,9 +59,9 @@ fun SearchBar(
                 searchQuery = query
                 onSearch(query)
             },
-            placeholder = { Text("Ara", color = caribbeanCurrent) },
+            placeholder = { Text("Ara", color = Color.White) },
             colors = TextFieldDefaults.textFieldColors(
-                backgroundColor = colorResource(id = R.color.isabelline),
+                backgroundColor = Color.Transparent,
                 disabledTextColor = Color.Black,
                 cursorColor = colorResource(id = R.color.caribbeanCurrent),
                 unfocusedIndicatorColor = colorResource(id = R.color.caribbeanCurrent),
