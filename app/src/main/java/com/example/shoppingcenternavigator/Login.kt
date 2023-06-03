@@ -52,13 +52,15 @@ fun Login(context: ComponentActivity, navController: NavController) {
         }
     }
 
+
+
     Scaffold(
         scaffoldState = scaffoldState,
         snackbarHost = {
             SnackbarHost(it) {
                 Snackbar(
-                    backgroundColor = colorResource(id = R.color.orangePeel),
-                    contentColor = colorResource(id = R.color.isabelline),
+                    backgroundColor = Color.White,
+                    contentColor = wineBerry,
                     snackbarData = it
                 )
             }

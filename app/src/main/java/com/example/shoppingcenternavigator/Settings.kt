@@ -42,6 +42,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.shoppingcenternavigator.ui.theme.purplishPink
 import com.example.shoppingcenternavigator.ui.theme.wineBerry
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -67,8 +68,8 @@ fun Settings(navController: NavController, selectedItem: MutableState<Int>, cont
         snackbarHost = {
             SnackbarHost(it) {
                 Snackbar(
-                    backgroundColor = colorResource(id = R.color.orangePeel),
-                    contentColor = colorResource(id = R.color.isabelline),
+                    backgroundColor = Color.White,
+                    contentColor = wineBerry,
                     snackbarData = it
                 )
             }
@@ -196,7 +197,7 @@ fun Settings(navController: NavController, selectedItem: MutableState<Int>, cont
                                     AlertDialog(
                                         onDismissRequest = { alertDialog.value = false },
                                         text = { Text(text = "Çıkış yapmak istediğinize emin misiniz?",
-                                            color = colorResource(id = R.color.isabelline), fontSize = 18.sp) },
+                                            color = wineBerry, fontSize = 18.sp) },
                                         confirmButton = {
                                             Text(text = "Hayır",
                                                 modifier = Modifier
@@ -204,7 +205,7 @@ fun Settings(navController: NavController, selectedItem: MutableState<Int>, cont
                                                     .clickable {
                                                         alertDialog.value = false
                                                     },
-                                                color = colorResource(id = R.color.isabelline))},
+                                                color = wineBerry)},
                                         dismissButton = {
                                             Text(text = "Evet",
                                                 modifier = Modifier
@@ -213,10 +214,8 @@ fun Settings(navController: NavController, selectedItem: MutableState<Int>, cont
                                                         auth.signOut()
                                                         navController.navigate("LoginPage")
                                                     },
-                                                color = colorResource(id = R.color.isabelline))
-
-                                        },
-                                        backgroundColor = colorResource(id = R.color.caribbeanCurrent)
+                                                color = wineBerry)},
+                                        backgroundColor = Color.White
                                     )
                                 }
                                 Icon(painter = painterResource(id = R.drawable.logout), contentDescription = "", modifier = Modifier.padding(top = 2.dp, end = 12.dp), tint = Color.White)
@@ -224,7 +223,6 @@ fun Settings(navController: NavController, selectedItem: MutableState<Int>, cont
                                 Spacer(modifier = Modifier.weight(1f))
                             }
                             Divider(color = wineBerry)
-
                         }
                 }
         }

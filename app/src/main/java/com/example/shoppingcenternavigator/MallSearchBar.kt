@@ -3,8 +3,6 @@ package com.example.shoppingcenternavigator
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
-import androidx.compose.animation.core.tween
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -16,7 +14,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
@@ -36,7 +33,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -48,39 +44,33 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
-import com.example.shoppingcenternavigator.ui.theme.caribbeanCurrent
+import com.example.shoppingcenternavigator.ui.theme.wineBerry
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalComposeUiApi::class)
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun MallSearchBar(navController: NavController) {
-
     var selectedShoppingCenter = ""
 
     var xShop = carouselShops
-    var xPrime = carouselPrime
-    var xPoint = carouselPoints
 
     // carousel
     if (SelectedShops.selectedMall == 0){
         selectedShoppingCenter = malls[0]
         xShop = carouselShops
-        xPrime = carouselPrime
-        xPoint = carouselPoints
     }
     // capacity
     else if (SelectedShops.selectedMall == 1){
         selectedShoppingCenter = malls[1]
         xShop = capacityShops
-        xPrime = capacityPrime
-        xPoint = capacityPoints
     }
+
     var expanded by remember { mutableStateOf(false) }
     var expandedFrom by remember { mutableStateOf(false) }
     var expandedTo by remember { mutableStateOf(false) }
@@ -104,8 +94,8 @@ fun MallSearchBar(navController: NavController) {
         snackbarHost = {
             SnackbarHost(it) {
                 Snackbar(
-                    backgroundColor = colorResource(id = R.color.orangePeel),
-                    contentColor = colorResource(id = R.color.isabelline),
+                    backgroundColor = Color.White,
+                    contentColor = wineBerry,
                     snackbarData = it
                 )
             }
@@ -121,7 +111,7 @@ fun MallSearchBar(navController: NavController) {
                     Text(text = selectedShoppingCenter,
                         Modifier
                             .padding(16.dp)
-                            .clickable { expanded = true }, color = caribbeanCurrent)
+                            .clickable { expanded = true }, color = wineBerry, fontWeight = FontWeight.Bold)
 
                     DropdownMenu(
                         expanded = expanded,
@@ -133,14 +123,14 @@ fun MallSearchBar(navController: NavController) {
                                 expanded = false
 
                             },
-                            content = { Text(text = "Carousel", color = caribbeanCurrent) }
+                            content = { Text(text = "Carousel", color = wineBerry) }
                         )
                         DropdownMenuItem(
                             onClick = {
                                 SelectedShops.selectedMall = 1
                                 expanded = false
                             },
-                            content = { Text(text = "Capacity", color = caribbeanCurrent) }
+                            content = { Text(text = "Capacity", color = wineBerry) }
                         )
                     }
                 }
@@ -161,13 +151,13 @@ fun MallSearchBar(navController: NavController) {
                     enabled = false,
                     label = { Text(
                         stringResource(id = R.string.fromStore),
-                        color = colorResource(id = R.color.caribbeanCurrent)) },
+                        color = wineBerry, fontWeight = FontWeight.Bold) },
                     colors = TextFieldDefaults.textFieldColors(
-                        backgroundColor = colorResource(id = R.color.isabelline),
-                        disabledTextColor = Color.Black,
-                        cursorColor = colorResource(id = R.color.caribbeanCurrent),
-                        unfocusedIndicatorColor = colorResource(id = R.color.caribbeanCurrent),
-                        focusedIndicatorColor = colorResource(id = R.color.caribbeanCurrent)
+                        backgroundColor = Color.White,
+                        disabledTextColor = wineBerry,
+                        cursorColor = wineBerry,
+                        unfocusedIndicatorColor = wineBerry,
+                        focusedIndicatorColor = wineBerry
                     ),
                     trailingIcon = {
                         IconButton(
@@ -176,7 +166,7 @@ fun MallSearchBar(navController: NavController) {
                             Icon(
                                 imageVector = Icons.Default.ArrowDropDown,
                                 contentDescription = "",
-                                tint = colorResource(id = R.color.caribbeanCurrent)
+                                tint = wineBerry
                             )
                         }
                     }
@@ -198,13 +188,13 @@ fun MallSearchBar(navController: NavController) {
                     enabled = false,
                     label = { Text(
                         stringResource(id = R.string.toStore),
-                        color = colorResource(id = R.color.caribbeanCurrent)) },
+                        color = wineBerry, fontWeight = FontWeight.Bold) },
                     colors = TextFieldDefaults.textFieldColors(
-                        backgroundColor = colorResource(id = R.color.isabelline),
-                        disabledTextColor = Color.Black,
-                        cursorColor = colorResource(id = R.color.caribbeanCurrent),
-                        unfocusedIndicatorColor = colorResource(id = R.color.caribbeanCurrent),
-                        focusedIndicatorColor = colorResource(id = R.color.caribbeanCurrent)
+                        backgroundColor = Color.White,
+                        disabledTextColor = wineBerry,
+                        cursorColor = wineBerry,
+                        unfocusedIndicatorColor = wineBerry,
+                        focusedIndicatorColor = wineBerry
                     ),
                     trailingIcon = {
                         IconButton(
@@ -213,7 +203,7 @@ fun MallSearchBar(navController: NavController) {
                             Icon(
                                 imageVector = Icons.Default.ArrowDropDown,
                                 contentDescription = "",
-                                tint = colorResource(id = R.color.caribbeanCurrent)
+                                tint = wineBerry
                             )
                         }
                     }
@@ -241,10 +231,11 @@ fun MallSearchBar(navController: NavController) {
                         }
                     },
                     enabled = selectedOptionFrom.isNotEmpty() && selectedOptionTo.isNotEmpty(),
-                    colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(id = R.color.orangePeel)
+                    colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(id = R.color.white)
                     )
                 ) {
-                    Text(text = stringResource(id = R.string.drawPathButton), color = colorResource(id = R.color.isabelline))
+                    Text(text = stringResource(id = R.string.drawPathButton),
+                        color = wineBerry)
                 }
             }
                 if (expandedFrom) {
@@ -265,14 +256,14 @@ fun MallSearchBar(navController: NavController) {
                                 value = searchTextFrom,
                                 onValueChange = { searchTextFrom = it },
                                 modifier = Modifier.fillMaxWidth(),
-                                label = { Text(stringResource(id = R.string.searchStoreButton), color = colorResource(id = R.color.caribbeanCurrent)) },
+                                label = { Text(stringResource(id = R.string.searchStoreButton), color = wineBerry) },
                                 keyboardActions = KeyboardActions(
                                     onDone = {keyboardController?.hide()}),
                                 colors = TextFieldDefaults.textFieldColors(
                                     backgroundColor = colorResource(id = R.color.isabelline),
-                                    cursorColor = colorResource(id = R.color.caribbeanCurrent),
-                                    unfocusedIndicatorColor = colorResource(id = R.color.caribbeanCurrent),
-                                    focusedIndicatorColor = colorResource(id = R.color.caribbeanCurrent)
+                                    cursorColor = wineBerry,
+                                    unfocusedIndicatorColor = wineBerry,
+                                    focusedIndicatorColor = wineBerry
                                 ),
                             )
                             LazyColumn(
@@ -298,16 +289,16 @@ fun MallSearchBar(navController: NavController) {
                                     }
                                 }
                             }
-                            Divider(modifier = Modifier.fillMaxWidth(), color = colorResource(id = R.color.caribbeanCurrent))
+                            Divider(modifier = Modifier.fillMaxWidth(), color = wineBerry)
 
                             Button(
                                 onClick = { expandedFrom = false },
                                 modifier = Modifier
                                     .align(Alignment.End)
                                     .padding(top = 16.dp, bottom = 8.dp),
-                                colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(id = R.color.orangePeel))
+                                colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(id = R.color.white))
                             ) {
-                                Text(stringResource(id = R.string.closeButton), color = colorResource(id = R.color.isabelline))
+                                Text(stringResource(id = R.string.closeButton), color = wineBerry)
                             }
                         }
                     }
@@ -330,12 +321,12 @@ fun MallSearchBar(navController: NavController) {
                                 value = searchTextTo,
                                 onValueChange = { searchTextTo = it },
                                 modifier = Modifier.fillMaxWidth(),
-                                label = { Text(stringResource(id = R.string.searchStoreButton), color = colorResource(id = R.color.caribbeanCurrent)) },
+                                label = { Text(stringResource(id = R.string.searchStoreButton), color = wineBerry) },
                                 colors = TextFieldDefaults.textFieldColors(
                                     backgroundColor = colorResource(id = R.color.isabelline),
-                                    cursorColor = colorResource(id = R.color.caribbeanCurrent),
-                                    unfocusedIndicatorColor = colorResource(id = R.color.caribbeanCurrent),
-                                    focusedIndicatorColor = colorResource(id = R.color.caribbeanCurrent)
+                                    cursorColor = wineBerry,
+                                    unfocusedIndicatorColor = wineBerry,
+                                    focusedIndicatorColor = wineBerry
                                 ),
                             )
 
@@ -363,7 +354,7 @@ fun MallSearchBar(navController: NavController) {
                                     }
                                 }
                             }
-                            Divider(modifier = Modifier.fillMaxWidth(), color = colorResource(id = R.color.caribbeanCurrent))
+                            Divider(modifier = Modifier.fillMaxWidth(), color = wineBerry)
 
                             Button(
                                 onClick = { expandedTo = false
@@ -372,10 +363,10 @@ fun MallSearchBar(navController: NavController) {
                                 modifier = Modifier
                                     .align(Alignment.End)
                                     .padding(top = 16.dp, bottom = 8.dp),
-                                colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(id = R.color.orangePeel)
+                                colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(id = R.color.white)
                                 )
                             ) {
-                                Text(stringResource(id = R.string.closeButton), color = colorResource(id = R.color.isabelline))
+                                Text(stringResource(id = R.string.closeButton), color = wineBerry)
 
                             }
                         }

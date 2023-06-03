@@ -46,7 +46,9 @@ fun MainPage(navController: NavController) {
             Surface (modifier = Modifier.fillMaxSize()){
                 VerticalGradient()
             }
-            Box(modifier = Modifier.fillMaxSize().padding(bottom = 56.dp)) {
+            Box(modifier = Modifier
+                .fillMaxSize()
+                .padding(bottom = 56.dp)) {
                 // Add the Modifier.padding modifier with bottom padding of 56.dp
                 // to the Box composable that wraps the content
 
@@ -72,7 +74,7 @@ fun MainPage(navController: NavController) {
                             AlertDialog(
                                 onDismissRequest = { alertDialog.value = false },
                                 text = { Text(text = stringResource(id = R.string.chooseMallErrorMessage),
-                                    color = Color.White, fontSize = 18.sp) },
+                                    color = wineBerry, fontSize = 18.sp) },
                                 confirmButton = { Text(text = stringResource(id = R.string.confirmButton),
                                     modifier = Modifier
                                         .padding(10.dp)
@@ -80,25 +82,21 @@ fun MainPage(navController: NavController) {
                                             alertDialog.value = false
                                             selectedItem.value = 0
                                         },
-                                    color =Color.White)},
-                                backgroundColor = purplishPink
+                                    color = wineBerry)},
+                                backgroundColor = Color.White
                             )
                         }
                         alertDialog.value = true
                     }
                     else{
-                        Stores(selectedItem = selectedItem)
+                        Stores(selectedItem = selectedItem, navController)
                     }
-                }
-                if (selectedItem.value == 3){
-                    FloorPlans(selectedItem)
-
                 }
                 if (selectedItem.value == 4){
                     Settings(navController = navController, selectedItem, LocalContext.current)
                 }
                 if (selectedItem.value == 5){
-                    User(navController = navController, selectedItem)
+                    FloorPlans(selectedItem)
                 }
                 if (selectedItem.value == 6){
                     FAQPage(selectedItem)

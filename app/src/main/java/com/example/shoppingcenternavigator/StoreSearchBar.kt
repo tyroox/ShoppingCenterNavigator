@@ -40,6 +40,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.shoppingcenternavigator.ui.theme.caribbeanCurrent
 import com.example.shoppingcenternavigator.ui.theme.skyBlue
 import com.example.shoppingcenternavigator.ui.theme.wineBerry
@@ -304,13 +305,12 @@ fun StoreSearchBar(
                 searchQuery = query
                 onSearch(query)
             },
-            placeholder = { Text("Ara", color = caribbeanCurrent) },
+            placeholder = { Text("Ara", color = wineBerry) },
             colors = TextFieldDefaults.textFieldColors(
                 backgroundColor = Color.Transparent,
-                disabledTextColor = Color.Black,
-                cursorColor = colorResource(id = R.color.caribbeanCurrent),
-                unfocusedIndicatorColor = colorResource(id = R.color.caribbeanCurrent),
-                focusedIndicatorColor = colorResource(id = R.color.caribbeanCurrent)
+                cursorColor = wineBerry,
+                unfocusedIndicatorColor = wineBerry,
+                focusedIndicatorColor = wineBerry
             ),
             modifier = Modifier
                 .fillMaxWidth()
@@ -320,7 +320,7 @@ fun StoreSearchBar(
         Row(Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center) {
-            OutlinedButton(onClick = { selectedItem.value = 3 },
+            OutlinedButton(onClick = { selectedItem.value = 5 },
                 colors = ButtonDefaults.buttonColors(backgroundColor = skyBlue.copy(alpha = 0.25f),
                     contentColor = wineBerry)) {
                 Text(text = stringResource(id = R.string.floorPlans))
