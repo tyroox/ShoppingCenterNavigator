@@ -18,6 +18,10 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.shoppingcenternavigator.ui.theme.wineBerry
 
+/*
+This is our stores function which is built to display our stores page in boxes of two in a row, with
+search bar functionality to search for stores. Also within this page you can reach the floor plans.
+ */
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun Stores(selectedItem: MutableState<Int>, navController: NavController){
@@ -74,6 +78,7 @@ fun Stores(selectedItem: MutableState<Int>, navController: NavController){
     StoreSearchBar(variables = stores, onSearch = { searchQuery ->
         // Handle search query
         // Perform the desired search operation
+        // Transfer the name of the store that user wants to get directions to the home page
     }, onBoxClick = { clickedName ->
         alertDialog.value = true
 

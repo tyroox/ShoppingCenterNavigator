@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.AlertDialog
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
@@ -37,6 +36,10 @@ import androidx.compose.ui.unit.sp
 import com.example.shoppingcenternavigator.R
 import com.example.shoppingcenternavigator.ui.theme.wineBerry
 
+/*
+This is the searchbar to show our malls to select with 2 boxes in a row design to show in the launch
+of the app. When the user selects the mall they can change it from the mall searchbar page.
+ */
 @Composable
 fun SearchBar(
     variables: List<String>,
@@ -44,7 +47,6 @@ fun SearchBar(
     onBoxClick: (String) -> Unit
 ) {
     var searchQuery by remember { mutableStateOf("") }
-    val alertDialog = remember { mutableStateOf(value = false) }
 
     // Define the map associating text with background image resources
     val backgroundImages = mapOf(

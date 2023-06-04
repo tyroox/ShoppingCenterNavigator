@@ -1,7 +1,6 @@
 package com.example.shoppingcenternavigator
 
 import androidx.activity.ComponentActivity
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -30,6 +29,12 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 
+/*
+This our login page. User logins to the app from here entering their email and password. In this
+function firebase authentication is used to keep user data. If user does not have an account they
+can choose to register or if they forget their password they can reset it by giving their email.
+After login is successfully done app navigates to the main page.
+ */
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun Login(context: ComponentActivity, navController: NavController) {

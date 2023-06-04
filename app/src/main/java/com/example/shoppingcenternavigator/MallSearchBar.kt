@@ -52,6 +52,12 @@ import androidx.navigation.NavController
 import com.example.shoppingcenternavigator.ui.theme.wineBerry
 import kotlinx.coroutines.launch
 
+/*
+This is the page where user will get the directions to go to their desired store. It has two clickable
+text fields which are from where and to where. User interacts with them chooses desired store from the
+list or using searchbar if they cant find it. After they select the store they want to go to the page
+will navigate to the way finding algorithm page to draw the path to show user where would they go.
+ */
 @OptIn(ExperimentalComposeUiApi::class)
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable

@@ -7,6 +7,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
+/*
+This view model class is for splash screen. It will help to initialize it and show it for 2 seconds.
+ */
 class MainViewModel: ViewModel() {
 
     private val _isLoading = MutableStateFlow(true)

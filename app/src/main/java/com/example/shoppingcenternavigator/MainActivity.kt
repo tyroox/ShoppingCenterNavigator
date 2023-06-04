@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.pm.ActivityInfo
 import android.os.Build
 import android.os.Bundle
-import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -21,6 +20,11 @@ import com.example.shoppingcenternavigator.ui.theme.ShoppingCenterNavigatorTheme
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
+/*
+This is our MainActivity class. This opens the app from start and builds everything else. It locks
+the screen to portrait mode for the best user experience. It shows splash screen at the start then
+launches the app from either login screen or main page depending on if there is an active user or not.
+ */
 class MainActivity : ComponentActivity() {
 
     private val viewModel: MainViewModel by viewModels()
@@ -37,7 +41,7 @@ class MainActivity : ComponentActivity() {
         }
         setContent {
             ShoppingCenterNavigatorTheme {
-                // A surface container using the 'background' color from the theme
+                // A surface container
                 Surface(
                     modifier = Modifier.fillMaxSize()
                 ) {

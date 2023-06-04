@@ -11,7 +11,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 
-
+/*
+This is the homepage which exits for choosing the mall. After user chooses the mall they can't reach
+here again unless they restart the app. The home page becomes mall search bar after selecting the
+mall from here inside the main page.
+ */
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun HomePage(selectedItem: MutableState<Int>){

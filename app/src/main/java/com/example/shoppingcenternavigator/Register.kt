@@ -29,7 +29,11 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 
-
+/*
+This our register page. User registers to the app from here giving their email and choosing their
+password. In this function firebase authentication is used to keep user data. If user registers
+successfully they navigate to the main page.
+ */
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun Register(context: ComponentActivity, navController: NavController) {

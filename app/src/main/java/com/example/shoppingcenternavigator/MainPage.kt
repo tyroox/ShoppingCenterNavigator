@@ -20,7 +20,10 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.shoppingcenternavigator.ui.theme.wineBerry
 
-
+/*
+This is our MainPage. It has a scaffold structure. Inside that it has the content and a bottom bar
+to navigate between pages.
+ */
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun MainPage(navController: NavController) {
@@ -163,7 +166,6 @@ fun MainPage(navController: NavController) {
                     }
                 }
             )
-        }//,
-        //backgroundColor = colorResource(id = R.color.isabelline)
+        }
     )
 }
