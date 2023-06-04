@@ -1,23 +1,48 @@
 package com.example.shoppingcenternavigator
 
+/*
+The Data kotlin file contains data about locations of stores used in the application in list formats
+using Coordinate, Point and Shops data classes. With this data the optimal path can be represented
+on the floor plans of the shopping centers.
+ */
+
+
+/*
+Coordinate data class takes two arguments as x any y coordinates.
+ */
 data class Coordinate(val x:Float, val y: Float)
+
+/*
+Point data class takes three arguments as floor, x coordinate and y coordinate.
+ */
 data class Point(val Floor: Int, val x:Float, val y: Float){
     val connections: MutableMap<Point, Float> = mutableMapOf()
-
+    /*
+    The addConnection function takes two arguments as point and a float as a distance and forms a
+    connection between two points with respect to their distances. This funtion is used for defining
+    the routes of the shopping centers.
+     */
     fun addConnection(point: Point, distance: Float) {
         connections[point] = distance
         point.connections[this] = distance
     }
 }
+
+/*
+The Shops data class takes 4 arguments name, floor, x coordinate and y coordinate to represent a
+shop/store in the shopping center.
+ */
 data class Shops(val Name:String, val Floor: Int, val x:Float, val y: Float)
 
 val malls = listOf("Carousel", "Capacity")
 
+// Two coordinates are added in order to form a 1000f × 1000f coordinate system
 val coordinateSystem = listOf(
     Coordinate(0f,0f),
     Coordinate(1000f,1000f),
 )
 
+// The Points list of corners, shops and stairs in Carousel Shopping Center in order to define a path
 val carouselPoints = listOf(
     // corners
     Point(0,170f,364f),   //0
@@ -173,6 +198,7 @@ val carouselPoints = listOf(
     Point(-2,362f,614f),    //126 Merdiven 15
 )
 
+// The Shops list of shops' doors projection toward the path defined in the Carousel Shopping Center
 val carouselPrime = listOf(
     Shops("adL Prime", 0,403f,646f),
     Shops("Alaçatı Muhallebicisi Prime", 0,823f,350f),
@@ -272,6 +298,7 @@ val carouselPrime = listOf(
 
     )
 
+// The Shops list of stores in the Carousel Shopping Center with the coordinates of the doors of each store
 val carouselShops = listOf(
     Shops("adL", 0,403f,665f),
     Shops("Alaçatı Muhallebicisi", 0,846f,381f),
@@ -370,8 +397,8 @@ val carouselShops = listOf(
     Shops("Workinton", -2,521f,519f),
 )
 
+// The Points list of corners, shops and stairs in Capacity Shopping Center in order to define a path
 val capacityPoints = listOf(
-
     // First Floor Corners
     Point(1,177f,544f),    // 0
     Point(1,265f,540f),    // 1
@@ -453,31 +480,24 @@ val capacityPoints = listOf(
     Point(2,300f,215f),      // 71
     Point(2,430f,261f),      // 72
     Point(2,162f,293f),      // 73
-
     Point(2,250f,365f),      // 74
     Point(2,162f,511f),      // 75
     Point(2,250f,511f),      // 76
-
     Point(2,149f,527f),      // 77
     Point(2,265f,527f),      // 78
-
     Point(2,705f,273f),      // 79
     Point(2,158f,575f),      // 80
-
     Point(2,478f,261f),      // 81
     Point(2,430f,215f),      // 82
     Point(2,163f,372f),      // 83
-
     Point(2,264f,569f),      // 84
     Point(2,194f,588f),      // 85
     Point(2,245f,588f),      // 86
     Point(2,220f,588f),      // 87
-
     Point(2,724f,216f),      // 88
     Point(2,635f,206f),      // 89
     Point(2,534f,214f),      // 90
     Point(2,534f,261f),      // 91
-
 
     // Prime Points Second Floor
     Point(2,733f,240f),      // 92 - 201/Özsüt
@@ -546,7 +566,7 @@ val capacityPoints = listOf(
     Point(0,231f,804f),   // 149 Paşabahçe Mağazaları Z-17
     Point(0,231f,791f),   // 150 Pelit Z-18
     Point(0,231f,685f),   // 151 Massimo Dutti Z-19
-    Point(0,26f,712f),   // 152 Tobacco Shop Z-20
+    Point(0,26f,712f),    // 152 Tobacco Shop Z-20
     Point(0,128f,603f),   // 153 Cacharel Z-21
     Point(0,121f,516f),   // 154 Derimod Z-22
     Point(0,142f,443f),   // 155 Avva Z-23
@@ -617,7 +637,7 @@ val capacityPoints = listOf(
     Point(-1,704f,569f),      // 214 - B-10/Turkcell-Genpa
     Point(-1,580f,525f),      // 215 - B-11/Ender Spor
     Point(-1,509f,525f),      // 216 - B-12/Eve
-    Point(-1,442f,525f),      // 217- B-13/Atasun Optik
+    Point(-1,442f,525f),      // 217 - B-13/Atasun Optik
     Point(-1,315f,557f),      // 218 - B-14/Safranbolu Lokumcusu
     Point(-1,315f,598f),      // 219 - B-15/ETS Turizm
     Point(-1,315f,640f),      // 220 - B-16/Jolly Tur
@@ -668,8 +688,8 @@ val capacityPoints = listOf(
     Point(-1,315f,525f),      // 260 stairs 3
 )
 
+// The Shops list of shops' doors projection toward the path defined in the Capacity Shopping Center
 val capacityPrime = listOf (
-
     //First Floor Primes
     Shops("Mango Prime", 1,768f,189f),    // 101
     Shops("Lufian Prime", 1,754f,229f),   // 102
@@ -809,7 +829,7 @@ val capacityPrime = listOf (
     Shops("Eve Prime", -1,509f,525f),                             // B-12
     Shops("Atasun Optik Prime", -1,442f,525f),                    // B-13
     Shops("Safranbolu Lokumcusu Prime", -1,315f,557f),            // B-14
-    Shops("ETS Turizm Prime", -1,315f,598f),                         // B-15
+    Shops("ETS Turizm Prime", -1,315f,598f),                      // B-15
     Shops("Jolly Tur Prime", -1,315f,640f),                       // B-16
     Shops("Migros MMM Prime", -1,249f,642f),                      // B-17
     Shops("Şenol Zeytinoğlu - Kadın Prime", -1,188f,640f),        // B-18
@@ -852,54 +872,55 @@ val capacityPrime = listOf (
     Shops("Cezve Kahve Prime", -1,615f,525f),                     // B-54
 )
 
+// The Shops list of stores in the Carousel Shopping Center with the coordinates of the doors of each store
 val capacityShops = listOf(
     // First Floor Shops
-    Shops("Mango", 1,789f,184f),    // 101
-    Shops("Lufian", 1,769f,239f),   // 102
-    Shops("Oxxo", 1,724f,275f),     // 103
-    Shops("Loris", 1,724f,305f),    // 104
-    Shops("LTB", 1,721f,359f),      // 105
-    Shops("Mavi", 1,757f,464f),     // 106
-    Shops("Sneaks Up", 1,787f,507f),    // 107
-    Shops("Gratis", 1,665f,561f),   //109
-    Shops("Jimmy Key", 1,554f,524f),   //110
-    Shops("U.S. Polo Assn.", 1,482f,524f),   //111
-    Shops("Oysho", 1,399f,524f),   //112
-    Shops("Zara", 1,220f,560f),   //113
-    Shops("L'Occitane", 1,124f,523f),   //114
-    Shops("Yves Rocher", 1,124f,500f),   //115
-    Shops("Kiko", 1,140f,475f),   //116
-    Shops("Konyalı Saat", 1,141f,432f),   //117
-    Shops("Timberland", 1,141f,393f),   //118
-    Shops("Calzedonia", 1,141f,354f),   //119
-    Shops("Elle", 1,141f,312f),   //120
-    Shops("Greyder", 1,141f,272f),   //121
-    Shops("Pull&Bear", 1,180f,223f),   //122
-    Shops("Bershka", 1,263f,176f),   //123
-    Shops("Mi Store", 1,348f,154f),   //124
-    Shops("GözGrup Optik", 1,417f,154f),   //125
-    Shops("Birkenstock", 1,493f,154f),   //126
-    Shops("Samsonite", 1,563f,154f),   //127
-    Shops("Flormar", 1,624f,154f),   //128
-    Shops("Pandora", 1,686f,143f),   //129
-    Shops("Swarovski", 1,741f,151f),   //130
-    Shops("Sunglass Hut / Ray-Ban", 1,615f,252f),   //131
-    Shops("Stradivarius", 1,661f,337f),   //132
-    Shops("Lee Wrangler", 1,661f,413f),   //133
-    Shops("Stylish", 1,616f,467f),   //134
-    Shops("Skechers", 1,485f,488f),   //135
-    Shops("intimissimi", 1,413f,488f),   //136
-    Shops("Camper", 1,299f,433f),   //138
-    Shops("Sephora", 1,299f,381f),   //139
-    Shops("Starbucks", 1,378f,299f),   //140
-    Shops("Dagi", 1,490f,252f),   //141
-    Shops("GMG Firenze", 1,555f,252f),   //142
-    Shops("Vodafone-Cep Point", 1,223f,439f),   //143
-    Shops("Golden Rose", 1,220f,388f),   //144
-    Shops("Boble Bubble Tea", 1,222f,340f),   //145
-    Shops("Avon", 1,462f,198f),   //146
-    Shops("Lelas", 1,529f,199f),   //147
-    Shops("Cella", 1,590f,199f),   //148
+    Shops("Mango", 1,789f,184f),                            //101
+    Shops("Lufian", 1,769f,239f),                           //102
+    Shops("Oxxo", 1,724f,275f),                             //103
+    Shops("Loris", 1,724f,305f),                            //104
+    Shops("LTB", 1,721f,359f),                              //105
+    Shops("Mavi", 1,757f,464f),                             //106
+    Shops("Sneaks Up", 1,787f,507f),                        //107
+    Shops("Gratis", 1,665f,561f),                           //109
+    Shops("Jimmy Key", 1,554f,524f),                        //110
+    Shops("U.S. Polo Assn.", 1,482f,524f),                  //111
+    Shops("Oysho", 1,399f,524f),                            //112
+    Shops("Zara", 1,220f,560f),                             //113
+    Shops("L'Occitane", 1,124f,523f),                       //114
+    Shops("Yves Rocher", 1,124f,500f),                      //115
+    Shops("Kiko", 1,140f,475f),                             //116
+    Shops("Konyalı Saat", 1,141f,432f),                     //117
+    Shops("Timberland", 1,141f,393f),                       //118
+    Shops("Calzedonia", 1,141f,354f),                       //119
+    Shops("Elle", 1,141f,312f),                             //120
+    Shops("Greyder", 1,141f,272f),                          //121
+    Shops("Pull&Bear", 1,180f,223f),                        //122
+    Shops("Bershka", 1,263f,176f),                          //123
+    Shops("Mi Store", 1,348f,154f),                         //124
+    Shops("GözGrup Optik", 1,417f,154f),                    //125
+    Shops("Birkenstock", 1,493f,154f),                      //126
+    Shops("Samsonite", 1,563f,154f),                        //127
+    Shops("Flormar", 1,624f,154f),                          //128
+    Shops("Pandora", 1,686f,143f),                          //129
+    Shops("Swarovski", 1,741f,151f),                        //130
+    Shops("Sunglass Hut / Ray-Ban", 1,615f,252f),           //131
+    Shops("Stradivarius", 1,661f,337f),                     //132
+    Shops("Lee Wrangler", 1,661f,413f),                     //133
+    Shops("Stylish", 1,616f,467f),                          //134
+    Shops("Skechers", 1,485f,488f),                         //135
+    Shops("intimissimi", 1,413f,488f),                      //136
+    Shops("Camper", 1,299f,433f),                           //138
+    Shops("Sephora", 1,299f,381f),                          //139
+    Shops("Starbucks", 1,378f,299f),                        //140
+    Shops("Dagi", 1,490f,252f),                             //141
+    Shops("GMG Firenze", 1,555f,252f),                      //142
+    Shops("Vodafone-Cep Point", 1,223f,439f),               //143
+    Shops("Golden Rose", 1,220f,388f),                      //144
+    Shops("Boble Bubble Tea", 1,222f,340f),                 //145
+    Shops("Avon", 1,462f,198f),                             //146
+    Shops("Lelas", 1,529f,199f),                            //147
+    Shops("Cella", 1,590f,199f),                            //148
 
     // Second Floor
     Shops("Özsüt", 2,770f,240f),                            // 201
@@ -931,51 +952,51 @@ val capacityShops = listOf(
     Shops("Direct Protect", 2,546f,237f),                   // 229
 
     // Ground Floor Shops
-    Shops("Midpoint", 0,760f,182f),   //Z-01
-    Shops("Marks&Spencer", 0,759f,247f),   //Z-02
-    Shops("Saat&Saat", 0,703f,297f),   //Z-03
-    Shops("Divarese", 0,710f,367f),   //Z-04
-    Shops("Suwen", 0,710f,407f),   //Z-05
-    Shops("Beymen Club", 0,710f,446f),   //Z-06
-    Shops("English Home", 0,759f,486f),   //Z-07
-    Shops("Tüzün", 0,776f,526f),   //Z-08
-    Shops("Kosmika", 0,737f,562f),   //Z-09
-    Shops("Faik Sönmez", 0,637f,570f),   //Z-10
-    Shops("Network Men", 0,498f,535f),   //Z-11
-    Shops("Tommy Hilfiger", 0,387f,535f),   //Z-12
-    Shops("Blue Diamond", 0,284f,559f),   //Z-13
-    Shops("Pierre Cardin", 0,284f,658f),   //Z-14
-    Shops("W Collection", 0,284f,719f),   //Z-15
-    Shops("Madame Coco", 0,284f,781f),   //Z-16
-    Shops("Paşabahçe Mağazaları", 0,231f,821f),   //Z-17
-    Shops("Pelit", 0,176f,791f),   //Z-18
-    Shops("Massimo Dutti", 0,176f,685f),   //Z-19
-    Shops("Tobacco Shop", 0,44f,712f),   //Z-20
-    Shops("Cacharel", 0,107f,582f),   //Z-21
-    Shops("Derimod", 0,105f,514f),   //Z-22
-    Shops("Avva", 0,121f,443f),   //Z-23
-    Shops("Hotiç", 0,121f,403f),   //Z-24
-    Shops("Network Women", 0,121f,326f),   //Z-25
-    Shops("Lizay", 0,121f,256f),   //Z-26
-    Shops("Damat Tween", 0,121f,222f),   //Z-27
-    Shops("Hugo Boss", 0,239f,175f),   //Z-28
-    Shops("Cookshop", 0,359f,175f),   //Z-29
-    Shops("Chocolate", 0,499f,175f),   //Z-30
-    Shops("Mac", 0,599f,175f),   //Z-31
-    Shops("Capacity Eczane", 0,663f,157f),   //Z-32
-    Shops("Atasay", 0,625f,265f),   //Z-33
-    Shops("SuperStep", 0,652f,323f),   //Z-34
-    Shops("Utopian", 0,651f,406f),   //Z-36
-    Shops("ipekyol", 0,610f,474f),   //Z-37
-    Shops("Twist", 0,480f,503f),   //Z-38
-    Shops("Mocassini", 0,403f,503f),   //Z-39
-    Shops("So Chic", 0,330f,503f),   //Z-40
-    Shops("Tanca Plus", 0,287f,449f),   //Z-41
-    Shops("Ramsey", 0,286f,406f),   //Z-42
-    Shops("Vakko", 0,287f,366f),   //Z-43
-    Shops("Zen", 0,330f,323f),   //Z-44
-    Shops("LuaPie", 0,403f,281f),   //Z-45
-    Shops("Lacoste", 0,515f,255f),   //Z-46
+    Shops("Midpoint", 0,760f,182f),                         //Z-01
+    Shops("Marks&Spencer", 0,759f,247f),                    //Z-02
+    Shops("Saat&Saat", 0,703f,297f),                        //Z-03
+    Shops("Divarese", 0,710f,367f),                         //Z-04
+    Shops("Suwen", 0,710f,407f),                            //Z-05
+    Shops("Beymen Club", 0,710f,446f),                      //Z-06
+    Shops("English Home", 0,759f,486f),                     //Z-07
+    Shops("Tüzün", 0,776f,526f),                            //Z-08
+    Shops("Kosmika", 0,737f,562f),                          //Z-09
+    Shops("Faik Sönmez", 0,637f,570f),                      //Z-10
+    Shops("Network Men", 0,498f,535f),                      //Z-11
+    Shops("Tommy Hilfiger", 0,387f,535f),                   //Z-12
+    Shops("Blue Diamond", 0,284f,559f),                     //Z-13
+    Shops("Pierre Cardin", 0,284f,658f),                    //Z-14
+    Shops("W Collection", 0,284f,719f),                     //Z-15
+    Shops("Madame Coco", 0,284f,781f),                      //Z-16
+    Shops("Paşabahçe Mağazaları", 0,231f,821f),             //Z-17
+    Shops("Pelit", 0,176f,791f),                            //Z-18
+    Shops("Massimo Dutti", 0,176f,685f),                    //Z-19
+    Shops("Tobacco Shop", 0,44f,712f),                      //Z-20
+    Shops("Cacharel", 0,107f,582f),                         //Z-21
+    Shops("Derimod", 0,105f,514f),                          //Z-22
+    Shops("Avva", 0,121f,443f),                             //Z-23
+    Shops("Hotiç", 0,121f,403f),                            //Z-24
+    Shops("Network Women", 0,121f,326f),                    //Z-25
+    Shops("Lizay", 0,121f,256f),                            //Z-26
+    Shops("Damat Tween", 0,121f,222f),                      //Z-27
+    Shops("Hugo Boss", 0,239f,175f),                        //Z-28
+    Shops("Cookshop", 0,359f,175f),                         //Z-29
+    Shops("Chocolate", 0,499f,175f),                        //Z-30
+    Shops("Mac", 0,599f,175f),                              //Z-31
+    Shops("Capacity Eczane", 0,663f,157f),                  //Z-32
+    Shops("Atasay", 0,625f,265f),                           //Z-33
+    Shops("SuperStep", 0,652f,323f),                        //Z-34
+    Shops("Utopian", 0,651f,406f),                          //Z-36
+    Shops("ipekyol", 0,610f,474f),                          //Z-37
+    Shops("Twist", 0,480f,503f),                            //Z-38
+    Shops("Mocassini", 0,403f,503f),                        //Z-39
+    Shops("So Chic", 0,330f,503f),                          //Z-40
+    Shops("Tanca Plus", 0,287f,449f),                       //Z-41
+    Shops("Ramsey", 0,286f,406f),                           //Z-42
+    Shops("Vakko", 0,287f,366f),                            //Z-43
+    Shops("Zen", 0,330f,323f),                              //Z-44
+    Shops("LuaPie", 0,403f,281f),                           //Z-45
+    Shops("Lacoste", 0,515f,255f),                          //Z-46
 
     // -1 Basement Floor
     Shops("Koton", -1,811f,212f),                           // B-01

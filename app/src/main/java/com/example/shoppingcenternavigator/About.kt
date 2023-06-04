@@ -27,16 +27,15 @@ import androidx.compose.ui.unit.dp
 import com.example.shoppingcenternavigator.ui.theme.wineBerry
 
 /*
-Information about the application is displayed in this composable function called About.
-To structure and display the UI elements, the code provides use of a number of Jetpack
-Compose composables, including Box, Column, Row, Icon, Text, Image, and Spacer.
+Information about the application is displayed in this composable function called About. To structure
+and display the UI elements, the code provides use of a number of Jetpack Compose composables, including
+Box, Column, Row, Icon, Text, Image, and Spacer.
  */
 @Composable
 fun About(selectedItem: MutableState<Int>){
     /*
-    BackHandler is a composable that handles the back button press on Android devices
-    It updates the selectedItem value to 4 when the back button is pressed so that we
-    can return to settings page
+    BackHandler is a composable that handles the back button press on Android devices It updates the
+    selectedItem value to 4 when the back button is pressed so that we can return to settings page
      */
     BackHandler(onBack = {selectedItem.value = 4})
     val scrollState = rememberScrollState()

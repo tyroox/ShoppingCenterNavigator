@@ -33,6 +33,10 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.shoppingcenternavigator.ui.theme.wineBerry
 
+/*
+The FAQPage is a composable function which contains a list of questions about the application and
+their answers as a list.
+ */
 @Composable
 fun FAQPage(selectedItem: MutableState<Int>) {
     BackHandler(onBack = {selectedItem.value = 4})
@@ -103,7 +107,10 @@ fun FAQPage(selectedItem: MutableState<Int>) {
     }
 }
 
-
+/*
+The FAQItem function is a composable function which displays the questions and their answers as Card
+function.
+ */
 @Composable
 fun FAQItem(index: Int, question: String, answer: String) {
     var expanded by remember { mutableStateOf(false) }

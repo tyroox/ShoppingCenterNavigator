@@ -8,6 +8,10 @@ import androidx.compose.ui.graphics.Brush
 import com.example.shoppingcenternavigator.ui.theme.blueHosta
 import com.example.shoppingcenternavigator.ui.theme.purplishPink
 
+/*
+With VerticalGradient function, a vertical gradient is defined in order to provide a more
+user-friendly and soft interface in the application.
+ */
 @Composable
 fun VerticalGradient() {
     val gradient = Brush.verticalGradient(

@@ -1,7 +1,6 @@
 package com.example.shoppingcenternavigator
 
 import androidx.activity.ComponentActivity
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -21,12 +20,15 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.shoppingcenternavigator.ui.theme.purplishPink
 import com.example.shoppingcenternavigator.ui.theme.wineBerry
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 
+/*
+The ForgotPassword function is a composable function which forms the Forgot page of the application.
+This page contains a TextField for entering the e-mail and a button to click for receiving reset password e-mail.
+ */
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun ForgotPassword(context: ComponentActivity, navController: NavController) {

@@ -14,6 +14,11 @@ import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.rememberCameraPositionState
 
+/*
+The GPS function is a composable function integrated with Google Maps using API in order to show locations of
+the shopping centers in the maps. Users can get directions by clicking from their location to the desired
+shopping center by directing to Google Maps app.
+ */
 @Composable
 fun GPS() {
     Column(
