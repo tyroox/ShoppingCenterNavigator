@@ -119,14 +119,15 @@ fun MallSearchBar(navController: NavController) {
                     ) {
                         DropdownMenuItem(
                             onClick = {
+                                SelectedShops.selectedStoreFromStores = ""
                                 SelectedShops.selectedMall = 0
                                 expanded = false
-
                             },
                             content = { Text(text = "Carousel", color = wineBerry) }
                         )
                         DropdownMenuItem(
                             onClick = {
+                                SelectedShops.selectedStoreFromStores = ""
                                 SelectedShops.selectedMall = 1
                                 expanded = false
                             },

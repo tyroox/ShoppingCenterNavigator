@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.AlertDialog
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
@@ -28,13 +29,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.shoppingcenternavigator.R
-import com.example.shoppingcenternavigator.ui.theme.caribbeanCurrent
 import com.example.shoppingcenternavigator.ui.theme.wineBerry
 
 @Composable
@@ -44,6 +44,7 @@ fun SearchBar(
     onBoxClick: (String) -> Unit
 ) {
     var searchQuery by remember { mutableStateOf("") }
+    val alertDialog = remember { mutableStateOf(value = false) }
 
     // Define the map associating text with background image resources
     val backgroundImages = mapOf(
@@ -51,6 +52,7 @@ fun SearchBar(
         "capacity" to R.drawable.capacity_avm,
         // Add more mappings for other text and corresponding image resources
     )
+
 
     Column(Modifier.fillMaxWidth()) {
         // Search bar
@@ -60,7 +62,7 @@ fun SearchBar(
                 searchQuery = query
                 onSearch(query)
             },
-            placeholder = { Text("Ara", color = wineBerry) },
+            placeholder = { Text(stringResource(id = R.string.searchStoreButton), color = wineBerry) },
             colors = TextFieldDefaults.textFieldColors(
                 backgroundColor = Color.Transparent,
                 cursorColor = wineBerry,
@@ -123,7 +125,8 @@ fun SearchBar(
                                         painter = backgroundPainter,
                                         contentDescription = null,
                                         contentScale = ContentScale.Crop,
-                                        modifier = Modifier.fillMaxSize()
+                                        modifier = Modifier
+                                            .fillMaxSize()
                                             .alpha(0.675f)
                                     )
                                 }

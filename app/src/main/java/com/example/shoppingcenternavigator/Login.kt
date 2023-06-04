@@ -39,18 +39,10 @@ fun Login(context: ComponentActivity, navController: NavController) {
     val password = remember { mutableStateOf(TextFieldValue()) }
     var passwordVisibility by rememberSaveable { mutableStateOf(value = false) }
     val scope = rememberCoroutineScope()
-    val imeState = rememberImeState()
     val scrollState = rememberScrollState()
     val keyboardController = LocalSoftwareKeyboardController.current
     val emailAndPasswordDoesNotMatchErrorMessage = stringResource(id = R.string.emailAndPasswordDoesNotMatchErrorMessage)
     val enterCredentialsMessage = stringResource(id = R.string.enterCredentialsMessage)
-
-
-    LaunchedEffect(key1 = imeState.value) {
-        if (imeState.value) {
-            scrollState.animateScrollTo(scrollState.maxValue, tween(100))
-        }
-    }
 
 
 
@@ -125,11 +117,14 @@ fun Login(context: ComponentActivity, navController: NavController) {
                     }
                 )
 
-                Text(text = "Şifreni mi unuttun?", color = Color.White, modifier = Modifier.align(
-                    Alignment.End
-                ).padding(end = 24.dp).clickable {
-                    navController.navigate("ForgotPasswordPage")
-                })
+                Text(text = stringResource(id = R.string.forgotPasswordButton), color = Color.White, modifier = Modifier
+                    .align(
+                        Alignment.End
+                    )
+                    .padding(end = 24.dp)
+                    .clickable {
+                        navController.navigate("ForgotPasswordPage")
+                    })
 
                 Box(modifier = Modifier.fillMaxWidth()) {
                     Button(
@@ -179,7 +174,7 @@ fun Login(context: ComponentActivity, navController: NavController) {
                         navController.navigate("RegisterPage")
                         keyboardController?.hide()
                     }) {
-                        Text(stringResource(id = R.string.registerButton), color = colorResource(id = R.color.white))
+                        Text(stringResource(id = R.string.registerText), color = colorResource(id = R.color.white))
                     }
                 }
             }

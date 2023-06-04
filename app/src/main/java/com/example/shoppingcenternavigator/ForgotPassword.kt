@@ -34,15 +34,10 @@ fun ForgotPassword(context: ComponentActivity, navController: NavController) {
     val scaffoldState = rememberScaffoldState()
     val email = remember { mutableStateOf(TextFieldValue()) }
     val scope = rememberCoroutineScope()
-    val imeState = rememberImeState()
     val scrollState = rememberScrollState()
     val keyboardController = LocalSoftwareKeyboardController.current
-
-    LaunchedEffect(key1 = imeState.value) {
-        if (imeState.value) {
-            scrollState.animateScrollTo(scrollState.maxValue, tween(100))
-        }
-    }
+    val passwordResetEmailSentMessage = stringResource(R.string.passwordResetEmailSentMessage)
+    val invalidEmailErrorMessage = stringResource(id = R.string.invalidEmailErrorMessage)
 
     Scaffold(
         scaffoldState = scaffoldState,
@@ -98,12 +93,12 @@ fun ForgotPassword(context: ComponentActivity, navController: NavController) {
                                     if (task.isSuccessful){
                                         scope.launch {
                                             scaffoldState.snackbarHostState.showSnackbar(
-                                                message = "Şifre sıfırlama linki e-postanıza gönderildi. Sıfırladıktan sonra giriş yapabilirsiniz.")
+                                                message = passwordResetEmailSentMessage)
                                         }
                                         keyboardController?.hide()
                                     }else{
                                         scope.launch {
-                                            scaffoldState.snackbarHostState.showSnackbar(message = "E-posta sisteme kayıtlı değil veya yanlış girildi.")
+                                            scaffoldState.snackbarHostState.showSnackbar(message = invalidEmailErrorMessage)
                                         }
                                         keyboardController?.hide()
                                     }
@@ -116,7 +111,7 @@ fun ForgotPassword(context: ComponentActivity, navController: NavController) {
                             .height(IntrinsicSize.Min), // Set the same height as text fields
                         colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(id = R.color.white))
                     ) {
-                        Text(text = "Şifre sıfırlama e-postası gönder", color = wineBerry)
+                        Text(text = stringResource(id = R.string.sendPasswordResetEmailButton), color = wineBerry)
                     }
                 }
 
@@ -131,7 +126,7 @@ fun ForgotPassword(context: ComponentActivity, navController: NavController) {
                         navController.navigate("LoginPage")
                         keyboardController?.hide()
                     }) {
-                        Text("Giriş yap", color = colorResource(id = R.color.white))
+                        Text(stringResource(id = R.string.loginButton), color = colorResource(id = R.color.white))
                     }
                 }
             }

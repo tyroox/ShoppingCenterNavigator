@@ -1,7 +1,6 @@
 package com.example.shoppingcenternavigator
 
 import androidx.activity.ComponentActivity
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -17,6 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
@@ -24,7 +24,6 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.shoppingcenternavigator.ui.theme.purplishPink
 import com.example.shoppingcenternavigator.ui.theme.wineBerry
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -47,16 +46,11 @@ fun Register(context: ComponentActivity, navController: NavController) {
     val emailValidationRegex =
         Regex("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}$", RegexOption.IGNORE_CASE)
     val scope = rememberCoroutineScope()
-    val imeState = rememberImeState()
     val scrollState = rememberScrollState()
-    val alertDialog = remember { mutableStateOf(value = true) }
     val keyboardController = LocalSoftwareKeyboardController.current
-
-    LaunchedEffect(key1 = imeState.value) {
-        if (imeState.value) {
-            scrollState.animateScrollTo(scrollState.maxValue, tween(100))
-        }
-    }
+    val fillInTheBlanksErrorMessage = stringResource(R.string.fillInTheBlanksErrorMessage)
+    val passwordsDoNotMatchErrorMessage = stringResource(R.string.passwordsDoNotMatchErrorMessage)
+    val emailAlreadyRegisteredErrorMessage = stringResource(R.string.emailAlreadyRegisteredErrorMessage)
 
     Scaffold(
         scaffoldState = scaffoldState,
@@ -91,7 +85,7 @@ fun Register(context: ComponentActivity, navController: NavController) {
                 Column() {
                     TextField(
                         label = {
-                            Text("E-Posta", color = wineBerry)
+                            Text(stringResource(id = R.string.email), color = wineBerry)
                         },
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
                         value = email.value,
@@ -114,7 +108,7 @@ fun Register(context: ComponentActivity, navController: NavController) {
                     // Warning for invalid email
                     if (email.value.text.isNotEmpty() && !emailState) {
                         Text(
-                            text = "Geçerli bir e-posta adresi giriniz.",
+                            text = stringResource(id = R.string.enterValidEmailErrorMessage),
                             fontSize = 14.sp,
                             color = Color.White,
                             modifier = Modifier.padding(start = 24.dp)
@@ -125,7 +119,7 @@ fun Register(context: ComponentActivity, navController: NavController) {
                 Column() {
                     TextField(
                         label = {
-                            Text("Şifre", color = wineBerry)
+                            Text(stringResource(id = R.string.password), color = wineBerry)
                         },
                         singleLine = true,
                         visualTransformation = if (passwordVisibility) VisualTransformation.None else PasswordVisualTransformation(),
@@ -160,7 +154,7 @@ fun Register(context: ComponentActivity, navController: NavController) {
                     // Warning for short password
                     if (password.value.text.isNotEmpty() && password.value.text.length < 6) {
                         Text(
-                            text = "Şifre en az 6 karakter olmalıdır.",
+                            text = stringResource(id = R.string.passwordCharactersErrorMessage),
                             fontSize = 14.sp,
                             color = Color.White,
                             modifier = Modifier.padding(start = 24.dp)
@@ -171,7 +165,7 @@ fun Register(context: ComponentActivity, navController: NavController) {
                 Column() {
                     TextField(
                         label = {
-                            Text("Tekrar şifre giriniz", color = wineBerry)
+                            Text(stringResource(id = R.string.confirmPassword), color = wineBerry)
                         },
                         singleLine = true,
                         visualTransformation = if (passwordVisibility1) VisualTransformation.None else PasswordVisualTransformation(),
@@ -206,7 +200,7 @@ fun Register(context: ComponentActivity, navController: NavController) {
                     // Warning for not matching passwords
                     if (password.value.text != password1.value.text) {
                         Text(
-                            text = "Şifreler eşleşmiyor!",
+                            text = stringResource(id = R.string.passwordsDoNotMatchErrorMessage),
                             fontSize = 14.sp,
                             color = Color.White,
                             modifier = Modifier.padding(start = 24.dp)
@@ -221,13 +215,13 @@ fun Register(context: ComponentActivity, navController: NavController) {
                                     .isEmpty()
                             ) {
                                 scope.launch {
-                                    scaffoldState.snackbarHostState.showSnackbar(message = "Lütfen boş alanları doldurunuz")
+                                    scaffoldState.snackbarHostState.showSnackbar(message = fillInTheBlanksErrorMessage)
                                 }
                                 keyboardController?.hide()
                             } else if (password.value.text.trim().isNotEmpty()) {
                                 if (password.value.text.trim() != password1.value.text.trim()) {
                                     scope.launch {
-                                        scaffoldState.snackbarHostState.showSnackbar(message = "Şifreler eşleşmiyor.")
+                                        scaffoldState.snackbarHostState.showSnackbar(message = passwordsDoNotMatchErrorMessage)
                                     }
                                     keyboardController?.hide()
                                 } else if (password.value.text.trim() == password1.value.text.trim()) {
@@ -240,7 +234,7 @@ fun Register(context: ComponentActivity, navController: NavController) {
                                             keyboardController?.hide()
                                         } else {
                                             scope.launch {
-                                                scaffoldState.snackbarHostState.showSnackbar(message = "Bu e-posta adresi zaten kayıtlı.")
+                                                scaffoldState.snackbarHostState.showSnackbar(message = emailAlreadyRegisteredErrorMessage)
                                             }
                                             keyboardController?.hide()
                                         }
@@ -257,7 +251,7 @@ fun Register(context: ComponentActivity, navController: NavController) {
                         ), enabled = emailState && passwordState && passwordState1
 
                     ) {
-                        Text(text = "Kayıt Ol", color = wineBerry)
+                        Text(text = stringResource(id = R.string.registerButton), color = wineBerry)
                     }
                 }
 
@@ -271,12 +265,12 @@ fun Register(context: ComponentActivity, navController: NavController) {
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier.padding(bottom = 12.dp)
                 ) {
-                    Text("Hesabınız var mı?", color = wineBerry)
+                    Text(stringResource(id = R.string.doHaveAccountButton), color = wineBerry)
                     TextButton(onClick = {
                         navController.navigate("LoginPage")
                         keyboardController?.hide()
                     }) {
-                        Text("Giriş yapın.", color = colorResource(id = R.color.white))
+                        Text(stringResource(id = R.string.loginText), color = colorResource(id = R.color.white))
                     }
                 }
             }

@@ -1,31 +1,23 @@
 package com.example.shoppingcenternavigator
 
-import android.content.pm.ActivityInfo
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.shoppingcenternavigator.ui.theme.blueHosta
-import com.example.shoppingcenternavigator.ui.theme.purplishPink
 import com.example.shoppingcenternavigator.ui.theme.wineBerry
 
 
@@ -36,8 +28,7 @@ fun MainPage(navController: NavController) {
     HomePage(selectedItem)
     Settings(navController, selectedItem, LocalContext.current)
     val scaffoldState = rememberScaffoldState(rememberDrawerState(DrawerValue.Closed))
-    val scope = rememberCoroutineScope()
-    var selectedMall = SelectedShops.selectedMall
+    val selectedMall = SelectedShops.selectedMall
     val alertDialog = remember { mutableStateOf(value = true) }
 
     Scaffold(

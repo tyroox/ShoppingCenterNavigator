@@ -20,7 +20,7 @@
     <string name="enterCredentialsMessage">Please enter e-mail and password.</string>
     <string name="loginButton">Login</string>
     <string name="doNotHaveAccountButton">Do not have an account?</string>
-    <string name="registerButton">Register.</string>
+    <string name="registerText">Register.</string>
     <string name="enterValidCredentialsErrorMessage">Please enter a valid email and a password of at least 6 digits.</string>
     <string name="confirmPassword">Confirm password</string>
     <string name="fillInTheBlanksErrorMessage">Please fill in the blanks</string>
@@ -31,4 +31,35 @@
     <string name="floor">. Floor</string>
     <string name="FAQQuestion1">How can I get directions?</string>
     <string name="FAQAnswer1">\nYou can follow the steps below to get directions inside the mall:\n\n1. Select the shopping center you are in from the homepage.\n\n2. Specify the name of the store you are inside or nearby in the shopping center you have chosen.\n\n3. Enter the name of the store you want to get directions to.\n\nThen, you will be presented with directions inside the mall. By following the path, you can reach the store you want, in the shortest way.</string>
+    <string name="aboutButton">About</string>
+    <string name="aboutText">Welcome to the MallPS app\! Developed as an engineering design project by a team of three dedicated individuals from Kadir Has University, our app aims to enhance your shopping experience.\n\nWe are Barış Atakan Aktaş, Elif Şanlıtürk, and Afife Koç, the minds behind this innovative application. With our user-friendly interface, the app allows you to effortlessly navigate through shopping centers.\n\nSay goodbye to getting lost in malls or struggling to find stores. Our app provides optimal routes, considering your current location. Thanks to our algorithms, our app offers precise directions and location information. We express gratitude to Kadir Has University and our mentors for their support.\n\nExperience the MallPS app, designed to enhance your shopping journey. Contact us with any questions or feedback. Happy shopping\!\n\nContact Information:\n\nBarış Atakan Aktaş\nbarisatakan.aktas@stu.khas.edu.tr\n\nElif Şanlıtürk\nelifsanliturk@stu.khas.edu.tr\n\nAfife Koç\nafifekoc@stu.khas.edu.tr</string>
+    <string name="helpButton">Help</string>
+    <string name="FAQButton">Frequently Asked Questions</string>
+    <string name="sendPasswordResetEmailButton">Send password reset email</string>
+    <string name="forgotPasswordButton">Forgot password?</string>
+    <string name="enterValidEmailErrorMessage">Enter a valid email address.</string>
+    <string name="passwordCharactersErrorMessage">Password must be at least 6 characters.</string>
+    <string name="registerButton">Register</string>
+    <string name="loginText">Login.</string>
+    <string name="languageSettingsButton">Language Settings</string>
+    <string name="passwordResetEmailSentMessage">Password reset link has been sent to your email. After reset, you can login.</string>
+    <string name="systemErrorMessage">An error has occurred in the system, try again later.</string>
+    <string name="logOutConfirm">Are you sure you want to log out?</string>
+    <string name="yesText">Yes</string>
+    <string name="noText">No</string>
+    <string name="logOutButton">Log Out</string>
+    <string name="changePasswordButton">Change Password</string>
+    <string name="invalidEmailErrorMessage">The e-mail is not registered in the system or entered incorrectly.</string>
+    <string name="getRouteToStoreText">Do you want to get directions to the store?</string>
+    <string name="FAQQuestion2">What features does the app offer?</string>
+    <string name="FAQAnswer2">\nThe MallPS app offers features such as: navigation inside the shopping center by providing directions between desired stores, locations of the shopping centers, shops in the selected shopping centers and their floor plans.</string>
+    <string name="FAQQuestion3">Can I use the app in multiple shopping centers?</string>
+    <string name="FAQAnswer3">\nYes, you can choose the shopping center from the \'Home Page\'.</string>
+    <string name="FAQQuestion4">How can I get directions to the shopping centers?</string>
+    <string name="FAQAnswer4">\nYou can view the locations of the shopping centers in the application from the \'GPS\' page. This page can direct you to Google Maps and provide directions from your location.</string>
+    <string name="FAQQuestion5">Is there a map of the shopping center available within the app?</string>
+    <string name="FAQAnswer5">\nYes, after the shopping center is selected, you can view the floor plans from the \'Stores\' page by taping the \'Floor Plans\' option and switch between the floors as you wish.</string>
+    <string name="capacity">Capacity Shopping Center</string>
+    <string name="carousel">Carousel Shopping Center</string>
+
 </resources>

@@ -305,7 +305,7 @@ fun StoreSearchBar(
                 searchQuery = query
                 onSearch(query)
             },
-            placeholder = { Text("Ara", color = wineBerry) },
+            placeholder = { Text(stringResource(id = R.string.searchStoreButton), color = wineBerry) },
             colors = TextFieldDefaults.textFieldColors(
                 backgroundColor = Color.Transparent,
                 cursorColor = wineBerry,

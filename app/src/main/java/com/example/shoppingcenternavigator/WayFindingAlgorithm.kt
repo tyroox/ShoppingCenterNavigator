@@ -126,6 +126,7 @@ fun calculateDistance(point1: Point, point2: Point): Float {
 @Composable
 @RequiresApi(Build.VERSION_CODES.N)
 fun WayFindingAlgorithm() {
+
     Box(
         modifier = Modifier
             .background(colorResource(id = R.color.isabelline))
@@ -597,7 +598,6 @@ fun WayFindingAlgorithm() {
         val toIndex = SelectedShops.selectedOptionToIndex
         val fromFloor = xShop[fromIndex].Floor
         val toFloor = xShop[toIndex].Floor
-        val context = LocalContext.current
         val selectedItem = remember { mutableStateOf(fromFloor) }
         var path1Visibility by remember { mutableStateOf(true) }
         var path2Visibility by remember { mutableStateOf(false) }
@@ -655,23 +655,26 @@ fun WayFindingAlgorithm() {
                     Image(painter = painterResource(id = R.drawable.carousel_2),
                         contentDescription = "",
                         contentScale = ContentScale.FillBounds,
-                        modifier = Modifier.fillMaxSize().graphicsLayer(
-                            scaleX = scale,
-                            scaleY = scale,
-                            translationX = offsetX,
-                            translationY = offsetY
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .graphicsLayer(
+                                scaleX = scale,
+                                scaleY = scale,
+                                translationX = offsetX,
+                                translationY = offsetY
 
-                        ).pointerInput(Unit) {
-                            detectTransformGestures { _, pan, zoom, _ ->
-                                scale = when {
-                                    scale < 1f -> 1f
-                                    scale > 3f -> 3f
-                                    else -> scale * zoom
+                            )
+                            .pointerInput(Unit) {
+                                detectTransformGestures { _, pan, zoom, _ ->
+                                    scale = when {
+                                        scale < 1f -> 1f
+                                        scale > 3f -> 3f
+                                        else -> scale * zoom
+                                    }
+                                    offsetX += pan.x
+                                    offsetY += pan.y
                                 }
-                                offsetX += pan.x
-                                offsetY += pan.y
-                            }
-                        })
+                            })
                 }
             }
         }
@@ -699,23 +702,26 @@ fun WayFindingAlgorithm() {
                     Image(painter = painterResource(id = R.drawable.capacity_2),
                         contentDescription = "",
                         contentScale = ContentScale.FillBounds,
-                        modifier = Modifier.fillMaxSize().graphicsLayer(
-                            scaleX = scale,
-                            scaleY = scale,
-                            translationX = offsetX,
-                            translationY = offsetY
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .graphicsLayer(
+                                scaleX = scale,
+                                scaleY = scale,
+                                translationX = offsetX,
+                                translationY = offsetY
 
-                        ).pointerInput(Unit) {
-                            detectTransformGestures { _, pan, zoom, _ ->
-                                scale = when {
-                                    scale < 1f -> 1f
-                                    scale > 3f -> 3f
-                                    else -> scale * zoom
+                            )
+                            .pointerInput(Unit) {
+                                detectTransformGestures { _, pan, zoom, _ ->
+                                    scale = when {
+                                        scale < 1f -> 1f
+                                        scale > 3f -> 3f
+                                        else -> scale * zoom
+                                    }
+                                    offsetX += pan.x
+                                    offsetY += pan.y
                                 }
-                                offsetX += pan.x
-                                offsetY += pan.y
-                            }
-                        })
+                            })
                 }
             }
         }
@@ -741,12 +747,14 @@ fun WayFindingAlgorithm() {
             Spacer(
                 modifier = Modifier
                     .fillMaxSize()
-                    .align(Alignment.Center).graphicsLayer(
+                    .align(Alignment.Center)
+                    .graphicsLayer(
                         scaleX = scale,
                         scaleY = scale,
                         translationX = offsetX,
                         translationY = offsetY
-                    ).pointerInput(Unit) {
+                    )
+                    .pointerInput(Unit) {
                         detectTransformGestures { _, pan, zoom, _ ->
                             scale = when {
                                 scale < 1f -> 1f
@@ -769,16 +777,19 @@ fun WayFindingAlgorithm() {
 
                             path.reset()
 
-                            val drawPathProgress = if (currentPathProgress >= 1f) 1f else currentPathProgress
+                            val drawPathProgress =
+                                if (currentPathProgress >= 1f) 1f else currentPathProgress
 
                             path.moveTo(startX, startY)
 
                             val fromIndex = (shortestPath.size * drawPathProgress).toInt()
-                            shortestPath.subList(0, fromIndex).forEachIndexed { index, point ->
-                                val x = point.x * generateSize(coordinateSystem, size)[0]
-                                val y = point.y * generateSize(coordinateSystem, size)[1]
-                                path.lineTo(x, y)
-                            }
+                            shortestPath
+                                .subList(0, fromIndex)
+                                .forEachIndexed { index, point ->
+                                    val x = point.x * generateSize(coordinateSystem, size)[0]
+                                    val y = point.y * generateSize(coordinateSystem, size)[1]
+                                    path.lineTo(x, y)
+                                }
 
                             if (currentPathProgress >= 1f) {
                                 path.lineTo(endX, endY)
@@ -1048,7 +1059,6 @@ fun WayFindingAlgorithm() {
                                     xShop[fromIndex].y * generateSize(coordinateSystem, size)[1]
 
 
-
                                 val endX =
                                     xShop[toIndex].x * generateSize(coordinateSystem, size)[0]
                                 val endY =
@@ -1057,19 +1067,25 @@ fun WayFindingAlgorithm() {
 
                                 if (path1Visibility) {
                                     val currentPathProgress = animatedPathProgress.value
-                                    val drawPathProgress = if (currentPathProgress >= 1f) 1f else currentPathProgress
+                                    val drawPathProgress =
+                                        if (currentPathProgress >= 1f) 1f else currentPathProgress
 
                                     path.reset()
 
 
                                     path.moveTo(startX, startY)
 
-                                    val fromIndex = (shortestWayToStairs.size * drawPathProgress).toInt()
-                                    shortestWayToStairs.subList(0, fromIndex).forEachIndexed { index, point ->
-                                        val x = point.x * generateSize(coordinateSystem, size)[0]
-                                        val y = point.y * generateSize(coordinateSystem, size)[1]
-                                        path.lineTo(x, y)
-                                    }
+                                    val fromIndex =
+                                        (shortestWayToStairs.size * drawPathProgress).toInt()
+                                    shortestWayToStairs
+                                        .subList(0, fromIndex)
+                                        .forEachIndexed { index, point ->
+                                            val x =
+                                                point.x * generateSize(coordinateSystem, size)[0]
+                                            val y =
+                                                point.y * generateSize(coordinateSystem, size)[1]
+                                            path.lineTo(x, y)
+                                        }
                                     // drawing the line
 
                                     drawPath(path, caribbeanCurrent, style = Stroke(4.dp.toPx()))
@@ -1090,7 +1106,8 @@ fun WayFindingAlgorithm() {
 
                                 if (path2Visibility) {
                                     val currentPathProgress = animatedPathProgress2.value
-                                    val drawPathProgress = if (currentPathProgress >= 1f) 1f else currentPathProgress
+                                    val drawPathProgress =
+                                        if (currentPathProgress >= 1f) 1f else currentPathProgress
 
                                     path.reset()
 
@@ -1099,12 +1116,17 @@ fun WayFindingAlgorithm() {
                                         startStair.y * generateSize(coordinateSystem, size)[1]
                                     )
 
-                                    val fromIndex = (shortestWayFromStairs.size * drawPathProgress).toInt()
-                                    shortestWayFromStairs.subList(0, fromIndex).forEachIndexed { index, point ->
-                                        val x = point.x * generateSize(coordinateSystem, size)[0]
-                                        val y = point.y * generateSize(coordinateSystem, size)[1]
-                                        path.lineTo(x, y)
-                                    }
+                                    val fromIndex =
+                                        (shortestWayFromStairs.size * drawPathProgress).toInt()
+                                    shortestWayFromStairs
+                                        .subList(0, fromIndex)
+                                        .forEachIndexed { index, point ->
+                                            val x =
+                                                point.x * generateSize(coordinateSystem, size)[0]
+                                            val y =
+                                                point.y * generateSize(coordinateSystem, size)[1]
+                                            path.lineTo(x, y)
+                                        }
 
                                     if (currentPathProgress >= 1f) {
                                         path.lineTo(endX, endY)
@@ -1356,18 +1378,24 @@ fun WayFindingAlgorithm() {
 
                                 if (path1Visibility) {
                                     val currentPathProgress = animatedPathProgress.value
-                                    val drawPathProgress = if (currentPathProgress >= 1f) 1f else currentPathProgress
+                                    val drawPathProgress =
+                                        if (currentPathProgress >= 1f) 1f else currentPathProgress
 
                                     path.reset()
 
                                     path.moveTo(startX, startY)
 
-                                    val fromIndex = (shortestWayToStairs.size * drawPathProgress).toInt()
-                                    shortestWayToStairs.subList(0, fromIndex).forEachIndexed { index, point ->
-                                        val x = point.x * generateSize(coordinateSystem, size)[0]
-                                        val y = point.y * generateSize(coordinateSystem, size)[1]
-                                        path.lineTo(x, y)
-                                    }
+                                    val fromIndex =
+                                        (shortestWayToStairs.size * drawPathProgress).toInt()
+                                    shortestWayToStairs
+                                        .subList(0, fromIndex)
+                                        .forEachIndexed { index, point ->
+                                            val x =
+                                                point.x * generateSize(coordinateSystem, size)[0]
+                                            val y =
+                                                point.y * generateSize(coordinateSystem, size)[1]
+                                            path.lineTo(x, y)
+                                        }
                                     // drawing the line
 
                                     drawPath(path, caribbeanCurrent, style = Stroke(4.dp.toPx()))
@@ -1387,7 +1415,8 @@ fun WayFindingAlgorithm() {
 
                                 if (path2Visibility) {
                                     val currentPathProgress = animatedPathProgress2.value
-                                    val drawPathProgress = if (currentPathProgress >= 1f) 1f else currentPathProgress
+                                    val drawPathProgress =
+                                        if (currentPathProgress >= 1f) 1f else currentPathProgress
 
                                     path.reset()
 
@@ -1396,12 +1425,17 @@ fun WayFindingAlgorithm() {
                                         startStair.y * generateSize(coordinateSystem, size)[1]
                                     )
 
-                                    val fromIndex = (shortestWayFromStairs.size * drawPathProgress).toInt()
-                                    shortestWayFromStairs.subList(0, fromIndex).forEachIndexed { index, point ->
-                                        val x = point.x * generateSize(coordinateSystem, size)[0]
-                                        val y = point.y * generateSize(coordinateSystem, size)[1]
-                                        path.lineTo(x, y)
-                                    }
+                                    val fromIndex =
+                                        (shortestWayFromStairs.size * drawPathProgress).toInt()
+                                    shortestWayFromStairs
+                                        .subList(0, fromIndex)
+                                        .forEachIndexed { index, point ->
+                                            val x =
+                                                point.x * generateSize(coordinateSystem, size)[0]
+                                            val y =
+                                                point.y * generateSize(coordinateSystem, size)[1]
+                                            path.lineTo(x, y)
+                                        }
 
                                     if (currentPathProgress >= 1f) {
                                         path.lineTo(endX, endY)

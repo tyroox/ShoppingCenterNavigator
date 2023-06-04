@@ -20,7 +20,7 @@
     <string name="enterCredentialsMessage">Lütfen e-posta ve şifre giriniz.</string>
     <string name="loginButton">Giriş Yap</string>
     <string name="doNotHaveAccountButton">Hesabınız yok mu?</string>
-    <string name="registerButton">Kayıt olun.</string>
+    <string name="registerText">Kayıt olun.</string>
     <string name="enterValidCredentialsErrorMessage">Geçerli bir e-posta ve en az 6 haneli bir şifre giriniz.</string>
     <string name="confirmPassword">Tekrar şifre giriniz</string>
     <string name="fillInTheBlanksErrorMessage">Lütfen boş alanları doldurunuz</string>
@@ -31,5 +31,34 @@
     <string name="floor">. Kat</string>
     <string name="FAQQuestion1">Nasıl yol tarifi alabilirim?</string>
     <string name="FAQAnswer1">\nAlışveriş merkezi içerisinde yol tarifi almak için aşağıdaki adımları izleyebilirsiniz:\n\n1. Ana sayfadan bulunduğunuz alışveriş merkezini seçiniz.\n2. Seçtiğiniz alışveriş merkezinin içerisinde veya yakınında bulunduğunuz mağazanın adını belirtiniz.\n\n3. Yol tarifi almak istediğiniz mağazanın adını giriniz.\n\nArdından, alışveriş merkezi içindeki yol tarifi size sunulacaktır.Çizilen yolu takip ederek, istediğiniz mağazaya en kısa şekilde ulaşabilirsiniz.</string>
-
+    <string name="aboutButton">Hakkında</string>
+    <string name="aboutText">MallPS uygulamasına hoş geldiniz\! Kadir Has Üniversitesi\'nden kararlı üç kişilik bir ekip tarafından bir mühendislik tasarım projesi olarak geliştirilen uygulamamız, alışveriş deneyiminizi geliştirmeyi amaçlıyor.\n\nBiz Barış Atakan Aktaş, Elif Şanlıtürk ve Afife Koç, bu yenilikçi uygulamanın arkasındaki beyinleriz. Kullanıcı dostu arayüzümüz ile uygulama, alışveriş merkezlerinde zahmetsizce gezinmenizi sağlar.\n\nAlışveriş merkezlerinde kaybolmaya veya mağaza bulmakta zorlanmaya elveda deyin. Uygulamamız mevcut konumunuzu dikkate alarak optimal rotalar sunar.  Algoritmalarımız sayesinde, uygulamamız kesin yol tarifleri ve konum bilgileri sağlar. Kadir Has Üniversitesi\'ne ve mentorlarımıza destekleri için teşekkür ederiz.\n\nAlışveriş yolculuğunuzu geliştirmek için tasarlanmış olan MallPS uygulamasını deneyimleyin. Herhangi bir sorunuz veya geri bildiriminiz için bizimle iletişime geçebilirsiniz. İyi alışverişler\!\n\nİletişim Bilgileri:\n\nBarış Atakan Aktaş\nbarisatakan.aktas@stu.khas.edu.tr\n\nElif Şanlıtürk\nelifsanliturk@stu.khas.edu.tr\n\nAfife Koç\nafifekoc@stu.khas.edu.tr</string>
+    <string name="helpButton">Yardım</string>
+    <string name="FAQButton">Sıkça Sorulan Sorular</string>
+    <string name="sendPasswordResetEmailButton">Şifre sıfırlama e-postası gönder</string>
+    <string name="forgotPasswordButton">Şifreni mi unuttun?</string>
+    <string name="enterValidEmailErrorMessage">Geçerli bir e-posta adresi giriniz.</string>
+    <string name="passwordCharactersErrorMessage">Şifre en az 6 karakter olmalıdır.</string>
+    <string name="registerButton">Kayıt Ol</string>
+    <string name="loginText">Giriş yapın.</string>
+    <string name="languageSettingsButton">Dil Ayarları</string>
+    <string name="passwordResetEmailSentMessage">Şifre sıfırlama linki e-postanıza gönderildi. Sıfırladıktan sonra giriş yapabilirsiniz.</string>
+    <string name="systemErrorMessage">Sistemde bir hata oluştu, daha sonra tekrar deneyiniz.</string>
+    <string name="logOutConfirm">Çıkış yapmak istediğinize emin misiniz?</string>
+    <string name="yesText">Evet</string>
+    <string name="noText">Hayır</string>
+    <string name="logOutButton">Çıkış Yap</string>
+    <string name="changePasswordButton">Şifre Değiştir</string>
+    <string name="invalidEmailErrorMessage">E-posta sisteme kayıtlı değil veya yanlış girildi.</string>
+    <string name="getRouteToStoreText">Mağazaya yol tarifi almak ister misiniz?</string>
+    <string name="FAQQuestion2">Uygulama hangi özellikleri sunuyor?</string>
+    <string name="FAQAnswer2">\nMallPS uygulaması, istenilen mağazalar arasında yönlendirmeler sağlayarak alışveriş merkezi içinde gezinmeyi kolaylaştırma, alışveriş merkezlerinin konumlarını gösterme, seçilen alışveriş merkezlerindeki mağazaları ve kat planlarını sunma gibi özelliklere sahiptir.</string>
+    <string name="FAQQuestion3">Uygulamayı birden fazla alışveriş merkezinde kullanabilir miyim?</string>
+    <string name="FAQAnswer3">\nEvet, alışveriş merkezini \'Ana Sayfa\'dan seçebilirsiniz.</string>
+    <string name="FAQQuestion4">Alışveriş merkezlerine nasıl yol tarifi alabilirim?</string>
+    <string name="FAQAnswer4">\'GPS\' sayfasından uygulama içerisindeki alışveriş merkezlerinin konumlarını görüntüleyebilirsiniz. Bu sayfa sizi Google Haritalar\'a yönlendirebilir ve konumunuzdan yol tarifi sağlayabilir.</string>
+    <string name="FAQQuestion5">Uygulama içerisinde alışveriş merkezinin haritası mevcut mu?</string>
+    <string name="FAQAnswer5">\nEvet, alışveriş merkezi seçildikten sonra \'Mağazalar\' sayfasından \'Kat Planları\' seçeneğine dokunarak kat planlarını görüntüleyebilir ve katlar arasında dilediğiniz gibi geçiş yapabilirsiniz.</string>
+    <string name="capacity">Capacity Alışveriş Merkezi</string>
+    <string name="carousel">Carousel Alışveriş Merkezi</string>
 </resources>

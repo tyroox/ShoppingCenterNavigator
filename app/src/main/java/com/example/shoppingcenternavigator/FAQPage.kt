@@ -39,10 +39,10 @@ fun FAQPage(selectedItem: MutableState<Int>) {
     val scrollState = rememberScrollState()
     val faqList = listOf(
         stringResource(id = R.string.FAQQuestion1) to stringResource(id = R.string.FAQAnswer1),
-        "What features does the app offer?" to "\nThe MallPS app offers features such as: navigation inside the shopping center by providing directions between desired stores, locations of the shopping centers, shops in the selected shopping centers and their floor plans.",
-        "Can I use the app in multiple shopping centers?" to "\nYes, you can choose the shopping center from the 'Home Page'.",
-        "How can I get directions to the shopping centers?" to "\nYou can view the locations of the shopping centers in the application from the 'GPS' page. This page can direct you to Google Maps and provide directions from your location.",
-        "Is there a map of the shopping center available within the app?" to "\nYes, after the shopping center is selected, you can view the floor plans from the 'Stores' page by taping the 'Floor Plans' option and switch between the floors as you wish"
+        stringResource(id = R.string.FAQQuestion2) to stringResource(id = R.string.FAQAnswer2),
+        stringResource(id = R.string.FAQQuestion3) to stringResource(id = R.string.FAQAnswer3),
+        stringResource(id = R.string.FAQQuestion4) to stringResource(id = R.string.FAQAnswer4),
+        stringResource(id = R.string.FAQQuestion5) to stringResource(id = R.string.FAQAnswer5)
     )
 
     Box(
@@ -51,7 +51,9 @@ fun FAQPage(selectedItem: MutableState<Int>) {
     ) {
 
         Column(
-            modifier = Modifier.padding(16.dp).verticalScroll(scrollState),
+            modifier = Modifier
+                .padding(16.dp)
+                .verticalScroll(scrollState),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -69,7 +71,7 @@ fun FAQPage(selectedItem: MutableState<Int>) {
                     tint = Color.White
                 )
                 Text(
-                    text = "Help",
+                    text = stringResource(id = R.string.helpButton),
                     style = MaterialTheme.typography.h5,
                     color = wineBerry
                 )
@@ -84,7 +86,7 @@ fun FAQPage(selectedItem: MutableState<Int>) {
                         .fillMaxWidth()
                         .padding(vertical = 16.dp), verticalAlignment = Alignment.CenterVertically){
                         Text(
-                            text = "Frequently Asked Questions",
+                            text = stringResource(id = R.string.FAQButton),
                             style = MaterialTheme.typography.h5,
                             color = wineBerry
                         )

@@ -22,11 +22,22 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.shoppingcenternavigator.ui.theme.wineBerry
 
+/*
+Information about the application is displayed in this composable function called About.
+To structure and display the UI elements, the code provides use of a number of Jetpack
+Compose composables, including Box, Column, Row, Icon, Text, Image, and Spacer.
+ */
 @Composable
 fun About(selectedItem: MutableState<Int>){
+    /*
+    BackHandler is a composable that handles the back button press on Android devices
+    It updates the selectedItem value to 4 when the back button is pressed so that we
+    can return to settings page
+     */
     BackHandler(onBack = {selectedItem.value = 4})
     val scrollState = rememberScrollState()
 
@@ -54,28 +65,22 @@ fun About(selectedItem: MutableState<Int>){
                     tint = Color.White
                 )
                 Text(
-                    text = "About",
+                    text = stringResource(id = R.string.aboutButton),
                     style = MaterialTheme.typography.h5,
                     color = wineBerry
                 )
             }
             Column(
                 modifier = Modifier
-                    .fillMaxWidth().verticalScroll(scrollState),
+                    .fillMaxWidth()
+                    .verticalScroll(scrollState),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
                 Image(painter = painterResource(id = R.drawable.login_icon), contentDescription = "")
                 Spacer(modifier = Modifier.weight(1f))
                 Text(
-                    text = "Welcome to the MallPS app! Developed as an engineering design project by a team of three dedicated individuals from Kadir Has University, our app aims to enhance your shopping experience.\n\n" +
-                            "We are Barış Atakan Aktaş, Elif Şanlıtürk, and Afife Koç, the minds behind this innovative application. With our user-friendly interface, the app allows you to effortlessly navigate through shopping centers.\n\n" +
-                            "Say goodbye to getting lost in malls or struggling to find stores. Our app provides optimal routes, considering your current location. Thanks to our algorithms, our app offers precise directions and location information. We express gratitude to Kadir Has University and our mentors for their support.\n\n" +
-                            "Experience the MallPS app, designed to enhance your shopping journey. Contact us with any questions or feedback. Happy shopping!\n\n" +
-                            "Contact Information:\n" +
-                            "\nBarış Atakan Aktaş\nbarisatakan.aktas@stu.khas.edu.tr" +
-                            "\n\nElif Şanlıtürk\nelifsanliturk@stu.khas.edu.tr" +
-                            "\n\nAfife Koç\nafifekoc@stu.khas.edu.tr",
+                    text = stringResource(id = R.string.aboutText),
                     style = MaterialTheme.typography.subtitle1,
                     color = Color.White
                 )

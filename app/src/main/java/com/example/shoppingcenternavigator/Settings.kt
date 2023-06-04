@@ -39,6 +39,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -62,6 +63,8 @@ fun Settings(navController: NavController, selectedItem: MutableState<Int>, cont
     val scope = rememberCoroutineScope()
     val scaffoldState = rememberScaffoldState()
     val email = (auth.currentUser?.email).toString()
+    val passwordResetEmailSentMessage = stringResource(R.string.passwordResetEmailSentMessage)
+    val systemErrorMessage = stringResource(R.string.systemErrorMessage)
 
     Scaffold(
         scaffoldState = scaffoldState,
@@ -100,7 +103,7 @@ fun Settings(navController: NavController, selectedItem: MutableState<Int>, cont
                         .padding(vertical = 16.dp),
                         verticalAlignment = CenterVertically) {
                         Icon(painter = painterResource(id = R.drawable.language), modifier = Modifier.padding(top = 2.dp, end = 12.dp), contentDescription = "", tint = Color.White)
-                        Text(text = "Language Settings", style = MaterialTheme.typography.h5, color = wineBerry)
+                        Text(text = stringResource(id = R.string.languageSettingsButton), style = MaterialTheme.typography.h5, color = wineBerry)
                         Spacer(modifier = Modifier.weight(1f))
                         Text(text = selectedLanguage.language.toUpperCase(),
                             color = Color.White,
@@ -150,7 +153,7 @@ fun Settings(navController: NavController, selectedItem: MutableState<Int>, cont
                         .padding(vertical = 16.dp)
                         .clickable { selectedItem.value = 6 }, horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = CenterVertically) {
                         Icon(painter = painterResource(id = R.drawable.help), contentDescription = "", modifier = Modifier.padding(top = 2.dp, end = 12.dp), tint = Color.White)
-                        Text(text = "Help", style = MaterialTheme.typography.h5, color = wineBerry)
+                        Text(text = stringResource(id = R.string.helpButton), style = MaterialTheme.typography.h5, color = wineBerry)
                         Spacer(modifier = Modifier.weight(1f))
                         Icon(painter = painterResource(id = R.drawable.arrow_forward), contentDescription = "", tint = Color.White)
                     }
@@ -160,7 +163,7 @@ fun Settings(navController: NavController, selectedItem: MutableState<Int>, cont
                         .padding(vertical = 16.dp)
                         .clickable { selectedItem.value = 7 }, horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = CenterVertically) {
                         Icon(Icons.Default.Info, contentDescription = "", modifier = Modifier.padding(top = 2.dp, end = 12.dp), tint = Color.White)
-                        Text(text = "About", style = MaterialTheme.typography.h5, color = wineBerry)
+                        Text(text = stringResource(id = R.string.aboutButton), style = MaterialTheme.typography.h5, color = wineBerry)
                         Spacer(modifier = Modifier.weight(1f))
                         Icon(painter = painterResource(id = R.drawable.arrow_forward), contentDescription = "", tint = Color.White)
                     }
@@ -169,23 +172,24 @@ fun Settings(navController: NavController, selectedItem: MutableState<Int>, cont
                         .fillMaxWidth()
                         .padding(vertical = 16.dp)
                         .clickable {
-                            auth.sendPasswordResetEmail(email.trim())
+                            auth
+                                .sendPasswordResetEmail(email.trim())
                                 .addOnCompleteListener { task ->
                                     if (task.isSuccessful) {
                                         scope.launch {
                                             scaffoldState.snackbarHostState.showSnackbar(
-                                                message = "Şifre sıfırlama linki e-postanıza gönderildi. Sıfırladıktan sonra giriş yapabilirsiniz."
+                                                message = passwordResetEmailSentMessage
                                             )
                                         }
                                     } else {
                                         scope.launch {
-                                            scaffoldState.snackbarHostState.showSnackbar(message = "Sistemde bir hata oluştu daha sonra tekrar deneyiniz.")
+                                            scaffoldState.snackbarHostState.showSnackbar(message = systemErrorMessage)
                                         }
                                     }
                                 }
-                                   }, horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = CenterVertically) {
+                        }, horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = CenterVertically) {
                             Icon(painter = painterResource(id = R.drawable.lock_reset), contentDescription = "", modifier = Modifier.padding(top = 2.dp, end = 12.dp), tint = Color.White)
-                            Text(text = "Change Password", style = MaterialTheme.typography.h5, color = wineBerry)
+                            Text(text = stringResource(id = R.string.changePasswordButton), style = MaterialTheme.typography.h5, color = wineBerry)
                             Spacer(modifier = Modifier.weight(1f))
                         }
                             Divider(color = wineBerry)
@@ -196,10 +200,10 @@ fun Settings(navController: NavController, selectedItem: MutableState<Int>, cont
                                 if (alertDialog.value){
                                     AlertDialog(
                                         onDismissRequest = { alertDialog.value = false },
-                                        text = { Text(text = "Çıkış yapmak istediğinize emin misiniz?",
+                                        text = { Text(text = stringResource(id = R.string.logOutConfirm),
                                             color = wineBerry, fontSize = 18.sp) },
                                         confirmButton = {
-                                            Text(text = "Hayır",
+                                            Text(text = stringResource(id = R.string.noText),
                                                 modifier = Modifier
                                                     .padding(10.dp)
                                                     .clickable {
@@ -207,7 +211,7 @@ fun Settings(navController: NavController, selectedItem: MutableState<Int>, cont
                                                     },
                                                 color = wineBerry)},
                                         dismissButton = {
-                                            Text(text = "Evet",
+                                            Text(text = stringResource(id = R.string.yesText),
                                                 modifier = Modifier
                                                     .padding(10.dp)
                                                     .clickable {
@@ -219,7 +223,7 @@ fun Settings(navController: NavController, selectedItem: MutableState<Int>, cont
                                     )
                                 }
                                 Icon(painter = painterResource(id = R.drawable.logout), contentDescription = "", modifier = Modifier.padding(top = 2.dp, end = 12.dp), tint = Color.White)
-                                Text(text = "Logout", style = MaterialTheme.typography.h5, color = wineBerry)
+                                Text(text = stringResource(id = R.string.logOutButton), style = MaterialTheme.typography.h5, color = wineBerry)
                                 Spacer(modifier = Modifier.weight(1f))
                             }
                             Divider(color = wineBerry)
